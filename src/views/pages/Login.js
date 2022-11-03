@@ -6,7 +6,7 @@ import { useState } from "react";
 export const Login = () => {
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
-  const [navigate, setNavigate] = useState(false);
+  const [navigate, setNavigate] = useState(2);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -25,12 +25,16 @@ export const Login = () => {
     // axios.defaults.headers.common["Authorization"] = `Bearer ${a}`;
 
     //console.log({ a });
+    const lg = username.localeCompare("admin");
 
-    setNavigate(true);
+    setNavigate(lg);
   };
 
-  if (navigate) {
+  if (navigate === 0) {
     return <Navigate to="/admin/home" />;
+  }
+  if (navigate === 1) {
+    return <Navigate to="/" />;
   }
   return (
     <div className="box-form">
