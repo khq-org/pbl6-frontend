@@ -49,7 +49,7 @@ function Admin() {
                 </Link>
               </li>
               <li>
-                <Link onClick={logout} to="/login">
+                <Link onClick={logout} to="/">
                   <i className="fa fa-sign-out fa-lg"></i> Logout
                 </Link>
               </li>

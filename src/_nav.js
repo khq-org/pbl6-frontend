@@ -1,5 +1,5 @@
-import React from 'react'
-import CIcon from '@coreui/icons-react'
+import React from "react";
+import CIcon from "@coreui/icons-react";
 import {
   cilBell,
   cilCalculator,
@@ -12,60 +12,60 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+} from "@coreui/icons";
+import { CNavGroup, CNavItem, CNavTitle } from "@coreui/react";
 
 const _nav = [
   {
     component: CNavGroup,
-    name: 'HỆ THỐNG',
-    to: '#',
+    name: "HỆ THỐNG",
+    to: "#",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Thông tin nhà trường',
-        to: '/',
+        name: "Thông tin nhà trường",
+        to: "/dashboard",
       },
       {
         component: CNavItem,
-        name: 'Khai báo dữ liệu',
-        to: '/',
+        name: "Khai báo dữ liệu",
+        to: "/dashboard",
       },
     ],
   },
   {
     component: CNavGroup,
-    name: 'HỌC SINH',
-    to: '#',
+    name: "HỌC SINH",
+    to: "#",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Hồ sơ học sinh',
-        to: '/students/all-students',
+        name: "Hồ sơ học sinh",
+        to: "/students/all-students",
       },
       {
         component: CNavItem,
-        name: 'Đánh giá môn học',
-        to: '/',
+        name: "Đánh giá môn học",
+        to: "/dashboard",
       },
     ],
   },
   {
     component: CNavGroup,
-    name: 'GIÁO VIÊN',
-    to: '#',
+    name: "GIÁO VIÊN",
+    to: "#",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Cập nhật giáo viên',
-        to: '/teachers/all-teachers',
+        name: "Cập nhật giáo viên",
+        to: "/teachers/all-teachers",
       },
     ],
   },
-]
+];
 // const _nav = [
 //   {
 //     component: CNavItem,
@@ -353,4 +353,4 @@ const _nav = [
 //   },
 // ]
 
-export default _nav
+export default _nav;

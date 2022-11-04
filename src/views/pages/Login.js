@@ -34,7 +34,7 @@ export const Login = () => {
     return <Navigate to="/admin/home" />;
   }
   if (navigate === 1) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
   return (
     <div className="box-form">
@@ -54,7 +54,10 @@ export const Login = () => {
       </div>
 
       <div className="right">
-        <h5>Login</h5>
+        <br />
+
+        <h5>Đăng nhập</h5>
+        <br />
         <form onSubmit={submit}>
           <div className="inputs">
             <input
@@ -73,7 +76,7 @@ export const Login = () => {
           </div>
           <br />
           <br />
-          <button type="submit">Login</button>
+          <button type="submit">Đăng nhập</button>
         </form>
       </div>
     </div>
