@@ -66,7 +66,7 @@ export const InfoAdmin = () => {
             <span className="font-weight-bold">
               <b>{profile.displayName}</b>
             </span>
-            <span className="text-black-50">{profile.email}</span>
+            <span className="text-black-50">{email}</span>
             <span> </span>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import { ChangePW } from "./views/pages/admin/ChangePW";
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const Colors = React.lazy(() => import("./views/theme/colors/Colors"));
@@ -81,6 +80,7 @@ const AllStudents = React.lazy(() => import("./views/students/AllStudents"));
 const AllTeachers = React.lazy(() => import("./views/teachers/AllTeachers"));
 const Info = React.lazy(() => import("./views/pages/schooladmin/InfoAdmin"));
 const Password = React.lazy(() => import("./views/pages/schooladmin/ChangePW"));
+const School = React.lazy(() => import("./views/pages/schooladmin/School"));
 
 const routes = [
   { path: "/dashboard", exact: true, name: "" },
@@ -170,6 +170,7 @@ const routes = [
   },
   { path: "/info", name: "Thông tin tài khoản", element: Info },
   { path: "/changepw", name: "Đổi mật khẩu", element: Password },
+  { path: "/school", name: "Thông tin trường", element: School },
 ];
 
 export default routes;
