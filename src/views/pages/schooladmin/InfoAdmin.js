@@ -16,7 +16,7 @@ const InfoAdmin = () => {
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
   const [workingPosition, setworkingPosition] = useState("System admin");
-  const [roleId, setroleId] = useState(1);
+  const [roleId, setroleId] = useState(2);
   const [nav, setnav] = useState(false);
 
   useEffect(() => {
