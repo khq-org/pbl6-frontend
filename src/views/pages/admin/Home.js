@@ -2,6 +2,7 @@ import "./Home.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { notification } from "antd";
 export const Home = () => {
   const [listschool, setListschool] = useState([]);
   const token = localStorage.getItem("access_token");
@@ -9,7 +10,9 @@ export const Home = () => {
 
   const del = async (id) => {
     const res = await axios.delete(`schools/${id}`);
-    alert(`ban da xoa truong co id: ${id}`);
+    notification.success({
+      message: "Successful delete.",
+    });
     console.log(res);
     window.location.reload();
   };
@@ -49,7 +52,7 @@ export const Home = () => {
               <div className="row">
                 <div className="col-sm-8">
                   <h1>
-                    <b>Customer</b>
+                    <b>Schools</b>
                   </h1>
                 </div>
 
@@ -99,13 +102,14 @@ export const Home = () => {
                     <td> {item.website}</td>
                     <td>
                       <a
-                        href={`home/schooldetail/${item.schoolId}`}
+                        href=" "
                         className="view"
                         title="View"
                         cshools-toggle="tooltip"
                       >
                         <i className="material-icons">&#xE417;</i>
                       </a>
+
                       <a
                         href={`home/schooldetail/${item.schoolId}`}
                         className="edit"

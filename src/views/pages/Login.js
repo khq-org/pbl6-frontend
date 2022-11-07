@@ -26,7 +26,6 @@ export const Login = () => {
 
     //console.log({ a });
     const lg = username.localeCompare("admin");
-
     setNavigate(lg);
   };
 

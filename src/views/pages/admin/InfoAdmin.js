@@ -1,5 +1,6 @@
 import "./InfoAdmin.css";
 import axios from "axios";
+import { notification } from "antd";
 import { useState, useEffect } from "react";
 
 export const InfoAdmin = () => {
@@ -49,7 +50,10 @@ export const InfoAdmin = () => {
       workingPosition,
       roleId,
     });
-    alert("done.");
+    notification.success({
+      message: "Update success.",
+    });
+    //alert("done.");
     //console.log({ res });
   };
 
