@@ -23,6 +23,8 @@
     "test:debug": "react-scripts --inspect-brk test --runInBand"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@reduxjs/toolkit": "^1.8.5",
     "@coreui/chartjs": "^3.0.0",
     "@coreui/coreui": "^4.2.1",
     "@coreui/icons": "^2.1.0",

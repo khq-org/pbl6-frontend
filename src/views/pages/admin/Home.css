@@ -4,6 +4,9 @@
 .table-responsive {
   margin: 30px 0;
 }
+.alert {
+  margin-left: 250px;
+}
 .table-wrapper {
   min-width: 1000px;
   background: #fff;

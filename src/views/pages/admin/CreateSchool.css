@@ -1,5 +1,8 @@
 .container {
-  margin-left: 300px;
+  margin-left: 250px;
+}
+.row {
+  margin-left: 50px;
 }
 .form-control:focus {
   box-shadow: none;
