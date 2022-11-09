@@ -10,7 +10,7 @@ body {
   margin: 60px auto;
   width: 80%;
   height: 100%;
-  background: #b19a9af9;
+  background: hsla(304, 13%, 24%, 0.162);
   border-radius: 10px;
 
   overflow: hidden;

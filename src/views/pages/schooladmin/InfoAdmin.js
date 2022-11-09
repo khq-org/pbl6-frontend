@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { CAlert, CFormSelect, CFormCheck } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import CITY from "../vn/CITY.json";
+import DISTRICT from "../vn/DISTRICT.json";
 
 const InfoAdmin = () => {
   const token = localStorage.getItem("access_token");
@@ -25,6 +27,7 @@ const InfoAdmin = () => {
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
 
+  //console.log({ CITY });
   useEffect(() => {
     (async () => {
       try {
@@ -49,31 +52,17 @@ const InfoAdmin = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
-        );
-        setlistcity(data.data.data);
-      } catch (e) {}
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
-        );
-        setlistdistrict(data.data.data);
+        setlistcity(CITY);
+        setlistdistrict(DISTRICT);
       } catch (e) {}
     })();
   }, []);
   const setadd = async (code) => {
     const c = listcity.find((item) => item.code === code);
     setcity(c.name);
-    const { data } = await axios.get(
-      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
-    );
-    setlistdistrict(data.data.data);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrict(d);
   };
 
   const save = async (e) => {
@@ -136,8 +125,8 @@ const InfoAdmin = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={firstName}
-                    onChange={(e) => setfirstName(e.target.value)}
+                    value={lastName}
+                    onChange={(e) => setlastName(e.target.value)}
                     required
                   />
                 </div>
@@ -146,8 +135,8 @@ const InfoAdmin = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={lastName}
-                    onChange={(e) => setlastName(e.target.value)}
+                    value={firstName}
+                    onChange={(e) => setfirstName(e.target.value)}
                     required
                   />
                 </div>
@@ -180,6 +169,16 @@ const InfoAdmin = () => {
                     className="form-control"
                     value={phone}
                     onChange={(e) => setphone(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="col-md-12">
+                  <b>Email</b>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setemail(e.target.value)}
                     required
                   />
                 </div>
@@ -265,16 +264,7 @@ const InfoAdmin = () => {
               <br />
               <br />
               <br />
-              <div className="col-md-6">
-                <b>Email</b>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
-                  required
-                />
-              </div>
+
               <div className="col-md-6">
                 <b>Role</b>
                 <input

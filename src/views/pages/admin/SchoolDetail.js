@@ -141,8 +141,8 @@ export const SchoolDetail = () => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
         <div className="row">
-          <form className="col-md-5 border-right" onSubmit={save}>
-            <div className="p-3 py-5">
+          <form className="col-md-7 border-right" onSubmit={save}>
+            <div className="p-3 py-5 mx-5">
               <div>
                 <h1 className="text-center">School Details</h1>
               </div>
@@ -244,68 +244,68 @@ export const SchoolDetail = () => {
             </div>
           </form>
           <div className="col-md-4">
-            <div className="p-3 py-5">
+            <div className="p-3 py-5 mx-auto">
               <br />
               <br />
-              <br />
-              <div className="d-flex justify-content-between align-items-center experience">
+
+              <div className="">
                 <h3>Account </h3>
-                <CButton onClick={() => setVisible(!visible)}>Create</CButton>
-                <CModal
-                  alignment="center"
-                  visible={visible}
-                  onClose={() => setVisible(false)}
-                >
-                  <CModalHeader>
-                    <CModalTitle>
-                      <h2>Create account schooladmin</h2>
-                    </CModalTitle>
-                  </CModalHeader>
-                  <CModalBody>
-                    <form onSubmit={create}>
-                      <div className="col-md-12">
-                        <b>First Name</b>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="first name"
-                          onChange={(e) => setfirstName(e.target.value)}
-                          required
-                        />
-                      </div>
-
-                      <div className="col-md-12">
-                        <b>Last Name</b>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="last name"
-                          onChange={(e) => setlastName(e.target.value)}
-                          required
-                        />
-                      </div>
-
-                      <div className="col-md-12">
-                        <b>Email</b>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="email"
-                          onChange={(e) => setemail(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="mt-5 text-center">
-                        <button className="btn btn-primary " type="submit">
-                          Create
-                        </button>
-                      </div>
-                    </form>
-                  </CModalBody>
-                </CModal>
               </div>
+
+              <CModal
+                alignment="center"
+                visible={visible}
+                onClose={() => setVisible(false)}
+              >
+                <CModalHeader>
+                  <CModalTitle>
+                    <h2>Create account schooladmin</h2>
+                  </CModalTitle>
+                </CModalHeader>
+                <CModalBody>
+                  <form onSubmit={create}>
+                    <div className="col-md-12">
+                      <b>First Name</b>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="first name"
+                        onChange={(e) => setfirstName(e.target.value)}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-12">
+                      <b>Last Name</b>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="last name"
+                        onChange={(e) => setlastName(e.target.value)}
+                        required
+                      />
+                    </div>
+
+                    <div className="col-md-12">
+                      <b>Email</b>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="email"
+                        onChange={(e) => setemail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="mt-5 text-center">
+                      <button className="btn btn-primary " type="submit">
+                        Create
+                      </button>
+                    </div>
+                  </form>
+                </CModalBody>
+              </CModal>
               <br />
-              <table className="table table-striped table-hover table-bordered">
+              <table className="table table-bordered">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -320,7 +320,9 @@ export const SchoolDetail = () => {
                     <tr key={item.schoolAdminId}>
                       <td>{item.schoolAdminId}</td>
                       <td>{item.username}</td>
-                      <td>{item.lastName}</td>
+                      <td>
+                        {item.lastName} {item.firstName}
+                      </td>
                       <td>{item.email}</td>
 
                       <td>
@@ -344,6 +346,9 @@ export const SchoolDetail = () => {
                   ))}
                 </tbody>
               </table>
+              <div className="text-end">
+                <CButton onClick={() => setVisible(!visible)}>Create</CButton>
+              </div>
             </div>
           </div>
         </div>

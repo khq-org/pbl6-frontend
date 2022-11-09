@@ -17,6 +17,19 @@ function Admin() {
           href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        ></link>
+
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        ></link>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto"
+        ></link>
 
         <header className="p-2 bg-secondary text-white text-center">
           <h5>ADMINISTRATOR</h5>

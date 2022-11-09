@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import CITY from "../vn/CITY.json";
+import DISTRICT from "../vn/DISTRICT.json";
 import {
   CModal,
   CButton,
@@ -34,34 +36,49 @@ export const CreateSchool = () => {
   const [user, setUser] = useState("test");
   let navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
-        );
-        setlistcity(data.data.data);
-      } catch (e) {}
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+  //       );
+  //       setlistcity(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
+  //       );
+  //       setlistdistrict(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
+  // const setadd = async (code) => {
+  //   const c = listcity.find((item) => item.code === code);
+  //   setcity(c.name);
+  //   const { data } = await axios.get(
+  //     `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+  //   );
+  //   setlistdistrict(data.data.data);
+  // };
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
-        );
-        setlistdistrict(data.data.data);
+        setlistcity(CITY);
+        setlistdistrict(DISTRICT);
       } catch (e) {}
     })();
   }, []);
   const setadd = async (code) => {
     const c = listcity.find((item) => item.code === code);
     setcity(c.name);
-    const { data } = await axios.get(
-      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
-    );
-    setlistdistrict(data.data.data);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrict(d);
   };
   const save = async (e) => {
     e.preventDefault();
@@ -93,10 +110,10 @@ export const CreateSchool = () => {
 
   return (
     <>
-      <div className="container rounded bg-white mt-0 mb-0">
+      <div className="container rounded bg-white mt-0 mb-0 m-lg-auto">
         <form className="row" onSubmit={save}>
-          <div className="col-md-5 border-right">
-            <div className="p-3 py-5">
+          <div className="col-md-7 border-right">
+            <div className="p-5 py-3 mx-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2 className="text-right">Create Customer</h2>
               </div>

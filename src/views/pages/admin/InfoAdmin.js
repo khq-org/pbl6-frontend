@@ -4,6 +4,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { CAlert, CFormSelect } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import CITY from "../vn/CITY.json";
+import DISTRICT from "../vn/DISTRICT.json";
 
 export const InfoAdmin = () => {
   const token = localStorage.getItem("access_token");
@@ -46,36 +48,51 @@ export const InfoAdmin = () => {
   }, []);
 
   //city,district
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
-        );
-        setlistcity(data.data.data);
-      } catch (e) {}
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+  //       );
+  //       setlistcity(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
+  //       );
+  //       setlistdistrict(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
+  // const setadd = async (code) => {
+  //   const c = listcity.find((item) => item.code === code);
+  //   setcity(c.name);
+  //   const { data } = await axios.get(
+  //     `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+  //   );
+  //   setlistdistrict(data.data.data);
+  // };
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
-        );
-        setlistdistrict(data.data.data);
+        setlistcity(CITY);
+        setlistdistrict(DISTRICT);
       } catch (e) {}
     })();
   }, []);
   const setadd = async (code) => {
     const c = listcity.find((item) => item.code === code);
     setcity(c.name);
-    const { data } = await axios.get(
-      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
-    );
-    setlistdistrict(data.data.data);
-  };
 
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrict(d);
+  };
   const save = async (e) => {
     e.preventDefault();
 
@@ -109,9 +126,9 @@ export const InfoAdmin = () => {
       >
         Success!
       </CAlert>
-      <div className="container rounded bg-white mt-0 mb-0">
+      <div className="container rounded bg-white m-lg-auto">
         <div className="row">
-          <div className="col-md-3 border-right">
+          <div className="col-md-4 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
               <img
                 className="rounded-circle mt-5"
@@ -256,15 +273,6 @@ export const InfoAdmin = () => {
                     required
                   />
                 </div>
-                <div className="col-md-12">
-                  <b>Role</b>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={profile.role}
-                    readOnly
-                  />
-                </div>
               </div>
 
               <div className="mt-5 text-center">
@@ -278,18 +286,18 @@ export const InfoAdmin = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <div className="p-3 py-5">
               <div className="d-flex justify-content-between align-items-center experience"></div>
               <br />
               <br />
 
               <div className="col-md-6">
-                <b>UserID</b>
+                <b>Role</b>
                 <input
                   type="text"
                   className="form-control"
-                  value={profile.userId}
+                  value={profile.role}
                   readOnly
                 />
               </div>
@@ -304,7 +312,7 @@ export const InfoAdmin = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

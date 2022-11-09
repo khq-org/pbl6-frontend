@@ -19,7 +19,7 @@ export const Login = () => {
       },
       { withCredentials: true }
     );
-    //console.log({ data });
+
     localStorage.setItem("access_token", data.access_token);
     //const a = localStorage.getItem("access_token");
     // axios.defaults.headers.common["Authorization"] = `Bearer ${a}`;
@@ -37,6 +37,23 @@ export const Login = () => {
   }
   return (
     <div className="box-form">
+      <link
+        href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+        rel="stylesheet"
+      />
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      ></link>
+
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      ></link>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto"
+      ></link>
       <div className="left">
         <div className="overlay">
           <h1>School Management</h1>
