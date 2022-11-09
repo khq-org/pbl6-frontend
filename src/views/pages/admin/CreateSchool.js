@@ -1,6 +1,6 @@
 import "./CreateSchool.css";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import {
@@ -10,6 +10,7 @@ import {
   CModalFooter,
   CModalBody,
   CModalTitle,
+  CFormSelect,
 } from "@coreui/react";
 
 export const CreateSchool = () => {
@@ -27,10 +28,41 @@ export const CreateSchool = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
+  const [listcity, setlistcity] = useState([]);
+  const [listdistrict, setlistdistrict] = useState([]);
 
   const [user, setUser] = useState("test");
   let navigate = useNavigate();
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+        );
+        setlistcity(data.data.data);
+      } catch (e) {}
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
+        );
+        setlistdistrict(data.data.data);
+      } catch (e) {}
+    })();
+  }, []);
+  const setadd = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcity(c.name);
+    const { data } = await axios.get(
+      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+    );
+    setlistdistrict(data.data.data);
+  };
   const save = async (e) => {
     e.preventDefault();
 
@@ -100,7 +132,7 @@ export const CreateSchool = () => {
                     required
                   />
                 </div>
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                   <b>District</b>
                   <input
                     type="text"
@@ -120,6 +152,22 @@ export const CreateSchool = () => {
                     onChange={(e) => setcity(e.target.value)}
                     required
                   />
+                </div> */}
+                <div className="col-md-12">
+                  <b>District</b>
+                  <CFormSelect onChange={(e) => setdistrict(e.target.value)}>
+                    {listdistrict.map((item) => (
+                      <option value={item.name} label={item.name}></option>
+                    ))}
+                  </CFormSelect>
+                </div>
+                <div className="col-md-12">
+                  <b>City</b>
+                  <CFormSelect onChange={(e) => setadd(e.target.value)}>
+                    {listcity.map((item) => (
+                      <option value={item.code} label={item.name}></option>
+                    ))}
+                  </CFormSelect>
                 </div>
                 <div className="col-md-12">
                   <b>Website</b>

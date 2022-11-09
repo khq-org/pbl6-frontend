@@ -10,6 +10,7 @@ import {
   CModalFooter,
   CModalBody,
   CModalTitle,
+  CFormSelect,
 } from "@coreui/react";
 
 export const SchoolDetail = () => {
@@ -27,6 +28,8 @@ export const SchoolDetail = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
+  const [listcity, setlistcity] = useState([]);
+  const [listdistrict, setlistdistrict] = useState([]);
 
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
@@ -57,6 +60,35 @@ export const SchoolDetail = () => {
       } catch (e) {}
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+        );
+        setlistcity(data.data.data);
+      } catch (e) {}
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
+        );
+        setlistdistrict(data.data.data);
+      } catch (e) {}
+    })();
+  }, []);
+  const setadd = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcity(c.name);
+    const { data } = await axios.get(
+      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+    );
+    setlistdistrict(data.data.data);
+  };
   const create = async (e) => {
     e.preventDefault();
     const res = await axios.post("schooladmins", {
@@ -146,7 +178,7 @@ export const SchoolDetail = () => {
                     required
                   />
                 </div>
-                <div className="col-md-12">
+                {/* <div className="col-md-12">
                   <b>District</b>
                   <input
                     type="text"
@@ -166,6 +198,28 @@ export const SchoolDetail = () => {
                     onChange={(e) => setcity(e.target.value)}
                     required
                   />
+                </div> */}
+                <div className="col-md-12">
+                  <b>District</b>
+                  <CFormSelect
+                    value={district}
+                    onChange={(e) => setdistrict(e.target.value)}
+                  >
+                    {listdistrict.map((item) => (
+                      <option value={item.name} label={item.name}></option>
+                    ))}
+                  </CFormSelect>
+                </div>
+                <div className="col-md-12">
+                  <b>City</b>
+                  <CFormSelect
+                    value={listcity.find((item) => item.name === city)?.code}
+                    onChange={(e) => setadd(e.target.value)}
+                  >
+                    {listcity.map((item) => (
+                      <option value={item.code} label={item.name}></option>
+                    ))}
+                  </CFormSelect>
                 </div>
                 <div className="col-md-12">
                   <b>Website</b>
@@ -184,7 +238,7 @@ export const SchoolDetail = () => {
                   className="btn btn-primary profile-button"
                   type="submit"
                 >
-                  Save
+                  Save profile
                 </button>
               </div>
             </div>
