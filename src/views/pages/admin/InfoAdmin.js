@@ -86,6 +86,7 @@ export const InfoAdmin = () => {
       } catch (e) {}
     })();
   }, []);
+
   const setadd = async (code) => {
     const c = listcity.find((item) => item.code === code);
     setcity(c.name);
@@ -93,6 +94,7 @@ export const InfoAdmin = () => {
     const d = DISTRICT.filter((item) => item.parent_code === code);
     setlistdistrict(d);
   };
+
   const save = async (e) => {
     e.preventDefault();
 
@@ -100,6 +102,7 @@ export const InfoAdmin = () => {
       firstName,
       lastName,
       gender,
+      dateOfBirth,
       phone,
       email,
       street,

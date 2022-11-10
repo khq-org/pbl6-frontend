@@ -84,22 +84,22 @@ export const PaginationTable = () => {
           {"<<"}
         </button>{" "}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
+          Trước
         </button>{" "}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
+          Sau
         </button>{" "}
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
           {">>"}
         </button>{" "}
         <span>
-          Page{" "}
+          Trang{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} / {pageOptions.length}
           </strong>{" "}
         </span>
         <span>
-          | Go to page:{" "}
+          | Tới trang:{" "}
           <input
             type="number"
             defaultValue={pageIndex + 1}
@@ -118,7 +118,7 @@ export const PaginationTable = () => {
         >
           {[10, 25, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              Xem {pageSize}
             </option>
           ))}
         </select>

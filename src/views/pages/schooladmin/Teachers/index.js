@@ -1,16 +1,15 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { PaginationTable } from './PaginationTable'
-
+import { PaginationTable } from "./PaginationTable";
 
 const AllTeachers = () => {
-    return (
+  return (
     <>
-       <h1 style={{textAlign: "center"}}>Danh sách thông tin giáo viên</h1>
-       <PaginationTable/>
+      <h1 style={{ textAlign: "center" }}>Danh sách thông tin giáo viên</h1>
+      <PaginationTable />
     </>
-        
-   )
-}
+  );
+};
 
-export default AllTeachers
+export default AllTeachers;

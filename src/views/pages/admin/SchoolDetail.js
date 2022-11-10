@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "@coreui/coreui/dist/css/coreui.min.css";
+import CITY from "../vn/CITY.json";
+import DISTRICT from "../vn/DISTRICT.json";
+
 import {
   CModal,
   CButton,
@@ -53,6 +56,21 @@ export const SchoolDetail = () => {
   useEffect(() => {
     (async () => {
       try {
+        setlistcity(CITY);
+        setlistdistrict(DISTRICT);
+      } catch (e) {}
+    })();
+  }, []);
+
+  const setadd = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcity(c.name);
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrict(d);
+  };
+  useEffect(() => {
+    (async () => {
+      try {
         const { data } = await axios.get(`schooladmins?schoolId=${id}`);
         setlistaccount(data.data.items);
 
@@ -60,35 +78,36 @@ export const SchoolDetail = () => {
       } catch (e) {}
     })();
   }, []);
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
-        );
-        setlistcity(data.data.data);
-      } catch (e) {}
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
+  //       );
+  //       setlistcity(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(
-          "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
-        );
-        setlistdistrict(data.data.data);
-      } catch (e) {}
-    })();
-  }, []);
-  const setadd = async (code) => {
-    const c = listcity.find((item) => item.code === code);
-    setcity(c.name);
-    const { data } = await axios.get(
-      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
-    );
-    setlistdistrict(data.data.data);
-  };
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         "https://vn-public-apis.fpo.vn/districts/getAll?limit=-1"
+  //       );
+  //       setlistdistrict(data.data.data);
+  //     } catch (e) {}
+  //   })();
+  // }, []);
+  // const setadd = async (code) => {
+  //   const c = listcity.find((item) => item.code === code);
+  //   setcity(c.name);
+  //   const { data } = await axios.get(
+  //     `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${code}&limit=-1`
+  //   );
+  //   setlistdistrict(data.data.data);
+  // };
+
   const create = async (e) => {
     e.preventDefault();
     const res = await axios.post("schooladmins", {
@@ -103,6 +122,7 @@ export const SchoolDetail = () => {
     //console.log({ res });
     window.location.reload();
   };
+
   const save = async (e) => {
     e.preventDefault();
 

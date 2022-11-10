@@ -1,11 +1,18 @@
 import React, { useMemo } from "react";
 import { useTable, usePagination } from "react-table";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { COLUMNS } from "./columns";
 import "./table.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {
+  CModal,
+  CButton,
+  CModalHeader,
+  CModalBody,
+  CModalTitle,
+} from "@coreui/react";
 
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -14,6 +21,7 @@ export const PaginationTable = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [listTeacher, setlistTeacher] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -52,8 +60,73 @@ export const PaginationTable = () => {
 
   const { pageIndex, pageSize } = state;
 
+  let navigate = useNavigate();
+  const create = () => {
+    navigate("/teachers/all-teachers");
+  };
   return (
     <>
+      <CModal
+        alignment="center"
+        visible={visible}
+        onClose={() => setVisible(false)}
+      >
+        <CModalHeader>
+          <CModalTitle>
+            <h2>Create account schooladmin</h2>
+          </CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <form onSubmit={create}>
+            <div className="col-md-12">
+              <b>First Name</b>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="first name"
+                //onChange={(e) => setfirstName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="col-md-12">
+              <b>Last Name</b>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="last name"
+                //onChange={(e) => setlastName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="col-md-12">
+              <b>Email</b>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="email"
+                //onChange={(e) => setemail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mt-5 text-center">
+              <button className="btn btn-primary " type="submit">
+                Create
+              </button>
+            </div>
+          </form>
+        </CModalBody>
+      </CModal>
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <CButton
+          className="btn btn-primary"
+          type="button"
+          onClick={() => setVisible(!visible)}
+        >
+          Thêm mới
+        </CButton>
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -76,18 +149,13 @@ export const PaginationTable = () => {
                   );
                 })}
                 <td>
-                  <a
-                    href=" "
-                    className="edit"
-                    title="Edit"
-                    cshools-toggle="tooltip"
-                  >
+                  <Link className="edit" title="Sửa" cshools-toggle="tooltip">
                     <i className="material-icons">&#xE254;</i>
-                  </a>
+                  </Link>
                   <Link
                     onClick={() => console.log(row.original.userId)}
                     className="delete"
-                    title="Delete"
+                    title="Xóa"
                     cshools-toggle="tooltip"
                   >
                     <i className="material-icons">&#xE872;</i>
@@ -103,22 +171,22 @@ export const PaginationTable = () => {
           {"<<"}
         </button>{" "}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
+          Trước
         </button>{" "}
         <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
+          Sau
         </button>{" "}
         <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
           {">>"}
         </button>{" "}
         <span>
-          Page{" "}
+          Trang{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} / {pageOptions.length}
           </strong>{" "}
         </span>
         <span>
-          | Go to page:{" "}
+          | Tới trang:{" "}
           <input
             type="number"
             defaultValue={pageIndex + 1}
@@ -137,7 +205,7 @@ export const PaginationTable = () => {
         >
           {[10, 25, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              Xem {pageSize}
             </option>
           ))}
         </select>

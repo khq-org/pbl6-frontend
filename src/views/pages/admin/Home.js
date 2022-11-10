@@ -114,23 +114,23 @@ export const Home = () => {
                       <td>{item.city}</td>
                       <td> {item.website}</td>
                       <td>
-                        <a
-                          href=" "
+                        <Link
+                          to=""
                           className="view"
                           title="View"
                           cshools-toggle="tooltip"
                         >
                           <i className="material-icons">&#xE417;</i>
-                        </a>
+                        </Link>
 
-                        <a
-                          href={`home/schooldetail/${item.schoolId}`}
+                        <Link
+                          to={`schooldetail/${item.schoolId}`}
                           className="edit"
                           title="Edit"
                           cshools-toggle="tooltip"
                         >
                           <i className="material-icons">&#xE254;</i>
-                        </a>
+                        </Link>
                         <Link
                           onClick={() => del(item.schoolId)}
                           //href=" "
