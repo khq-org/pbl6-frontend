@@ -43,7 +43,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Hồ sơ học sinh",
-        to: "/students/all-students",
+        to: "/all-students",
       },
       {
         component: CNavItem,
@@ -61,7 +61,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Cập nhật giáo viên",
-        to: "/teachers/all-teachers",
+        to: "/all-teachers",
       },
     ],
   },

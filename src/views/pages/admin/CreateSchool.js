@@ -110,13 +110,14 @@ export const CreateSchool = () => {
 
   return (
     <>
-      <div className="container rounded bg-white mt-0 mb-0 m-lg-auto">
+      <div className="container rounded bg-gradient mt-0 mb-0 m-lg-auto">
         <form className="row" onSubmit={save}>
           <div className="col-md-7 border-right">
-            <div className="p-5 py-3 mx-5">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h2 className="text-right">Create Customer</h2>
+            <div className="p-5 py-3">
+              <div className="">
+                <h2 className="text-center">Create Customer</h2>
               </div>
+              <br />
 
               <div className="row mt-3">
                 <div className="col-md-12">

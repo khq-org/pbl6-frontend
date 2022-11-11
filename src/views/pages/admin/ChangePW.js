@@ -33,7 +33,7 @@ export const ChangePW = () => {
     }
   };
   return (
-    <div className="mainDiv">
+    <div className="container rounded bg-gradient ">
       <div className="cardStyle">
         <form onSubmit={submit} method="post" name="signupForm" id="signupForm">
           <h4 className="formTitle">CHANGE TO PASSWORD</h4>

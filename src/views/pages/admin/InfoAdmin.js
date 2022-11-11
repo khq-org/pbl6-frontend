@@ -129,9 +129,9 @@ export const InfoAdmin = () => {
       >
         Success!
       </CAlert>
-      <div className="container rounded bg-white m-lg-auto">
+      <div className="container rounded bg-gradient mt-0 mb-0 ">
         <div className="row">
-          <div className="col-md-4 border-right">
+          <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
               <img
                 className="rounded-circle mt-5"
@@ -142,11 +142,10 @@ export const InfoAdmin = () => {
                 <b>{profile.displayName}</b>
               </span>
               <span className="text-black-50">{email}</span>
-              <span> </span>
             </div>
           </div>
-          <div className="col-md-5 border-right">
-            <div className="p-3 py-5">
+          <div className="col-md-6 border-right">
+            <div className=" py-5 ">
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <h2 className="text-right">Profile Settings</h2>
               </div>
@@ -176,7 +175,7 @@ export const InfoAdmin = () => {
                 <div className="col-md-12">
                   <b>DateOfBirth</b>
                   <input
-                    type="text"
+                    type="date"
                     className="form-control"
                     value={dateOfBirth}
                     onChange={(e) => setdateOfBirth(e.target.value)}

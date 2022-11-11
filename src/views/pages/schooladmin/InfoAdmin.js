@@ -146,7 +146,7 @@ const InfoAdmin = () => {
                 <div className="col-md-12">
                   <b>Ngày sinh</b>
                   <input
-                    type="text"
+                    type="date"
                     className="form-control"
                     value={dateOfBirth}
                     onChange={(e) => setdateOfBirth(e.target.value)}

@@ -155,14 +155,14 @@ export const SchoolDetail = () => {
 
   return (
     <>
-      <div className="container rounded bg-white mt-0 mb-0">
+      <div className="container rounded bg-gradient mt-0 mb-0">
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
         <div className="row">
           <form className="col-md-7 border-right" onSubmit={save}>
-            <div className="p-3 py-5 mx-5">
+            <div className="p-3 py-5">
               <div>
                 <h1 className="text-center">School Details</h1>
               </div>
@@ -325,7 +325,7 @@ export const SchoolDetail = () => {
                 </CModalBody>
               </CModal>
               <br />
-              <table className="table table-bordered">
+              <table className="table table-success  table-striped">
                 <thead>
                   <tr>
                     <th>ID</th>

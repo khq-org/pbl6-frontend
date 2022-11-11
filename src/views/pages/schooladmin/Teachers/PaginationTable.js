@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { useTable, usePagination } from "react-table";
 import { Link, useNavigate } from "react-router-dom";
+import CITY from "../../vn/CITY.json";
+import DISTRICT from "../../vn/DISTRICT.json";
 
 import { COLUMNS } from "./columns";
 import "./table.css";
@@ -12,6 +14,7 @@ import {
   CModalHeader,
   CModalBody,
   CModalTitle,
+  CFormSelect,
 } from "@coreui/react";
 
 export const PaginationTable = () => {
@@ -23,6 +26,38 @@ export const PaginationTable = () => {
   const [listTeacher, setlistTeacher] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [dateOfBirth, setdateOfBirth] = useState("");
+  const [gender, setgender] = useState(true);
+  const [phone, setphone] = useState("");
+  const [email, setemail] = useState("");
+  const [street, setstreet] = useState("");
+  const [district, setdistrict] = useState("");
+  const [city, setcity] = useState("");
+  const [placeOfBirth, setplaceOfBirth] = useState("");
+  const [workingPosition, setworkingPosition] = useState("");
+  const [nationality, setnationality] = useState("");
+  const [listcity, setlistcity] = useState([]);
+  const [listdistrict, setlistdistrict] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setlistcity(CITY);
+        setlistdistrict(DISTRICT);
+      } catch (e) {}
+    })();
+  }, []);
+
+  const setadd = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcity(c.name);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrict(d);
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -32,6 +67,31 @@ export const PaginationTable = () => {
       } catch (e) {}
     })();
   }, []);
+  const create = async (e) => {
+    e.preventDefault();
+    const res = await axios.post("teachers", {
+      firstName,
+      lastName,
+      dateOfBirth,
+      placeOfBirth,
+      gender,
+      phone,
+      email,
+      street,
+      district,
+      city,
+      nationality,
+      workingPosition,
+    });
+    console.log(res);
+    window.location.reload();
+    //alert("done.");
+  };
+  const del = async (id) => {
+    const res = await axios.delete(`teachers/${id}`);
+    console.log(res);
+    setlistTeacher(listTeacher.filter((item) => item.userId !== id));
+  };
 
   const data = useMemo(() => listTeacher, [listTeacher]);
   const {
@@ -60,10 +120,6 @@ export const PaginationTable = () => {
 
   const { pageIndex, pageSize } = state;
 
-  let navigate = useNavigate();
-  const create = () => {
-    navigate("/teachers/all-teachers");
-  };
   return (
     <>
       <CModal
@@ -73,47 +129,139 @@ export const PaginationTable = () => {
       >
         <CModalHeader>
           <CModalTitle>
-            <h2>Create account schooladmin</h2>
+            <h2>Thêm mới giáo viên</h2>
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
           <form onSubmit={create}>
-            <div className="col-md-12">
-              <b>First Name</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="first name"
-                //onChange={(e) => setfirstName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="col-md-12">
-              <b>Last Name</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="last name"
-                //onChange={(e) => setlastName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="col-md-12">
-              <b>Email</b>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="email"
-                //onChange={(e) => setemail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mt-5 text-center">
-              <button className="btn btn-primary " type="submit">
-                Create
-              </button>
+            <div className="col">
+              <div className="">
+                <div className="row">
+                  <div className="col-md-6">
+                    Họ
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="họ"
+                      onChange={(e) => setlastName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    Tên
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="tên"
+                      onChange={(e) => setfirstName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="row mt-3">
+                  <div className="col-md-12">
+                    Ngày Sinh
+                    <input
+                      type="date"
+                      className="form-control"
+                      placeholder="ngày sinh"
+                      onChange={(e) =>
+                        setdateOfBirth(e.target.value.toString())
+                      }
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    Giới tính
+                    <CFormSelect onChange={(e) => setgender(e.target.value)}>
+                      <option value={true}>Nam</option>
+                      <option value={false}>Nữ</option>
+                    </CFormSelect>
+                  </div>
+                  <div className="col-md-12">
+                    Quê quán
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="quê quán"
+                      onChange={(e) => setplaceOfBirth(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    Địa chỉ
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="số nhà/thôn xóm, xã/phường/thị trấn"
+                      onChange={(e) => setstreet(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    Quận/Huyện
+                    <CFormSelect onChange={(e) => setdistrict(e.target.value)}>
+                      {listdistrict.map((item) => (
+                        <option value={item.name} label={item.name}></option>
+                      ))}
+                    </CFormSelect>
+                  </div>
+                  <div className="col-md-12">
+                    Tỉnh/Thành phố
+                    <CFormSelect onChange={(e) => setadd(e.target.value)}>
+                      {listcity.map((item) => (
+                        <option value={item.code} label={item.name}></option>
+                      ))}
+                    </CFormSelect>
+                  </div>
+                  <div className="col-md-12">
+                    Số điện thoại
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="sdt"
+                      onChange={(e) => setphone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-12">
+                    Email
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="email"
+                      onChange={(e) => setemail(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="row mt-3">
+                  <div className="col-md-6">
+                    Quốc tịch
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="quốc tịch"
+                      onChange={(e) => setnationality(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    Chức vụ
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="chức vụ"
+                      onChange={(e) => setworkingPosition(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mt-5 text-center">
+                  <button className="btn btn-primary " type="submit">
+                    Thêm mới
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </CModalBody>
@@ -149,11 +297,16 @@ export const PaginationTable = () => {
                   );
                 })}
                 <td>
-                  <Link className="edit" title="Sửa" cshools-toggle="tooltip">
+                  <Link
+                    to={`${row.original.userId}`}
+                    className="edit"
+                    title="Sửa"
+                    cshools-toggle="tooltip"
+                  >
                     <i className="material-icons">&#xE254;</i>
                   </Link>
                   <Link
-                    onClick={() => console.log(row.original.userId)}
+                    onClick={() => del(row.original.userId)}
                     className="delete"
                     title="Xóa"
                     cshools-toggle="tooltip"

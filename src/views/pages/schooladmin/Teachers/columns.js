@@ -67,4 +67,9 @@ export const COLUMNS = [
     Footer: "Email",
     accessor: "email",
   },
+  // {
+  //   Header: "Tài khoản",
+  //   Footer: "Tài khoản",
+  //   accessor: "username",
+  // },
 ];

@@ -10,33 +10,29 @@ const AllTeachers = React.lazy(() =>
 const Info = React.lazy(() => import("./views/pages/schooladmin/InfoAdmin"));
 const Password = React.lazy(() => import("./views/pages/schooladmin/ChangePW"));
 const School = React.lazy(() => import("./views/pages/schooladmin/School"));
+const TeacherDetail = React.lazy(() =>
+  import("./views/pages/schooladmin/Teachers/TeacherDetail")
+);
 
 const routes = [
   { path: "/dashboard", exact: true, name: "" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
 
   {
-    path: "/students",
-    name: "Học Sinh",
-    element: AllStudents,
-    exact: true,
-  },
-  {
-    path: "/students/all-students",
+    path: "/all-students",
     name: "Danh sách học sinh",
     element: AllStudents,
   },
 
   {
-    path: "/teachers",
-    name: "Giáo viên",
-    element: AllTeachers,
-    exact: true,
-  },
-  {
-    path: "/teachers/all-teachers",
+    path: "/all-teachers",
     name: "Danh sách giáo viên",
     element: AllTeachers,
+  },
+  {
+    path: "/all-teachers/:id",
+    name: "Thông tin giáo viên",
+    element: TeacherDetail,
   },
   { path: "/info", name: "Thông tin tài khoản", element: Info },
   { path: "/changepw", name: "Đổi mật khẩu", element: Password },
