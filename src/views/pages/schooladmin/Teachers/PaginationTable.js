@@ -267,6 +267,15 @@ export const PaginationTable = () => {
         </CModalBody>
       </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        <form className="form-inline ">
+          <input
+            className="form-control form-control-sm mr-3 w-75"
+            type="text"
+            placeholder="Tìm kiếm"
+            aria-label="Search"
+          />
+          <button className="material-icons">search</button>
+        </form>
         <CButton
           className="btn btn-primary"
           type="button"

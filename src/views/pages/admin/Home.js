@@ -11,6 +11,7 @@ export const Home = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [visible, setVisible] = useState(false);
+  const [textsearch, settextsearch] = useState("");
 
   const del = async (id) => {
     const res = await axios.delete(`schools/${id}`);
@@ -29,6 +30,9 @@ export const Home = () => {
       } catch (e) {}
     })();
   }, []);
+  const search = () => {
+    alert(textsearch);
+  };
 
   return (
     <>
@@ -68,18 +72,20 @@ export const Home = () => {
                       <b>Schools</b>
                     </h1>
                   </div>
-
-                  <div className="col-sm-4">
-                    <div className="search-box">
-                      <i className="material-icons">&#xE8B6;</i>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search&hellip;"
-                      />
-                    </div>
-                  </div>
                   <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <form className="form-inline ">
+                      <input
+                        className="form-control form-control-sm mr-3 w-75"
+                        type="text"
+                        placeholder="Search&hellip;"
+                        aria-label="Search"
+                        onChange={(e) => settextsearch(e.target.value)}
+                      />
+                      <Link className="material-icons" onClick={() => search()}>
+                        search
+                      </Link>
+                    </form>
+
                     <Link to="create">
                       <button className="btn btn-primary" type="button">
                         Create

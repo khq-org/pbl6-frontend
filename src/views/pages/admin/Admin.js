@@ -5,6 +5,7 @@ import { InfoAdmin } from "./InfoAdmin";
 import { ChangePW } from "./ChangePW";
 import { SchoolDetail } from "./SchoolDetail";
 import { CreateSchool } from "./CreateSchool";
+import { AdminSchoolDetail } from "./AdminSchoolDetail";
 
 function Admin() {
   const logout = () => {
@@ -76,6 +77,10 @@ function Admin() {
         <Route path="info" element={<InfoAdmin />} />
         <Route path="changepassword" element={<ChangePW />} />
         <Route path="home/schooldetail/:id" element={<SchoolDetail />} />
+        <Route
+          path="home/schooldetail/:id/adminschooldetail/:id"
+          element={<AdminSchoolDetail />}
+        />
         <Route path="home/create" element={<CreateSchool />} />
       </Routes>
     </div>

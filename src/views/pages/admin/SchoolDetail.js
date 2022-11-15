@@ -31,11 +31,13 @@ export const SchoolDetail = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
+
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
 
   const { id } = useParams();
   const [visible, setVisible] = useState(false);
+
   //console.log({ id });
 
   useEffect(() => {
@@ -74,7 +76,7 @@ export const SchoolDetail = () => {
         const { data } = await axios.get(`schooladmins?schoolId=${id}`);
         setlistaccount(data.data.items);
 
-        //console.log({ data });
+        console.log({ data });
       } catch (e) {}
     })();
   }, []);
@@ -152,6 +154,7 @@ export const SchoolDetail = () => {
 
     //window.location.reload();
   };
+  console.log(listaccount);
 
   return (
     <>
@@ -198,27 +201,7 @@ export const SchoolDetail = () => {
                     required
                   />
                 </div>
-                {/* <div className="col-md-12">
-                  <b>District</b>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={district}
-                    onChange={(e) => setdistrict(e.target.value)}
-                    required
-                  />
-                </div>
 
-                <div className="col-md-12">
-                  <b>City</b>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={city}
-                    onChange={(e) => setcity(e.target.value)}
-                    required
-                  />
-                </div> */}
                 <div className="col-md-12">
                   <b>District</b>
                   <CFormSelect
@@ -324,6 +307,7 @@ export const SchoolDetail = () => {
                   </form>
                 </CModalBody>
               </CModal>
+
               <br />
               <table className="table table-success  table-striped">
                 <thead>
@@ -347,12 +331,14 @@ export const SchoolDetail = () => {
 
                       <td>
                         <Link
-                          className=""
-                          title="resetpassword"
+                          to={`adminschooldetail/${item.schoolAdminId}`}
+                          className="edit"
+                          title="Edit"
                           cshools-toggle="tooltip"
                         >
-                          <i className="material-icons">&#xE898;</i>
+                          <i className="material-icons">&#xE254;</i>
                         </Link>
+
                         <Link
                           onClick={() => del(item.schoolAdminId)}
                           className="delete"

@@ -86,8 +86,8 @@ const TeacherDetail = () => {
   };
   return (
     <>
+      <h2 className="text-center"> Thông tin giáo viên</h2>
       <div className="container rounded bg-white mt-2 mb-2">
-        <h2 className="text-center"> Thông tin giáo viên</h2>
         <form className="row m-5" onSubmit={save}>
           <div className="col-md-6">
             <div className="row">

@@ -12,15 +12,11 @@ export const ChangePW = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(
-        "users/password",
-        {
-          currentPassword,
-          newPassword,
-          confirmPassword,
-        },
-        { withCredentials: true }
-      );
+      const response = await axios.put("users/password", {
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      });
 
       console.log({ response });
       setcurrentPassword("");
