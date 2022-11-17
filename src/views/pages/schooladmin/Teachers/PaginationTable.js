@@ -46,7 +46,7 @@ export const PaginationTable = () => {
       try {
         setlistcity(CITY);
         setlistdistrict(DISTRICT);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
 
@@ -64,7 +64,7 @@ export const PaginationTable = () => {
         const { data } = await axios.get("teachers");
         //console.log({ data });
         setlistTeacher(data.data.items);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const create = async (e) => {
@@ -123,6 +123,7 @@ export const PaginationTable = () => {
   return (
     <>
       <CModal
+        size="lg"
         alignment="center"
         visible={visible}
         onClose={() => setVisible(false)}
