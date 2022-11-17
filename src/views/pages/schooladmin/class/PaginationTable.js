@@ -1,8 +1,6 @@
 import React, { useMemo } from "react";
 import { useTable, usePagination } from "react-table";
 import { Link, useNavigate } from "react-router-dom";
-import CITY from "../../vn/CITY.json";
-import DISTRICT from "../../vn/DISTRICT.json";
 
 import { COLUMNS } from "./columns";
 import "./table.css";
@@ -15,6 +13,7 @@ import {
   CModalBody,
   CModalTitle,
   CFormSelect,
+  CForm,
 } from "@coreui/react";
 
 export const PaginationTable = () => {
@@ -23,77 +22,57 @@ export const PaginationTable = () => {
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  const [listTeacher, setlistTeacher] = useState([]);
-  const [visible, setVisible] = useState(false);
+  const [className, setclassName] = useState("");
+  const [gradeId, setgradeId] = useState(0);
+  const [isSpecializedClass, setisSpecializedClass] = useState(false);
+  const [subject, setsubject] = useState("");
 
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [dateOfBirth, setdateOfBirth] = useState("");
-  const [gender, setgender] = useState(true);
-  const [phone, setphone] = useState("");
-  const [email, setemail] = useState("");
-  const [street, setstreet] = useState("");
-  const [district, setdistrict] = useState("");
-  const [city, setcity] = useState("");
-  const [placeOfBirth, setplaceOfBirth] = useState("");
-  const [workingPosition, setworkingPosition] = useState("");
-  const [nationality, setnationality] = useState("");
-  const [listcity, setlistcity] = useState([]);
-  const [listdistrict, setlistdistrict] = useState([]);
+  const [listclass, setlistclass] = useState([]);
+  const [listyear, setlistyear] = useState([]);
+  const [liststudent, setliststudent] = useState([]);
+  const [schoolyear, setschoolyear] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        setlistcity(CITY);
-        setlistdistrict(DISTRICT);
+        const { data } = await axios.get("classes");
+        setlistclass(data.data.items);
+        const res = await axios.get("students");
+        setliststudent(res.data.data.items);
+        console.log({ res });
       } catch (e) {}
     })();
   }, []);
-
-  const setadd = async (code) => {
-    const c = listcity.find((item) => item.code === code);
-    setcity(c.name);
-
-    const d = DISTRICT.filter((item) => item.parent_code === code);
-    setlistdistrict(d);
-  };
-
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("teachers");
+        const { data } = await axios.get("schoolyear");
         //console.log({ data });
-        setlistTeacher(data.data.items);
+        setlistyear(data.data.items);
       } catch (e) {}
     })();
   }, []);
   const create = async (e) => {
     e.preventDefault();
-    const res = await axios.post("teachers", {
-      firstName,
-      lastName,
-      dateOfBirth,
-      placeOfBirth,
-      gender,
-      phone,
-      email,
-      street,
-      district,
-      city,
-      nationality,
-      workingPosition,
+    const res = await axios.post("classes", {
+      className,
+      gradeId,
+      isSpecializedClass,
+      subject,
     });
     console.log(res);
     window.location.reload();
     //alert("done.");
   };
   const del = async (id) => {
-    const res = await axios.delete(`teachers/${id}`);
+    const res = await axios.delete(`classes/${id}`);
     console.log(res);
-    setlistTeacher(listTeacher.filter((item) => item.userId !== id));
+    setlistclass(listclass.filter((item) => item.classId !== id));
   };
 
-  const data = useMemo(() => listTeacher, [listTeacher]);
+  const data = useMemo(() => listclass, [listclass]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -129,133 +108,53 @@ export const PaginationTable = () => {
       >
         <CModalHeader>
           <CModalTitle>
-            <h2>Thêm mới giáo viên</h2>
+            <h2>Thêm mới lớp</h2>
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
           <form onSubmit={create}>
             <div className="col">
               <div className="">
-                <div className="row">
-                  <div className="col-md-6">
-                    Họ
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="họ"
-                      onChange={(e) => setlastName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    Tên
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="tên"
-                      onChange={(e) => setfirstName(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
                 <div className="row mt-3">
                   <div className="col-md-12">
-                    Ngày Sinh
+                    Tên lớp
                     <input
-                      type="date"
+                      type="text"
                       className="form-control"
-                      placeholder="ngày sinh"
-                      onChange={(e) =>
-                        setdateOfBirth(e.target.value.toString())
-                      }
+                      placeholder="tên lớp"
+                      onChange={(e) => setclassName(e.target.value)}
+                      required
                     />
                   </div>
+
                   <div className="col-md-12">
-                    Giới tính
-                    <CFormSelect onChange={(e) => setgender(e.target.value)}>
-                      <option value={true}>Nam</option>
-                      <option value={false}>Nữ</option>
+                    Khối
+                    <CFormSelect onChange={(e) => setgradeId(e.target.value)}>
+                      <option value={1} label="10"></option>
+                      <option value={2} label="11"></option>
+                      <option value={3} label="12"></option>
                     </CFormSelect>
                   </div>
                   <div className="col-md-12">
-                    Quê quán
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="quê quán"
-                      onChange={(e) => setplaceOfBirth(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    Địa chỉ
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="số nhà/thôn xóm, xã/phường/thị trấn"
-                      onChange={(e) => setstreet(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    Quận/Huyện
-                    <CFormSelect onChange={(e) => setdistrict(e.target.value)}>
-                      {listdistrict.map((item) => (
-                        <option value={item.name} label={item.name}></option>
-                      ))}
+                    Loại lớp
+                    <CFormSelect
+                      onChange={(e) => setisSpecializedClass(e.target.value)}
+                    >
+                      <option value={true} label="Lớp chọn"></option>
+                      <option value={false} label="Lớp bình thường"></option>
                     </CFormSelect>
                   </div>
                   <div className="col-md-12">
-                    Tỉnh/Thành phố
-                    <CFormSelect onChange={(e) => setadd(e.target.value)}>
-                      {listcity.map((item) => (
-                        <option value={item.code} label={item.name}></option>
-                      ))}
-                    </CFormSelect>
-                  </div>
-                  <div className="col-md-12">
-                    Số điện thoại
+                    Môn học lớp chọn
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="sdt"
-                      onChange={(e) => setphone(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-12">
-                    Email
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="email"
-                      onChange={(e) => setemail(e.target.value)}
-                      required
+                      placeholder=""
+                      onChange={(e) => setsubject(e.target.value)}
                     />
                   </div>
                 </div>
-                <div className="row mt-3">
-                  <div className="col-md-6">
-                    Quốc tịch
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="quốc tịch"
-                      onChange={(e) => setnationality(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    Chức vụ
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="chức vụ"
-                      onChange={(e) => setworkingPosition(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
+
                 <div className="mt-5 text-center">
                   <button className="btn btn-primary " type="submit">
                     Thêm mới
@@ -266,8 +165,59 @@ export const PaginationTable = () => {
           </form>
         </CModalBody>
       </CModal>
+
+      <CModal
+        size="xl"
+        alignment="center"
+        visible={visible2}
+        onClose={() => setVisible2(false)}
+      >
+        <CModalHeader>
+          <CModalTitle>
+            <h2>Danh sách học sinh</h2>
+          </CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>Ngày sinh </th>
+                <th>Giới tính</th>
+                <th>Số nhà</th>
+                <th>Quận/Huyện</th>
+                <th>Tỉnh/Thành phố</th>
+                <th>Liên lạc</th>
+              </tr>
+            </thead>
+            <tbody>
+              {liststudent.map((item) => (
+                <tr key={item.userId}>
+                  <td>{item.userId}</td>
+                  <td>{item.displayName}</td>
+                  <td>{item.dateOfBirth}</td>
+                  <td>{item.gender}</td>
+                  <td>{item.street}</td>
+                  <td>{item.district}</td>
+                  <td>{item.city}</td>
+                  <td> {item.phone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CModalBody>
+      </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <form className="form-inline ">
+        <CFormSelect
+          className="form-control form-control-sm mr-3 w-25"
+          onChange={(e) => setschoolyear(e.target.value)}
+        >
+          {listyear.map((item) => (
+            <option value={item.schoolYear} label={item.schoolYear}></option>
+          ))}
+        </CFormSelect>
+        <CForm className="form-inline ">
           <input
             className="form-control form-control-sm mr-3 w-75"
             type="text"
@@ -275,7 +225,7 @@ export const PaginationTable = () => {
             aria-label="Search"
           />
           <button className="material-icons">search</button>
-        </form>
+        </CForm>
         <CButton
           className="btn btn-primary"
           type="button"
@@ -307,7 +257,15 @@ export const PaginationTable = () => {
                 })}
                 <td>
                   <Link
-                    to={`${row.original.userId}`}
+                    onClick={() => setVisible2(true)}
+                    className="Xem"
+                    title="Xem"
+                    cshools-toggle="tooltip"
+                  >
+                    <i className="material-icons">&#xE417;</i>
+                  </Link>
+                  <Link
+                    to={`${row.original.classId}`}
                     className="edit"
                     title="Sửa"
                     cshools-toggle="tooltip"
@@ -315,7 +273,7 @@ export const PaginationTable = () => {
                     <i className="material-icons">&#xE254;</i>
                   </Link>
                   <Link
-                    onClick={() => del(row.original.userId)}
+                    onClick={() => del(row.original.classId)}
                     className="delete"
                     title="Xóa"
                     cshools-toggle="tooltip"

@@ -13,6 +13,7 @@ const School = React.lazy(() => import("./views/pages/schooladmin/School"));
 const TeacherDetail = React.lazy(() =>
   import("./views/pages/schooladmin/Teachers/TeacherDetail")
 );
+const Class = React.lazy(() => import("./views/pages/schooladmin/class"));
 
 const routes = [
   { path: "/dashboard", exact: true, name: "" },
@@ -33,6 +34,12 @@ const routes = [
     path: "/all-teachers/:id",
     name: "Thông tin giáo viên",
     element: TeacherDetail,
+  },
+
+  {
+    path: "/classes",
+    name: "Danh sách lớp",
+    element: Class,
   },
   { path: "/info", name: "Thông tin tài khoản", element: Info },
   { path: "/changepw", name: "Đổi mật khẩu", element: Password },

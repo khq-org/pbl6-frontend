@@ -65,6 +65,19 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: "LỚP",
+    to: "#",
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Danh sách lớp",
+        to: "/classes",
+      },
+    ],
+  },
 ];
 // const _nav = [
 //   {

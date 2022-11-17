@@ -76,7 +76,7 @@ export const SchoolDetail = () => {
         const { data } = await axios.get(`schooladmins?schoolId=${id}`);
         setlistaccount(data.data.items);
 
-        console.log({ data });
+        //console.log({ data });
       } catch (e) {}
     })();
   }, []);
@@ -154,7 +154,7 @@ export const SchoolDetail = () => {
 
     //window.location.reload();
   };
-  console.log(listaccount);
+  //console.log(listaccount);
 
   return (
     <>
