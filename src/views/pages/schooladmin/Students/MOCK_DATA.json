@@ -1,0 +1,29 @@
+[
+    {
+        "learningResultId": 4,
+        "schoolYear": "2022-2023",
+        "className": "11/1",
+        "averageScore": 0.0,
+        "conduct": "",
+        "learningGrade": "",
+        "isPassed": false
+    },
+    {
+        "learningResultId": 2,
+        "schoolYear": "2021-2022",
+        "className": "10/1",
+        "averageScore": 0.0,
+        "conduct": "",
+        "learningGrade": "",
+        "isPassed": false
+    },
+    {
+        "learningResultId": 6,
+        "schoolYear": "2023-2024",
+        "className": "12/1",
+        "averageScore": 0.0,
+        "conduct": "",
+        "learningGrade": "",
+        "isPassed": false
+    }
+]
