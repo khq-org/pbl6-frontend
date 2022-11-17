@@ -15,6 +15,7 @@ import {
   CModalBody,
   CModalTitle,
   CFormSelect,
+  CForm,
 } from "@coreui/react";
 import { Link } from "react-router-dom";
 export const PaginationTable = () => {
@@ -27,12 +28,28 @@ export const PaginationTable = () => {
   const [listStudent, setlistStudent] = useState([]);
   const [profile, setProfile] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [listclass, setlistclass] = useState([]);
+  const [listyear, setlistyear] = useState([]);
+  const [schoolyear, setschoolyear] = useState("");
+  const [classname, setclassname] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("classes");
+        setlistclass(res.data.data.items);
+        console.log(res);
+        const { data } = await axios.get("schoolyear");
+        setlistyear(data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
       try {
         const { data } = await axios.get("students");
-        console.log({ data });
+        //console.log({ data });
         setlistStudent(data.data.items);
       } catch (e) {}
     })();
@@ -101,6 +118,33 @@ export const PaginationTable = () => {
         </CModalBody>
       </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        Năm học:
+        <CFormSelect
+          className="form-control form-control-sm mr-3 w-25"
+          onChange={(e) => setschoolyear(e.target.value)}
+        >
+          {listyear?.map((item) => (
+            <option value={item.schoolYear} label={item.schoolYear}></option>
+          ))}
+        </CFormSelect>
+        Lớp:
+        <CFormSelect
+          className="form-control form-control-sm mr-3 w-25"
+          onChange={(e) => setclassname(e.target.value)}
+        >
+          {listclass?.map((items) => (
+            <option value={items.clazz} label={items.clazz}></option>
+          ))}
+        </CFormSelect>
+        <CForm className="form-inline ">
+          <input
+            className="form-control form-control-sm mr-3 w-75"
+            type="text"
+            placeholder="Tìm kiếm..."
+            aria-label="Search"
+          />
+          <button className="material-icons">search</button>
+        </CForm>
         <CButton
           className="btn btn-primary"
           type="button"

@@ -29,6 +29,7 @@ export const PaginationTable = () => {
 
   const [listclass, setlistclass] = useState([]);
   const [listyear, setlistyear] = useState([]);
+  const [listteacher, setlistTeacher] = useState([]);
   const [liststudent, setliststudent] = useState([]);
   const [schoolyear, setschoolyear] = useState("");
   const [visible, setVisible] = useState(false);
@@ -41,7 +42,7 @@ export const PaginationTable = () => {
         setlistclass(data.data.items);
         const res = await axios.get("students");
         setliststudent(res.data.data.items);
-        console.log({ res });
+        //console.log({ res });
       } catch (e) {}
     })();
   }, []);
@@ -51,6 +52,9 @@ export const PaginationTable = () => {
         const { data } = await axios.get("schoolyear");
         //console.log({ data });
         setlistyear(data.data.items);
+        const res = await axios.get("teachers");
+        setlistTeacher(res.data.data.items);
+        console.log({ res });
       } catch (e) {}
     })();
   }, []);
