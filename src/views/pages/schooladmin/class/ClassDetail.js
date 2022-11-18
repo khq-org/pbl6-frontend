@@ -1,4 +1,5 @@
 import React from "react";
+import "../ChangePW.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -11,8 +12,7 @@ const ClassDetail = () => {
   const [gradeId, setgradeId] = useState(0);
   const [isSpecializedClass, setisSpecializedClass] = useState(false);
   const [subject, setsubject] = useState("");
-  const [listclass, setlistclass] = useState([]);
-  const [listyear, setlistyear] = useState([]);
+  const [listteacher, setlistTeacher] = useState([]);
 
   const { id } = useParams();
   useEffect(() => {
@@ -24,6 +24,8 @@ const ClassDetail = () => {
         setgradeId(data.data.grade.gradeId);
         setisSpecializedClass(data.data.specializedClass);
         setsubject(data.data.subject);
+        const res = await axios.get("teachers");
+        setlistTeacher(res.data.data.items);
       } catch (e) {}
     })();
   }, []);
@@ -31,67 +33,83 @@ const ClassDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`classes/${id}`, {});
+    const { data } = await axios.put(`classes/${id}`, {
+      className,
+      gradeId,
+      isSpecializedClass,
+      subject,
+    });
     alert("done.");
   };
   return (
     <>
-      <h2 className="text-center"> Thông tin lớp</h2>
-      <div className="container rounded bg-white mt-2 mb-2">
-        <form onSubmit={save}>
-          <div className="col">
-            <div className="">
-              <div className="row mt-3">
-                <div className="col-md-12">
-                  Tên lớp
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={className}
-                    onChange={(e) => setclassName(e.target.value)}
-                  />
-                </div>
-
-                <div className="col-md-12">
-                  Khối
-                  <CFormSelect
-                    value={gradeId}
-                    onChange={(e) => setgradeId(e.target.value)}
-                  >
-                    <option value={1} label="10"></option>
-                    <option value={2} label="11"></option>
-                    <option value={3} label="12"></option>
-                  </CFormSelect>
-                </div>
-                <div className="col-md-12">
-                  Loại lớp
-                  <CFormSelect
-                    value={isSpecializedClass}
-                    onChange={(e) => setisSpecializedClass(e.target.value)}
-                  >
-                    <option value={true} label="Lớp chọn"></option>
-                    <option value={false} label="Lớp bình thường"></option>
-                  </CFormSelect>
-                </div>
-                <div className="col-md-12">
-                  Môn học
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={subject}
-                    onChange={(e) => setsubject(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="mt-5 text-center">
-                <button className="btn btn-primary " type="submit">
-                  Lưu thông tin
-                </button>
-              </div>
-            </div>
+      <div className="mainDiv">
+        <div className="cardStyle">
+          <div className="text-center">
+            <h4>Thông tin lớp</h4>
           </div>
-        </form>
+          <form onSubmit={save}>
+            <div className="inputDiv">
+              Tên lớp
+              <input
+                type="text"
+                className="form-control"
+                value={className}
+                onChange={(e) => setclassName(e.target.value)}
+              />
+            </div>
+
+            <div className="inputDiv">
+              Khối
+              <CFormSelect
+                value={gradeId}
+                onChange={(e) => setgradeId(e.target.value)}
+              >
+                <option value={1} label="10"></option>
+                <option value={2} label="11"></option>
+                <option value={3} label="12"></option>
+              </CFormSelect>
+            </div>
+
+            <div className="inputDiv">
+              Loại lớp
+              <CFormSelect
+                value={isSpecializedClass}
+                onChange={(e) => setisSpecializedClass(e.target.value)}
+              >
+                <option value={true} label="Lớp chọn"></option>
+                <option value={false} label="Lớp bình thường"></option>
+              </CFormSelect>
+            </div>
+            <div className="inputDiv">
+              Môn học
+              <input
+                type="text"
+                className="form-control"
+                value={subject}
+                onChange={(e) => setsubject(e.target.value)}
+              />
+            </div>
+            <div className="inputDiv">
+              Giáo viên chủ nhiệm
+              <CFormSelect>
+                {listteacher.map((item) => (
+                  <option value={item.userId} label={item.displayName}></option>
+                ))}
+              </CFormSelect>
+            </div>
+
+            <div className="buttonWrapper">
+              <button
+                type="submit"
+                id="submitButton"
+                className="submitButton pure-button pure-button-primary"
+              >
+                <span>Lưu thông tin</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

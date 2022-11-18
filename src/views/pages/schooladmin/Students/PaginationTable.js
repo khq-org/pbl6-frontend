@@ -30,7 +30,8 @@ export const PaginationTable = () => {
   const [visible, setVisible] = useState(false);
   const [listclass, setlistclass] = useState([]);
   const [listyear, setlistyear] = useState([]);
-  const [schoolyear, setschoolyear] = useState("");
+  const [clazz, setclazz] = useState(1);
+  const [schoolyear, setschoolyear] = useState(1);
   const [classname, setclassname] = useState("");
 
   useEffect(() => {
@@ -100,6 +101,11 @@ export const PaginationTable = () => {
 
   const { pageIndex, pageSize } = state;
 
+  const show = async (year, cl) => {
+    const res = await axios.get(`students?schoolYearId=${year}&classId=${cl}`);
+    console.log(res);
+    setlistStudent(res.data.data.items);
+  };
   return (
     <>
       <CModal
@@ -121,19 +127,25 @@ export const PaginationTable = () => {
         Năm học:
         <CFormSelect
           className="form-control form-control-sm mr-3 w-25"
-          onChange={(e) => setschoolyear(e.target.value)}
+          onChange={(e) => {
+            setschoolyear(e.target.value);
+            show(e.target.value, clazz);
+          }}
         >
           {listyear?.map((item) => (
-            <option value={item.schoolYear} label={item.schoolYear}></option>
+            <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}
         </CFormSelect>
         Lớp:
         <CFormSelect
           className="form-control form-control-sm mr-3 w-25"
-          onChange={(e) => setclassname(e.target.value)}
+          onChange={(e) => {
+            setclazz(e.target.value);
+            show(schoolyear, e.target.value);
+          }}
         >
           {listclass?.map((items) => (
-            <option value={items.clazz} label={items.clazz}></option>
+            <option value={items.classId} label={items.clazz}></option>
           ))}
         </CFormSelect>
         <CForm className="form-inline ">
