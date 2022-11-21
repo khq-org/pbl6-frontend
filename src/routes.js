@@ -16,8 +16,14 @@ const TeacherDetail = React.lazy(() =>
 const ClassDetail = React.lazy(() =>
   import("./views/pages/schooladmin/class/ClassDetail")
 );
+const StudentDetail = React.lazy(() =>
+  import("./views/pages/schooladmin/Students/StudentDetail")
+);
+const CreateStudent = React.lazy(() =>
+  import("./views/pages/schooladmin/Students/CreateStudent")
+);
 const Class = React.lazy(() => import("./views/pages/schooladmin/class"));
-
+const Calendar = React.lazy(() => import("./views/pages/schooladmin/Calendar"));
 const routes = [
 
   { path: "/startnewyear", name: "Bắt đầu năm học mới", element: StartNewYear },
@@ -26,6 +32,17 @@ const routes = [
     path: "/all-students",
     name: "Danh sách học sinh",
     element: AllStudents,
+  },
+
+  {
+    path: "/all-students/:id",
+    name: "Hồ sơ học sinh",
+    element: StudentDetail,
+  },
+  {
+    path: "/all-students/student",
+    name: "Thêm mới học sinh",
+    element: CreateStudent,
   },
 
   {
@@ -48,6 +65,11 @@ const routes = [
     path: "/classes/:id",
     name: "Thông tin lớp",
     element: ClassDetail,
+  },
+  {
+    path: "/calendar",
+    name: "Lịch",
+    element: Calendar,
   },
   { path: "/info", name: "Thông tin tài khoản", element: Info },
   { path: "/changepw", name: "Đổi mật khẩu", element: Password },
