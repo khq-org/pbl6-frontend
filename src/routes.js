@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
+const StartNewYear = React.lazy(() => import("./views/pages/schooladmin/System"));
 const AllStudents = React.lazy(() =>
   import("./views/pages/schooladmin/Students")
 );
@@ -19,8 +19,8 @@ const ClassDetail = React.lazy(() =>
 const Class = React.lazy(() => import("./views/pages/schooladmin/class"));
 
 const routes = [
-  { path: "/dashboard", exact: true, name: "" },
-  { path: "/dashboard", name: "Dashboard", element: Dashboard },
+
+  { path: "/startnewyear", name: "Bắt đầu năm học mới", element: StartNewYear },
 
   {
     path: "/all-students",
