@@ -165,7 +165,7 @@ export const PaginationTable = () => {
           />
           <button className="material-icons">search</button>
         </CForm>
-        <Link to="/all-students/student">
+        <Link to="student">
           <CButton className="btn btn-primary" type="button">
             Thêm mới
           </CButton>
