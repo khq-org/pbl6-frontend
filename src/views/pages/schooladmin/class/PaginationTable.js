@@ -44,7 +44,7 @@ export const PaginationTable = () => {
         const res = await axios.get("students");
         setliststudent(res.data.data.items);
         //console.log({ res });
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   useEffect(() => {
@@ -56,7 +56,7 @@ export const PaginationTable = () => {
         const res = await axios.get("teachers");
         setlistTeacher(res.data.data.items);
         //console.log({ res });
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const create = async (e) => {
