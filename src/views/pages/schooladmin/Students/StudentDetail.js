@@ -31,21 +31,21 @@ const StudentDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`teachers/${id}`);
+        const { data } = await axios.get(`students/${id}`);
         console.log({ data });
-        setfirstName(data.data.teacher.firstName);
-        setlastName(data.data.teacher.lastName);
-        setgender(data.data.teacher.gender);
-        setdateOfBirth(data.data.teacher.dateOfBirth);
-        setphone(data.data.teacher.phone);
-        setemail(data.data.teacher.email);
-        setplaceOfBirth(data.data.teacher.placeOfBirth);
-        setstreet(data.data.teacher.street);
-        setdistrict(data.data.teacher.district);
-        setcity(data.data.teacher.city);
-        setworkingPosition(data.data.teacher.workingPosition);
-        setnationality(data.data.teacher.nationality);
-        setusername(data.data.teacher.username);
+        setfirstName(data.data.student.firstName);
+        setlastName(data.data.student.lastName);
+        setgender(data.data.student.gender);
+        setdateOfBirth(data.data.student.dateOfBirth);
+        setphone(data.data.student.phone);
+        setemail(data.data.student.email);
+        setplaceOfBirth(data.data.student.placeOfBirth);
+        setstreet(data.data.student.street);
+        setdistrict(data.data.student.district);
+        setcity(data.data.student.city);
+        //setworkingPosition(data.data.students.workingPosition);
+        setnationality(data.data.student.nationality);
+        setusername(data.data.student.username);
       } catch (e) {}
     })();
   }, []);
@@ -68,7 +68,7 @@ const StudentDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`teachers/${id}`, {});
+    const { data } = await axios.put(`students/${id}`, {});
     alert("done.");
   };
   return (
@@ -107,13 +107,18 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      value={lastName}
                       style={{ width: "180px", fontWeight: "bold" }}
                     />
                   </td>
 
                   <td classname="auto-style11">Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "180px" }} />
+                    <input
+                      type="text"
+                      value={firstName}
+                      style={{ width: "180px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
                     Nơi sinh:
@@ -121,6 +126,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      value={placeOfBirth}
                       style={{ width: "230px", fontWeight: "bold" }}
                     />
                   </td>
@@ -135,7 +141,11 @@ const StudentDetail = () => {
                   </td>
                   <td classname="auto-style11">Ngày sinh:</td>
                   <td classname="auto-style1">
-                    <input type="date" style={{ width: "180px" }} />
+                    <input
+                      type="date"
+                      style={{ width: "180px" }}
+                      value={dateOfBirth}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
                     Quốc tịch:
@@ -143,6 +153,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      value={nationality}
                       style={{ width: "230px", fontWeight: "bold" }}
                     />
                   </td>
@@ -182,7 +193,7 @@ const StudentDetail = () => {
                   <td colSpan={2}>
                     <input
                       type="text"
-                      defaultValue="102190265@sv1.dut.udn.vn"
+                      value={username}
                       style={{ width: "350px" }}
                     />
                   </td>
@@ -190,7 +201,11 @@ const StudentDetail = () => {
                     Email cá nhân:
                   </td>
                   <td colSpan={2}>
-                    <input type="text" style={{ width: "310px" }} />
+                    <input
+                      type="text"
+                      style={{ width: "310px" }}
+                      value={email}
+                    />
                   </td>
                 </tr>
 
@@ -199,7 +214,11 @@ const StudentDetail = () => {
                     Điện thoại:
                   </td>
                   <td colSpan={2}>
-                    <input type="text" style={{ width: "350px" }} />
+                    <input
+                      type="text"
+                      style={{ width: "350px" }}
+                      value={phone}
+                    />
                   </td>
                   <td classname="auto-style10">&nbsp;</td>
                   <td colSpan={2}>&nbsp;</td>
@@ -214,7 +233,7 @@ const StudentDetail = () => {
                   <td colSpan={3}>
                     <input
                       type="text"
-                      defaultValue="08 Hà Văn Tĩnh"
+                      value={street}
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
                     />

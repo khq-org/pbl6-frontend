@@ -1,6 +1,5 @@
 import React from "react";
 import "./table.css";
-import { Link, useParams } from "react-router-dom";
 import CITY from "../../vn/CITY.json";
 import DISTRICT from "../../vn/DISTRICT.json";
 import axios from "axios";
@@ -26,30 +25,6 @@ const CreateStudent = () => {
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
 
-  const { id } = useParams();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get(`teachers/${id}`);
-        console.log({ data });
-        setfirstName(data.data.teacher.firstName);
-        setlastName(data.data.teacher.lastName);
-        setgender(data.data.teacher.gender);
-        setdateOfBirth(data.data.teacher.dateOfBirth);
-        setphone(data.data.teacher.phone);
-        setemail(data.data.teacher.email);
-        setplaceOfBirth(data.data.teacher.placeOfBirth);
-        setstreet(data.data.teacher.street);
-        setdistrict(data.data.teacher.district);
-        setcity(data.data.teacher.city);
-        setworkingPosition(data.data.teacher.workingPosition);
-        setnationality(data.data.teacher.nationality);
-        setusername(data.data.teacher.username);
-      } catch (e) {}
-    })();
-  }, []);
-
   useEffect(() => {
     (async () => {
       try {
@@ -65,12 +40,7 @@ const CreateStudent = () => {
     const d = DISTRICT.filter((item) => item.parent_code === code);
     setlistdistrict(d);
   };
-  const save = async (e) => {
-    e.preventDefault();
 
-    const { data } = await axios.put(`teachers/${id}`, {});
-    alert("done.");
-  };
   return (
     <>
       <div
@@ -128,7 +98,7 @@ const CreateStudent = () => {
                 <tr>
                   <td classname="auto-style11">Giới tính:</td>
                   <td>
-                    <CFormSelect value={gender} style={{ width: "180px" }}>
+                    <CFormSelect style={{ width: "180px" }}>
                       <option value={true}>Nam</option>
                       <option value={false}>Nữ</option>
                     </CFormSelect>
@@ -230,9 +200,6 @@ const CreateStudent = () => {
                     <div id="CN_divTinhCTru">
                       <CFormSelect
                         style={{ width: "185px" }}
-                        value={
-                          listcity.find((item) => item.name === city)?.code
-                        }
                         onChange={(e) => setadd(e.target.value)}
                       >
                         {listcity.map((item) => (
@@ -248,7 +215,6 @@ const CreateStudent = () => {
                     <div id="CN_divQuanCTru">
                       <CFormSelect
                         style={{ width: "185px" }}
-                        value={district}
                         onChange={(e) => setdistrict(e.target.value)}
                       >
                         {listdistrict.map((item) => (
@@ -318,7 +284,6 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      value={listcity.find((item) => item.name === city)?.code}
                       onChange={(e) => setadd(e.target.value)}
                     >
                       {listcity.map((item) => (
@@ -330,7 +295,6 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      value={district}
                       onChange={(e) => setdistrict(e.target.value)}
                     >
                       {listdistrict.map((item) => (
@@ -382,7 +346,6 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      value={listcity.find((item) => item.name === city)?.code}
                       onChange={(e) => setadd(e.target.value)}
                     >
                       {listcity.map((item) => (
@@ -394,7 +357,6 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      value={district}
                       onChange={(e) => setdistrict(e.target.value)}
                     >
                       {listdistrict.map((item) => (

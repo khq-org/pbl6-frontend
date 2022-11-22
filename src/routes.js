@@ -24,10 +24,19 @@ const CreateStudent = React.lazy(() =>
 );
 const Class = React.lazy(() => import("./views/pages/schooladmin/class"));
 const Calendar = React.lazy(() => import("./views/pages/schooladmin/Calendar"));
+const NewyearStart = React.lazy(() =>
+  import("./views/pages/schooladmin/NewyearStart")
+);
 const routes = [
+<<<<<<< HEAD
+  { path: "/dashboard", exact: true, name: "" },
+  { path: "/dashboard", name: "Dashboard", element: Dashboard },
+  { path: "/newyear", name: "Năm học mới", element: NewyearStart },
+=======
 
   { path: "/startnewyear", name: "Bắt đầu năm học mới", element: StartNewYear },
 
+>>>>>>> 9b2c0f7448184edef813421151f73fbb575b0666
   {
     path: "/all-students",
     name: "Danh sách học sinh",
