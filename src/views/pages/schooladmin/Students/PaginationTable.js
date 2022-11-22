@@ -165,7 +165,7 @@ export const PaginationTable = () => {
           />
           <button className="material-icons">search</button>
         </CForm>
-        <Link to="student">
+        <Link to="/all-students/student">
           <CButton className="btn btn-primary" type="button">
             Thêm mới
           </CButton>
@@ -207,7 +207,7 @@ export const PaginationTable = () => {
                         </Link>
                       </CDropdownItem>
                       <CDropdownItem>
-                        <Link to={`${row.original.userId}`}>
+                        <Link to={`/all-students/${row.original.userId}`}>
                           Hồ sơ học sinh
                         </Link>
                       </CDropdownItem>
