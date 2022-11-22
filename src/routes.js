@@ -1,6 +1,8 @@
 import React from "react";
 
-const StartNewYear = React.lazy(() => import("./views/pages/schooladmin/System"));
+const StartNewYear = React.lazy(() =>
+  import("./views/pages/schooladmin/System")
+);
 const AllStudents = React.lazy(() =>
   import("./views/pages/schooladmin/Students")
 );
@@ -27,16 +29,14 @@ const Calendar = React.lazy(() => import("./views/pages/schooladmin/Calendar"));
 const NewyearStart = React.lazy(() =>
   import("./views/pages/schooladmin/NewyearStart")
 );
+const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const routes = [
-<<<<<<< HEAD
   { path: "/dashboard", exact: true, name: "" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
   { path: "/newyear", name: "Năm học mới", element: NewyearStart },
-=======
 
   { path: "/startnewyear", name: "Bắt đầu năm học mới", element: StartNewYear },
 
->>>>>>> 9b2c0f7448184edef813421151f73fbb575b0666
   {
     path: "/all-students",
     name: "Danh sách học sinh",

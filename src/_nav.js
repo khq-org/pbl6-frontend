@@ -29,13 +29,13 @@ const _nav = [
       },
       {
         component: CNavItem,
-<<<<<<< HEAD
         name: "Năm học mới",
         to: "/newyear",
-=======
+      },
+      {
+        component: CNavItem,
         name: "Bắt đầu năm học mới",
         to: "/startnewyear",
->>>>>>> 9b2c0f7448184edef813421151f73fbb575b0666
       },
     ],
   },
