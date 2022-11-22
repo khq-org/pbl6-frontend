@@ -29,8 +29,8 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: "Khai báo dữ liệu",
-        to: "/dashboard",
+        name: "Năm học mới",
+        to: "/newyear",
       },
     ],
   },
