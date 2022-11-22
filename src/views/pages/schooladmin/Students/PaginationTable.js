@@ -36,7 +36,6 @@ export const PaginationTable = () => {
   const [listyear, setlistyear] = useState([]);
   const [clazz, setclazz] = useState(1);
   const [schoolyear, setschoolyear] = useState(1);
-  const [classname, setclassname] = useState("");
 
   useEffect(() => {
     (async () => {

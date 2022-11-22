@@ -1,11 +1,16 @@
 import React from "react";
-import ReactBigCalendar from "./ReactBigCalendar";
+import axios from "axios";
+import { CFormSelect, CForm } from "@coreui/react";
 
 const Calendar = () => {
   return (
     <>
-      <div className="text-center">calendar</div>
-      {/* <ReactBigCalendar /> */}
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+        Năm học:
+        <CFormSelect className="form-control form-control-sm mr-3 w-25"></CFormSelect>
+        Lớp:
+        <CFormSelect className="form-control form-control-sm mr-3 w-25"></CFormSelect>
+      </div>
     </>
   );
 };

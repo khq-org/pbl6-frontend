@@ -80,7 +80,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: "LỊCH",
+    name: "THỜI KHÓA BIỂU",
     to: "/calendar",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
   },
