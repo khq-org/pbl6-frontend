@@ -2,7 +2,7 @@
   "name": "@coreui/coreui-free-react-admin-template",
   "version": "4.4.0",
   "description": "CoreUI Free React Admin Template",
-  "homepage": "https://nguyenhuan2102.github.io/PBL6-FrontEnd",
+  "homepage": ".",
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
   },
@@ -13,8 +13,6 @@
   "license": "MIT",
   "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "changelog": "auto-changelog --starting-version 4.4.0 --commit-limit false --hide-credit",
     "eject": "react-scripts eject",
