@@ -5,6 +5,7 @@ import DISTRICT from "../../vn/DISTRICT.json";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { CFormSelect } from "@coreui/react";
+import { useNavigate } from "react-router-dom";
 
 const CreateStudent = () => {
   const token = localStorage.getItem("access_token");
@@ -20,11 +21,21 @@ const CreateStudent = () => {
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
   const [workingPosition, setworkingPosition] = useState("");
-  const [username, setusername] = useState("");
+  const [classId, setclassId] = useState(1);
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
+  const [listclass, setlistclass] = useState([]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        //const res = await axios.get("classes?schoolYearId=1");
+        const res = await axios.get("classes");
+        setlistclass(res.data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
   useEffect(() => {
     (async () => {
       try {
@@ -41,6 +52,27 @@ const CreateStudent = () => {
     setlistdistrict(d);
   };
 
+  let nav = useNavigate();
+  const create = async (e) => {
+    e.preventDefault();
+    const res = await axios.post("students", {
+      firstName,
+      lastName,
+      dateOfBirth,
+      placeOfBirth,
+      gender,
+      phone,
+      email,
+      street,
+      district,
+      city,
+      nationality,
+      workingPosition,
+      classId,
+    });
+    //console.log(res);
+    nav(-1);
+  };
   return (
     <>
       <div
@@ -78,12 +110,17 @@ const CreateStudent = () => {
                     <input
                       type="text"
                       style={{ width: "180px", fontWeight: "bold" }}
+                      onChange={(e) => setlastName(e.target.value)}
                     />
                   </td>
 
                   <td classname="auto-style11">Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "180px" }} />
+                    <input
+                      type="text"
+                      style={{ width: "180px" }}
+                      onChange={(e) => setfirstName(e.target.value)}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
                     Nơi sinh:
@@ -92,20 +129,30 @@ const CreateStudent = () => {
                     <input
                       type="text"
                       style={{ width: "230px", fontWeight: "bold" }}
+                      onChange={(e) => setplaceOfBirth(e.target.value)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td classname="auto-style11">Giới tính:</td>
                   <td>
-                    <CFormSelect style={{ width: "180px" }}>
+                    <CFormSelect
+                      onChange={(e) => setgender(e.target.value)}
+                      style={{ width: "180px" }}
+                    >
                       <option value={true}>Nam</option>
                       <option value={false}>Nữ</option>
                     </CFormSelect>
                   </td>
                   <td classname="auto-style11">Ngày sinh:</td>
                   <td classname="auto-style1">
-                    <input type="date" style={{ width: "180px" }} />
+                    <input
+                      type="date"
+                      style={{ width: "180px" }}
+                      onChange={(e) =>
+                        setdateOfBirth(e.target.value.toString())
+                      }
+                    />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
                     Quốc tịch:
@@ -114,6 +161,7 @@ const CreateStudent = () => {
                     <input
                       type="text"
                       style={{ width: "230px", fontWeight: "bold" }}
+                      onChange={(e) => setnationality(e.target.value)}
                     />
                   </td>
                 </tr>
@@ -147,20 +195,30 @@ const CreateStudent = () => {
 
                 <tr>
                   <td colSpan={2} style={{ textAlign: "right" }}>
-                    Tài khoản
+                    Lớp
                   </td>
                   <td colSpan={2}>
-                    <input
-                      type="text"
-                      defaultValue="102190265@sv1.dut.udn.vn"
-                      style={{ width: "350px" }}
-                    />
+                    <CFormSelect
+                      className="form-control form-control-sm mr-3 w-25"
+                      onChange={(e) => setclassId(e.target.value)}
+                    >
+                      {listclass?.map((items) => (
+                        <option
+                          value={items.classId}
+                          label={items.clazz}
+                        ></option>
+                      ))}
+                    </CFormSelect>
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style10">
                     Email cá nhân:
                   </td>
                   <td colSpan={2}>
-                    <input type="text" style={{ width: "310px" }} />
+                    <input
+                      type="text"
+                      style={{ width: "310px" }}
+                      onChange={(e) => setemail(e.target.value)}
+                    />
                   </td>
                 </tr>
 
@@ -169,7 +227,11 @@ const CreateStudent = () => {
                     Điện thoại:
                   </td>
                   <td colSpan={2}>
-                    <input type="text" style={{ width: "350px" }} />
+                    <input
+                      type="text"
+                      style={{ width: "350px" }}
+                      onChange={(e) => setphone(e.target.value)}
+                    />
                   </td>
                   <td classname="auto-style10">&nbsp;</td>
                   <td colSpan={2}>&nbsp;</td>
@@ -184,9 +246,9 @@ const CreateStudent = () => {
                   <td colSpan={3}>
                     <input
                       type="text"
-                      defaultValue="08 Hà Văn Tĩnh"
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
+                      onChange={(e) => setstreet(e.target.value)}
                     />
                   </td>
                   <td></td>
@@ -369,8 +431,16 @@ const CreateStudent = () => {
             </table>
           </div>
         </div>
-        <br />
-        <br />
+
+        <div className="mt-2 text-center">
+          <button
+            className="btn btn-primary profile-button"
+            type="button"
+            onClick={create}
+          >
+            Thêm mới
+          </button>
+        </div>
       </div>
     </>
   );

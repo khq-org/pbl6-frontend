@@ -25,6 +25,7 @@ const StudentDetail = () => {
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
+  const [classId, setclassId] = useState(1);
 
   const { id } = useParams();
 
@@ -45,6 +46,7 @@ const StudentDetail = () => {
         setcity(data.data.student.city);
         //setworkingPosition(data.data.students.workingPosition);
         setnationality(data.data.student.nationality);
+
         setusername(data.data.student.username);
       } catch (e) {}
     })();
@@ -68,8 +70,22 @@ const StudentDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`students/${id}`, {});
-    alert("done.");
+    const { data } = await axios.put(`students/${id}`, {
+      firstName,
+      lastName,
+      dateOfBirth,
+      placeOfBirth,
+      gender,
+      phone,
+      email,
+      street,
+      district,
+      city,
+      nationality,
+      workingPosition,
+      classId,
+    });
+    console.log(data);
   };
   return (
     <>
@@ -109,6 +125,7 @@ const StudentDetail = () => {
                       type="text"
                       value={lastName}
                       style={{ width: "180px", fontWeight: "bold" }}
+                      onChange={(e) => setlastName(e.target.value)}
                     />
                   </td>
 
@@ -118,6 +135,7 @@ const StudentDetail = () => {
                       type="text"
                       value={firstName}
                       style={{ width: "180px" }}
+                      onChange={(e) => setfirstName(e.target.value)}
                     />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
@@ -128,13 +146,18 @@ const StudentDetail = () => {
                       type="text"
                       value={placeOfBirth}
                       style={{ width: "230px", fontWeight: "bold" }}
+                      onChange={(e) => setplaceOfBirth(e.target.value)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td classname="auto-style11">Giới tính:</td>
                   <td>
-                    <CFormSelect value={gender} style={{ width: "180px" }}>
+                    <CFormSelect
+                      onChange={(e) => setgender(e.target.value)}
+                      value={gender}
+                      style={{ width: "180px" }}
+                    >
                       <option value={true}>Nam</option>
                       <option value={false}>Nữ</option>
                     </CFormSelect>
@@ -145,6 +168,7 @@ const StudentDetail = () => {
                       type="date"
                       style={{ width: "180px" }}
                       value={dateOfBirth}
+                      onChange={(e) => setdateOfBirth(e.target.value)}
                     />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
@@ -155,6 +179,7 @@ const StudentDetail = () => {
                       type="text"
                       value={nationality}
                       style={{ width: "230px", fontWeight: "bold" }}
+                      onChange={(e) => setnationality(e.target.value)}
                     />
                   </td>
                 </tr>
@@ -205,6 +230,7 @@ const StudentDetail = () => {
                       type="text"
                       style={{ width: "310px" }}
                       value={email}
+                      onChange={(e) => setemail(e.target.value)}
                     />
                   </td>
                 </tr>
@@ -218,6 +244,7 @@ const StudentDetail = () => {
                       type="text"
                       style={{ width: "350px" }}
                       value={phone}
+                      onChange={(e) => setphone(e.target.value)}
                     />
                   </td>
                   <td classname="auto-style10">&nbsp;</td>
@@ -236,6 +263,7 @@ const StudentDetail = () => {
                       value={street}
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
+                      onChange={(e) => setstreet(e.target.value)}
                     />
                   </td>
                   <td></td>
@@ -425,6 +453,15 @@ const StudentDetail = () => {
               </tbody>
             </table>
           </div>
+        </div>
+        <div className="mt-5 text-center">
+          <button
+            className="btn btn-primary profile-button"
+            type="button"
+            onClick={save}
+          >
+            Cập nhật thông tin
+          </button>
         </div>
         <br />
         <br />

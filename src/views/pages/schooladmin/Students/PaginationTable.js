@@ -43,7 +43,8 @@ export const PaginationTable = () => {
         const { data } = await axios.get("schoolyear");
         console.log(data);
         setlistyear(data.data.items);
-        const res = await axios.get("classes?schoolYearId=1");
+        //const res = await axios.get("classes?schoolYearId=1");
+        const res = await axios.get("classes");
         setlistclass(res.data.data.items);
       } catch (e) {}
     })();
@@ -137,7 +138,8 @@ export const PaginationTable = () => {
           className="form-control form-control-sm mr-3 w-25"
           onChange={(e) => {
             setschoolyear(e.target.value);
-            setcl(e.target.value);
+            //setcl(e.target.value);
+            show(e.target.value, clazz);
           }}
         >
           {listyear?.map((item) => (

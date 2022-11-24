@@ -39,12 +39,9 @@ export const PaginationTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("classes?schoolYearId=1");
+        const { data } = await axios.get("classes");
         setlistclass(data.data.items);
-        const res = await axios.get("students");
-        setliststudent(res.data.data.items);
-        //console.log({ res });
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
   useEffect(() => {
@@ -56,7 +53,7 @@ export const PaginationTable = () => {
         const res = await axios.get("teachers");
         setlistTeacher(res.data.data.items);
         //console.log({ res });
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
   const create = async (e) => {
@@ -114,6 +111,7 @@ export const PaginationTable = () => {
   };
   const getlistclassbyyear = async (yearid) => {
     const res = await axios.get(`classes?schoolYearId=${yearid}`);
+
     console.log(res);
     setlistclass(res.data.data.items);
   };
@@ -242,7 +240,7 @@ export const PaginationTable = () => {
           className="form-control form-control-sm mr-3 w-25"
           onChange={(e) => {
             setschoolyear(e.target.value);
-            getlistclassbyyear(e.target.value);
+            //getlistclassbyyear(e.target.value);
           }}
         >
           {listyear.map((item) => (

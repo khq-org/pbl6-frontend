@@ -27,11 +27,7 @@ const _nav = [
         name: "Thông tin nhà trường",
         to: "/school",
       },
-      {
-        component: CNavItem,
-        name: "Năm học mới",
-        to: "/newyear",
-      },
+
       {
         component: CNavItem,
         name: "Bắt đầu năm học mới",
@@ -79,10 +75,22 @@ const _nav = [
     ],
   },
   {
-    component: CNavItem,
-    name: "THỜI KHÓA BIỂU",
-    to: "/calendar",
+    component: CNavGroup,
+    name: "LỊCH",
+    to: "#",
     icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Lịch thi",
+        to: "/exam",
+      },
+      {
+        component: CNavItem,
+        name: "Thời khóa biểu",
+        to: "/calendar",
+      },
+    ],
   },
 ];
 // const _nav = [
