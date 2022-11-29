@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from "react-table";
 import { Link, useNavigate } from "react-router-dom";
 import CITY from "../../vn/CITY.json";
 import DISTRICT from "../../vn/DISTRICT.json";
@@ -17,7 +17,21 @@ import {
   CFormSelect,
 } from "@coreui/react";
 
+import { GlobalFilter } from './GlobalFilter'
+import { ColumnFilter } from './ColumnFilter'
+
 export const PaginationTable = () => {
+
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      Filter: ColumnFilter
+    }),
+    []
+  )
+
+
+
   const columns = useMemo(() => COLUMNS, []);
 
   const token = localStorage.getItem("access_token");
@@ -46,7 +60,7 @@ export const PaginationTable = () => {
       try {
         setlistcity(CITY);
         setlistdistrict(DISTRICT);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
 
@@ -65,7 +79,7 @@ export const PaginationTable = () => {
         //console.log({ data });
         setlistTeacher(data.data.items);
         setPageSize(Number(5));
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const create = async (e) => {
@@ -110,16 +124,26 @@ export const PaginationTable = () => {
     pageCount,
     setPageSize,
     prepareRow,
+
+    setGlobalFilter
+
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
+      defaultColumn
     },
-    usePagination
+
+
+
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
+    usePagination,
   );
 
-  const { pageIndex, pageSize } = state;
+  const { pageIndex, pageSize, globalFilter } = state;
 
   return (
     <>
@@ -296,13 +320,27 @@ export const PaginationTable = () => {
           Thêm mới
         </CButton>
       </div>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}
+
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
+
+                  {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
+
+                </th>
               ))}
+
               <th>Hành động</th>
             </tr>
           ))}

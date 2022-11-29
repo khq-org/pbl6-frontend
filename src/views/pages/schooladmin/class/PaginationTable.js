@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from "react-table";
 import { Link, useNavigate } from "react-router-dom";
 
 import { COLUMNS } from "./columns";
@@ -15,8 +15,13 @@ import {
   CFormSelect,
   CForm,
 } from "@coreui/react";
+import { GlobalFilter } from './GlobalFilter'
+
 
 export const PaginationTable = () => {
+
+
+
   const columns = useMemo(() => COLUMNS, []);
 
   const token = localStorage.getItem("access_token");
@@ -41,7 +46,7 @@ export const PaginationTable = () => {
       try {
         const { data } = await axios.get("classes");
         setlistclass(data.data.items);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   useEffect(() => {
@@ -53,7 +58,7 @@ export const PaginationTable = () => {
         const res = await axios.get("teachers");
         setlistTeacher(res.data.data.items);
         //console.log({ res });
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const create = async (e) => {
@@ -90,16 +95,22 @@ export const PaginationTable = () => {
     pageCount,
     setPageSize,
     prepareRow,
+
+    setGlobalFilter
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
     },
+
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
     usePagination
   );
 
-  const { pageIndex, pageSize } = state;
+  const { pageIndex, pageSize, globalFilter } = state;
 
   const getliststudentbyidclass = async (classid) => {
     const res = await axios.get(
@@ -270,13 +281,26 @@ export const PaginationTable = () => {
           Thêm mới
         </CButton>
       </div>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}
+
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
+
+                  {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
+
+                </th>))}
               <th>Hành động</th>
             </tr>
           ))}

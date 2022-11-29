@@ -1,5 +1,19 @@
 import { format } from "date-fns";
-
+var mapSubjects = {
+  Biological: "Sinh học",
+  Chemistry: "Hóa học",
+  Civic_Education: "Giáo dục công dân",
+  Defense_Education: "Giáo dục quốc phòng",
+  English: "Tiếng Anh",
+  Geographic: "Địa lý",
+  History: "Lịch Sử",
+  Informatics: "Tin học",
+  Literature: "Ngữ văn",
+  Maths: "Toán học",
+  Physic: "Vật lý",
+  Physical_Education: "Thể dục",
+  Technology: "Tin học"
+}
 export const COLUMNS = [
   {
     Header: "Id",
@@ -56,6 +70,9 @@ export const COLUMNS = [
     Footer: "Chức vụ",
     accessor: "workingPosition",
     sticky: "left",
+    Cell: ({ value }) => {
+      return mapSubjects[value.replace(" ", "_")]
+    },
   },
   {
     Header: "Số điện thoại",

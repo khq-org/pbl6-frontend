@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from "react-table";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -21,6 +21,8 @@ import {
   CDropdownMenu,
   CDropdownItem,
 } from "@coreui/react";
+import { GlobalFilter } from './GlobalFilter'
+
 import { Link } from "react-router-dom";
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -46,7 +48,7 @@ export const PaginationTable = () => {
         //const res = await axios.get("classes?schoolYearId=1");
         const res = await axios.get("classes");
         setlistclass(res.data.data.items);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
 
@@ -56,7 +58,7 @@ export const PaginationTable = () => {
         const { data } = await axios.get("students?schoolYearId=1&classId=1");
         //console.log({ data });
         setlistStudent(data.data.items);
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
   const getProfile = async (id) => {
@@ -94,16 +96,22 @@ export const PaginationTable = () => {
     pageCount,
     setPageSize,
     prepareRow,
+
+    setGlobalFilter
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
     },
+
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
     usePagination
   );
 
-  const { pageIndex, pageSize } = state;
+  const { pageIndex, pageSize, globalFilter } = state;
 
   const show = async (year, cl) => {
     const res = await axios.get(`students?schoolYearId=${year}&classId=${cl}`);
@@ -173,13 +181,26 @@ export const PaginationTable = () => {
           </CButton>
         </Link>
       </div>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}
+
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? ' 🔽'
+                        : ' 🔼'
+                      : ''}
+                  </span>
+
+                  {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
+
+                </th>))}
               <th>Hành động</th>
             </tr>
           ))}
