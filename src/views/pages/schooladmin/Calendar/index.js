@@ -1,157 +1,246 @@
 import React from "react";
 
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import {
+  CModal,
+  CButton,
+  CModalHeader,
+  CModalBody,
+  CModalTitle,
+  CFormSelect,
+  CForm,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem,
+} from "@coreui/react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getDate, getDay, isToday } from "date-fns";
 
-import Control from "./Control";
-import Form from "./Form";
-import ListEvent from "./ListEvent";
-const convertDate = (info) => {
-  let start = new Date(info.event.start);
-  let end = new Date(info.event.end);
-  const eventUpdate = {
-    title: info.event.title,
-    start: start.toISOString(),
-    end: end.toISOString(),
-    id: info.event.id,
-    allDay: info.event.allDay,
-  };
-  return eventUpdate;
-};
-class Calendar extends React.Component {
-  calendarRef = React.createRef();
-  state = {
-    Events: [],
-    eventUpdate: {},
-    isShowForm: false,
-    isShowListEvent: false,
-    infoDateClick: undefined,
-  };
+const Calendar = () => {
+  const token = localStorage.getItem("access_token");
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const [listclass, setlistclass] = useState([]);
+  const [listyear, setlistyear] = useState([]);
+  const [listteacher, setlistTeacher] = useState([]);
+  const [listCalendar, setlistCalendar] = useState([]);
+  const [clazz, setclazz] = useState(1);
+  const [visible, setVisible] = useState(false);
+  const [title, settitle] = useState("");
+  const day = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const tiet = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  eventDragStop = (info) => {
-    // // const Events = Object.assign([], this.state.Events);
-    // let Events = JSON.parse(JSON.stringify(this.state.Events))
-    // const event = convertDate(info);
-    // const index = Events.findIndex((Event) => Event.id === event.id);
-    // console.log(index)
-    // Events.splice(index, 1, event);
-    // this.setState({
-    //   Events: Object.assign([], Events)
-    // })
-  };
-  handleDateClick = (infoDateClick) => {
-    this.setState({
-      eventUpdate: {},
-      isShowForm: true,
-      infoDateClick,
-    });
-  };
-  handleEventClick = (infoEventClick) => {
-    const eventUpdate = convertDate(infoEventClick);
-    console.log(eventUpdate);
-    this.setState({
-      eventUpdate: { ...eventUpdate },
-      isShowForm: true,
-    });
-  };
-  onClick = (name) => {
-    switch (name) {
-      case "add": {
-        this.setState({
-          isShowForm: !this.state.isShowForm,
-          eventUpdate: {},
-        });
-        break;
-      }
-      case "event": {
-        this.setState({
-          isShowListEvent: !this.state.isShowListEvent,
-        });
-        break;
-      }
-      default:
-    }
-  };
-  onSubmit = (eventFromChild) => {
-    let Events = JSON.parse(JSON.stringify(this.state.Events));
-    if (this.state.eventUpdate.id) {
-      const index = Events.findIndex((event) => event.id === eventFromChild.id);
-      Events.splice(index, 1, eventFromChild);
-      this.setState({
-        Events,
-        isShowForm: false,
-        eventUpdate: {},
-        infoDateClick: undefined,
-      });
-    } else {
-      Events.push(eventFromChild);
-      this.setState({
-        Events: Events,
-        isShowForm: false,
-        infoDateClick: undefined,
-      });
-    }
-  };
-  deleteEvent = (id) => {
-    let Events = JSON.parse(JSON.stringify(this.state.Events));
-    const index = Events.findIndex((event) => event.id === id);
-    Events.splice(index, 1);
-    this.setState({
-      Events,
-    });
-  };
-  isUpdateEvent = (eventUpdate) => {
-    this.setState({
-      eventUpdate: { ...eventUpdate },
-      isShowForm: true,
-      infoDateClick: undefined,
-    });
-  };
-  render() {
-    let { isShowForm, isShowListEvent, Events, eventUpdate, infoDateClick } =
-      this.state;
+  const [calendarEventName, setcalendarEventName] = useState("");
+  const [calendarEventType, setcalendarEventType] = useState("Study");
+  const [classIds, setclassIds] = useState([1]);
+  const [userIds, setuserIds] = useState([0]);
 
-    return (
-      <div className="Calendar">
-        <Control onClick={this.onClick} />
-        {isShowForm && (
-          <Form
-            onSubmit={this.onSubmit}
-            infoDateClick={infoDateClick}
-            eventUpdate={eventUpdate}
-          />
-        )}
-        {isShowListEvent && (
-          <ListEvent
-            Events={Events}
-            deleteEvent={this.deleteEvent}
-            isUpdateEvent={this.isUpdateEvent}
-          />
-        )}
-        <FullCalendar
-          initialView="timeGridWeek"
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          ref={this.calendarRef}
-          events={Events}
-          dateClick={this.handleDateClick}
-          eventClick={this.handleEventClick}
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          // eventDragStop={this.eventDragStop}
-        />
-      </div>
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("schoolyear");
+        //console.log(data);
+        setlistyear(data.data.items);
+        const res = await axios.get("classes");
+        setlistclass(res.data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          "calendars?classId=1&calendarType=Study"
+        );
+        //console.log(data);
+        setlistCalendar(data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("teachers");
+        //console.log({ data });
+        setlistTeacher(data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
+  const setc = async (id) => {
+    const { data } = await axios.get(
+      `calendars?classId=${id}&calendarType=Study`
     );
-  }
-}
+    console.log(data);
+    setlistCalendar(data.data.items);
+  };
+  const findcalendar = (tiet, day) => {
+    return listCalendar?.find((element) => {
+      return element.dayOfWeek === day && element.lessonStart === tiet;
+    });
+  };
+
+  return (
+    <>
+      <CModal
+        size="lg"
+        alignment="center"
+        visible={visible}
+        onClose={() => setVisible(false)}
+      >
+        <CModalHeader>
+          <CModalTitle>{title}</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <div className="container-form"></div>
+        </CModalBody>
+      </CModal>
+      <div style={{ height: "60%", width: "100%", padding: "5px 2px 2px 2px" }}>
+        <div
+          classname="GreyBox"
+          style={{ marginRight: "auto", marginLeft: "auto" }}
+        >
+          <table className="table table-dark">
+            <tbody>
+              <tr>
+                <td style={{ textAlign: "center", width: "7%" }}>Năm học:</td>
+                <td>
+                  <CFormSelect>
+                    {listyear?.map((item) => (
+                      <option
+                        value={item.schoolYearId}
+                        label={item.schoolYear}
+                      ></option>
+                    ))}
+                  </CFormSelect>
+                </td>
+                <td style={{ textAlign: "center", width: "5%" }}>Lớp:</td>
+                <td>
+                  <CFormSelect
+                    onChange={(e) => {
+                      setc(e.target.value);
+                      setclazz(e.target.value);
+                    }}
+                  >
+                    {listclass?.map((items) => (
+                      <option
+                        value={items.classId}
+                        label={items.clazz}
+                      ></option>
+                    ))}
+                  </CFormSelect>
+                </td>
+                <td style={{ textAlign: "center", width: "50%" }}></td>
+                <td>
+                  <CButton
+                    onClick={(e) => {
+                      setVisible(true);
+                      settitle("Thêm mới");
+                    }}
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    Thêm mới
+                  </CButton>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style={{ width: "100%", padding: "5px 2px 2px 2px" }}>
+        <div
+          classname="GreyBox"
+          style={{ marginRight: "auto", marginLeft: "auto" }}
+        >
+          <div class="table-wrer-scroll-y my-custom-scrollbar">
+            <table className="table table-bordered table-active">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Thứ 2</th>
+                  <th>Thứ 3</th>
+                  <th>Thứ 4</th>
+                  <th>Thứ 5</th>
+                  <th>Thứ 6</th>
+                  <th>Thứ 7</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tiet.map((item) => (
+                  <tr>
+                    <td>Tiết{item}</td>
+                    {day.map((items) => (
+                      <td style={{ width: "14%" }}>
+                        {findcalendar(item, items) ? (
+                          <div>
+                            <CDropdown>
+                              <CDropdownToggle color="white">
+                                {findcalendar(item, items)?.calendarEvent}-
+                                {findcalendar(item, items)?.teacher.lastName}
+                                &nbsp;
+                                {findcalendar(item, items)?.teacher.firstName}
+                              </CDropdownToggle>
+                              <CDropdownMenu>
+                                <CDropdownItem>
+                                  <Link
+                                    onClick={(e) => {
+                                      setVisible(true);
+                                      settitle("Sửa");
+                                    }}
+                                    title="Sửa"
+                                    cshools-toggle="tooltip"
+                                  >
+                                    <i className="material-icons">&#xE254;</i>
+                                  </Link>
+                                </CDropdownItem>
+                                <CDropdownItem>
+                                  <Link title="Xóa" cshools-toggle="tooltip">
+                                    <i className="material-icons">&#xE872;</i>
+                                  </Link>
+                                </CDropdownItem>
+                              </CDropdownMenu>
+                            </CDropdown>
+                          </div>
+                        ) : (
+                          <div className="text-center">
+                            <Link
+                              className="text-center"
+                              onClick={(e) => {
+                                setVisible(true);
+                                settitle("Thêm mới");
+                              }}
+                            >
+                              <i className="material-icons">&#xe146;</i>
+                            </Link>
+                          </div>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* <div className="mt-5 text-center">
+            <button className="btn btn-primary profile-button" type="button">
+              Cập nhật
+            </button>
+          </div> */}
+        </div>
+        <br />
+        <br />
+      </div>
+    </>
+  );
+};
 
 export default Calendar;
 
