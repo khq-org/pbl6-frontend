@@ -12,8 +12,8 @@ var mapSubjects = {
   Maths: "Toán học",
   Physic: "Vật lý",
   Physical_Education: "Thể dục",
-  Technology: "Tin học"
-}
+  Technology: "Tin học",
+};
 export const COLUMNS = [
   {
     Header: "Id",
@@ -46,32 +46,32 @@ export const COLUMNS = [
       return value ? "Nam" : "Nữ";
     },
   },
-  {
-    Header: "Số nhà",
-    Footer: "Số nhà",
-    accessor: "street",
-    sticky: "left",
-  },
+  // {
+  //   Header: "Địa chỉ",
+  //   Footer: "Địa chỉ",
+  //   accessor: "street",
+  //   sticky: "left",
+  // },
 
+  // {
+  //   Header: "Quận/Huyện",
+  //   Footer: "Quận/Huyện",
+  //   accessor: "district",
+  //   sticky: "left",
+  // },
+  // {
+  //   Header: "Tỉnh/Thành phố",
+  //   Footer: "Tỉnh/Thành phố",
+  //   accessor: "city",
+  //   sticky: "left",
+  // },
   {
-    Header: "Quận/Huyện",
-    Footer: "Quận/Huyện",
-    accessor: "district",
-    sticky: "left",
-  },
-  {
-    Header: "Tỉnh/Thành phố",
-    Footer: "Tỉnh/Thành phố",
-    accessor: "city",
-    sticky: "left",
-  },
-  {
-    Header: "Chức vụ",
-    Footer: "Chức vụ",
+    Header: "Giáo viên bộ môn",
+    Footer: "Giáo viên bộ môn",
     accessor: "workingPosition",
     sticky: "left",
     Cell: ({ value }) => {
-      return mapSubjects[value.replace(" ", "_")]
+      return mapSubjects[value.replace(" ", "_")];
     },
   },
   {

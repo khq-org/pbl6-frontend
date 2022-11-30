@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useSortBy,
+  useFilters,
+  useGlobalFilter,
+} from "react-table";
 import { Link, useNavigate } from "react-router-dom";
 import CITY from "../../vn/CITY.json";
 import DISTRICT from "../../vn/DISTRICT.json";
@@ -17,20 +23,16 @@ import {
   CFormSelect,
 } from "@coreui/react";
 
-import { GlobalFilter } from './GlobalFilter'
-import { ColumnFilter } from './ColumnFilter'
+import { GlobalFilter } from "./../GlobalFilter";
+import { ColumnFilter } from "./ColumnFilter";
 
 export const PaginationTable = () => {
-
-
   const defaultColumn = React.useMemo(
     () => ({
-      Filter: ColumnFilter
+      Filter: ColumnFilter,
     }),
     []
-  )
-
-
+  );
 
   const columns = useMemo(() => COLUMNS, []);
 
@@ -60,7 +62,7 @@ export const PaginationTable = () => {
       try {
         setlistcity(CITY);
         setlistdistrict(DISTRICT);
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
 
@@ -78,8 +80,7 @@ export const PaginationTable = () => {
         const { data } = await axios.get("teachers");
         //console.log({ data });
         setlistTeacher(data.data.items);
-        setPageSize(Number(5));
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
   const create = async (e) => {
@@ -125,22 +126,19 @@ export const PaginationTable = () => {
     setPageSize,
     prepareRow,
 
-    setGlobalFilter
-
+    setGlobalFilter,
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
-      defaultColumn
+      defaultColumn,
     },
-
-
 
     useFilters,
     useGlobalFilter,
     useSortBy,
-    usePagination,
+    usePagination
   );
 
   const { pageIndex, pageSize, globalFilter } = state;
@@ -303,15 +301,7 @@ export const PaginationTable = () => {
         </CModalBody>
       </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <form className="form-inline ">
-          <input
-            className="form-control form-control-sm mr-3 w-75"
-            type="text"
-            placeholder="Tìm kiếm..."
-            aria-label="Search"
-          />
-          <button className="material-icons">search</button>
-        </form>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <CButton
           className="btn btn-primary"
           type="button"
@@ -320,24 +310,24 @@ export const PaginationTable = () => {
           Thêm mới
         </CButton>
       </div>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
 
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
                   </span>
 
                   {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
-
                 </th>
               ))}
 

@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useSortBy,
+  useFilters,
+  useGlobalFilter,
+} from "react-table";
 import { Link, useNavigate } from "react-router-dom";
 
 import { COLUMNS } from "./columns";
@@ -15,13 +21,9 @@ import {
   CFormSelect,
   CForm,
 } from "@coreui/react";
-import { GlobalFilter } from './GlobalFilter'
-
+import { GlobalFilter } from "./../GlobalFilter";
 
 export const PaginationTable = () => {
-
-
-
   const columns = useMemo(() => COLUMNS, []);
 
   const token = localStorage.getItem("access_token");
@@ -46,7 +48,7 @@ export const PaginationTable = () => {
       try {
         const { data } = await axios.get("classes");
         setlistclass(data.data.items);
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
   useEffect(() => {
@@ -58,7 +60,7 @@ export const PaginationTable = () => {
         const res = await axios.get("teachers");
         setlistTeacher(res.data.data.items);
         //console.log({ res });
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
   const create = async (e) => {
@@ -96,7 +98,7 @@ export const PaginationTable = () => {
     setPageSize,
     prepareRow,
 
-    setGlobalFilter
+    setGlobalFilter,
   } = useTable(
     {
       columns,
@@ -264,15 +266,7 @@ export const PaginationTable = () => {
             <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}
         </CFormSelect>
-        <CForm className="form-inline ">
-          <input
-            className="form-control form-control-sm mr-3 w-75"
-            type="text"
-            placeholder="Tìm kiếm..."
-            aria-label="Search"
-          />
-          <button className="material-icons">search</button>
-        </CForm>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <CButton
           className="btn btn-primary"
           type="button"
@@ -281,26 +275,26 @@ export const PaginationTable = () => {
           Thêm mới
         </CButton>
       </div>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
 
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
 
                   <span>
                     {column.isSorted
                       ? column.isSortedDesc
-                        ? ' 🔽'
-                        : ' 🔼'
-                      : ''}
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
                   </span>
 
                   {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
-
-                </th>))}
+                </th>
+              ))}
               <th>Hành động</th>
             </tr>
           ))}
