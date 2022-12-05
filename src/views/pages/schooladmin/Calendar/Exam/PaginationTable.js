@@ -157,6 +157,7 @@ export const PaginationTable = () => {
                   <input
                     onChange={(e) => setcalendarEventName(e.target.value)}
                     type="text"
+                    required
                   />
                 </td>
               </tr>
@@ -177,6 +178,7 @@ export const PaginationTable = () => {
                   <input
                     onChange={(e) => settimeStart(e.target.value.toString())}
                     type="time"
+                    required
                   />
                 </td>
               </tr>
@@ -186,6 +188,7 @@ export const PaginationTable = () => {
                   <input
                     onChange={(e) => settimeFinish(e.target.value.toString())}
                     type="time"
+                    required
                   />
                 </td>
               </tr>
@@ -195,6 +198,7 @@ export const PaginationTable = () => {
                   <input
                     onChange={(e) => setdate(e.target.value.toString())}
                     type="date"
+                    required
                   />
                 </td>
               </tr>
@@ -204,6 +208,7 @@ export const PaginationTable = () => {
                   <input
                     onChange={(e) => setroomName(e.target.value)}
                     type="text"
+                    required
                   />
                 </td>
               </tr>
@@ -331,7 +336,6 @@ export const PaginationTable = () => {
                   <CFormSelect
                     onChange={(e) => setschoolYearId(e.target.value)}
                   >
-                    <option>Năm học</option>
                     {listyear?.map((item) => (
                       <option
                         key={item.schoolYearId}
