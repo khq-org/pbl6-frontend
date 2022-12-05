@@ -81,7 +81,7 @@ const routes = [
   },
   {
     path: "/exam",
-    name: "Lịch thi",
+    name: "Lịch ",
     element: Exam,
   },
   { path: "/info", name: "Thông tin tài khoản", element: Info },
