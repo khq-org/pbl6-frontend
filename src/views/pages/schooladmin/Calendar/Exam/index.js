@@ -2,7 +2,7 @@ import React from "react";
 
 import { PaginationTable } from "./PaginationTable";
 
-const AllStudents = () => {
+const Exam = () => {
   return (
     <>
       <PaginationTable />
@@ -10,4 +10,4 @@ const AllStudents = () => {
   );
 };
 
-export default AllStudents;
+export default Exam;

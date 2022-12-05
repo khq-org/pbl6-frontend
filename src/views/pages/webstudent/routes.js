@@ -1,7 +1,6 @@
-import React from "react";
-const Profile = React.lazy(() => import("./Profile"));
-const ChangePW = React.lazy(() => import("./password"));
-const StudentDetail = React.lazy(() => import("./StudentDetail"));
+import Profile from "./Profile";
+import ChangePW from "./password";
+import StudentDetail from "./StudentDetail";
 
 const routes = [
   { path: "/profile", exact: true, name: "Thông tin tài khoản" },

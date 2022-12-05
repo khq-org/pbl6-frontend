@@ -172,6 +172,32 @@ export const PaginationTable = () => {
                   </CFormSelect>
                 </td>
               </tr>
+              {calendarEventType === "Examination" ? (
+                <tr>
+                  <td>Môn học</td>
+                  <td>
+                    <CFormSelect>
+                      <option value="Maths"> Toán</option>
+                      <option value="Physic"> Vật lí</option>
+                      <option value="Chemistry"> Hóa học</option>
+                      <option value="Biological"> Sinh học</option>
+                      <option value="Literature"> Văn học</option>
+                      <option value="History"> Lịch sử</option>
+                      <option value="Geographic"> Địa lí</option>
+                      <option value="Civic Education">Giáo dục công dân</option>
+
+                      <option value="Defense Education">
+                        Giáo dục quốc phòng
+                      </option>
+                      <option value="Technology"> Công nghệ</option>
+                      <option value="Physical Education"> Thể dục</option>
+                      <option value="Informatics"> Tin học</option>
+                    </CFormSelect>
+                  </td>
+                </tr>
+              ) : (
+                ""
+              )}
               <tr>
                 <td>Thời gian bắt đầu</td>
                 <td>
