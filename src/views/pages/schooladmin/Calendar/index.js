@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { number } from "prop-types";
 
 const Calendar = () => {
   const token = localStorage.getItem("access_token");
@@ -55,9 +56,10 @@ const Calendar = () => {
 
   const [calendarEventName, setcalendarEventName] = useState("");
   const [calendarEventType, setcalendarEventType] = useState("Study");
-  const [classIds, setclassIds] = useState([1]);
-  const [userIds, setuserIds] = useState([1]);
-  const [schoolYearId, setschoolYearId] = useState(1);
+  const [classIds, setclassIds] = useState([]);
+  const [userIds, setuserIds] = useState([]);
+  const [schoolYearId, setschoolYearId] = useState(0);
+  const [semesterId, setsemesterId] = useState(1);
   const [lessonStart, setlessonStart] = useState(0);
   const [lessonFinish, setlessonFinish] = useState(0);
   const [subjectId, setsubjectId] = useState(0);
@@ -71,7 +73,7 @@ const Calendar = () => {
         const { data } = await axios.get("schoolyear");
         //console.log(data);
         setlistyear(data.data.items);
-        const res = await axios.get("classes");
+        const res = await axios.get("classes?gradeId=1");
         setlistclass(res.data.data.items);
       } catch (e) {}
     })();
@@ -79,11 +81,11 @@ const Calendar = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "calendars?classId=1&calendarType=Study"
-        );
-        //console.log(data);
-        setlistCalendar(data.data.items);
+        // const { data } = await axios.get(
+        //   "calendars?classId=1&calendarType=Study"
+        // );
+        // console.log(data);
+        // setlistCalendar(data.data.items);
         const res = await axios.get("subjects");
         //console.log(res);
         setlistsubject(res.data.data.items);
@@ -102,10 +104,10 @@ const Calendar = () => {
   }, []);
   const setc = async (id) => {
     const { data } = await axios.get(
-      `calendars?classId=${id}&calendarType=Study`
+      `calendars?classId=${id}&calendarType=Study&semesterId=${semesterId}&schoolYearId=${schoolYearId}`
     );
     //console.log(data);
-    setlistCalendar(data.data.items);
+    setlistCalendar(data.data?.items);
   };
   const findcalendar = (tiet, day) => {
     return listCalendar?.find((element) => {
@@ -137,7 +139,7 @@ const Calendar = () => {
           lessonFinish,
           dayOfWeek,
           subjectId,
-          semesterId: 1,
+          semesterId,
         })
         .then((e) => {
           if (e.response) {
@@ -158,7 +160,7 @@ const Calendar = () => {
           lessonFinish,
           dayOfWeek,
           subjectId,
-          semesterId: 1,
+          semesterId,
         })
         .then((e) => {
           if (e.response) {
@@ -190,6 +192,12 @@ const Calendar = () => {
     setVisible(true);
     settitle(false);
   };
+  const setlistclazz = async (id) => {
+    const { data } = await axios.get(`classes?gradeId=${id}`);
+    //console.log(data);
+    setlistclass(data.data.items);
+  };
+
   const del = async (id) => {
     if (window.confirm("Bạn có chắc muốn xóa lịch này?")) {
       setVisible(false);
@@ -323,6 +331,7 @@ const Calendar = () => {
                   <CFormSelect
                     onChange={(e) => setschoolYearId(e.target.value)}
                   >
+                    <option>Năm học</option>
                     {listyear?.map((item) => (
                       <option
                         value={item.schoolYearId}
@@ -333,14 +342,14 @@ const Calendar = () => {
                 </td>
                 <td style={{ textAlign: "center", width: "7%" }}>Học kì:</td>
                 <td style={{ textAlign: "center", width: "10%" }}>
-                  <CFormSelect>
+                  <CFormSelect onChange={(e) => setsemesterId(e.target.value)}>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                   </CFormSelect>
                 </td>
                 <td style={{ textAlign: "center", width: "5%" }}>Khối:</td>
                 <td style={{ textAlign: "center", width: "10%" }}>
-                  <CFormSelect>
+                  <CFormSelect onChange={(e) => setlistclazz(e.target.value)}>
                     <option value={1}>10</option>
                     <option value={2}>11</option>
                     <option value={3}>12</option>
@@ -352,9 +361,11 @@ const Calendar = () => {
                     onChange={(e) => {
                       setc(e.target.value);
                       setclazz(e.target.value);
-                      setuserIds([Number(e.target.value)]);
+
+                      setclassIds([Number(e.target.value)]);
                     }}
                   >
+                    <option>Lớp</option>
                     {listclass?.map((items) => (
                       <option
                         value={items.classId}

@@ -30,10 +30,27 @@ import { GlobalFilter } from "../../GlobalFilter";
 
 import { Link } from "react-router-dom";
 import { element } from "prop-types";
+
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+  var mapSubjects = {
+    Biological: "Sinh học",
+    Chemistry: "Hóa học",
+    Civic_Education: "Giáo dục công dân",
+    Defense_Education: "Giáo dục quốc phòng",
+    English: "Tiếng Anh",
+    Geographic: "Địa lý",
+    History: "Lịch Sử",
+    Informatics: "Tin học",
+    Literature: "Ngữ văn",
+    Maths: "Toán học",
+    Physic: "Vật lý",
+    Physical_Education: "Thể dục",
+    Technology: "Tin học",
+  };
 
   const [listcalendar, setlistcalendar] = useState([]);
   const [listCalendar, setlistCalendar] = useState([]);
@@ -52,7 +69,25 @@ export const PaginationTable = () => {
   const [semesterId, setsemesterId] = useState(1);
   const [date, setdate] = useState("");
   const [roomName, setroomName] = useState("");
+  const [subjectId, setsubjectId] = useState(0);
+  const [listsubject, setlistsubject] = useState([]);
+  const [id, setid] = useState(0);
+  const [title, settitle] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        // const { data } = await axios.get(
+        //   "calendars?classId=1&calendarType=Study"
+        // );
+        // console.log(data);
+        // setlistCalendar(data.data.items);
+        const res = await axios.get("subjects");
+        //console.log(res);
+        setlistsubject(res.data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
   useEffect(() => {
     (async () => {
       try {
@@ -121,31 +156,115 @@ export const PaginationTable = () => {
   const { pageIndex, pageSize, globalFilter } = state;
 
   const save = async (e) => {
-    const { data } = await axios.post("calendars", {
-      calendarEventName,
-      calendarEventType,
-      classIds,
-      userIds,
-      timeStart,
-      timeFinish,
-      roomName,
-      schoolYearId,
-      semesterId,
-      date,
-    });
-    console.log(data);
-    window.location.reload();
+    if (title) {
+      const response = await axios
+        .post("calendars", {
+          calendarEventName,
+          calendarEventType,
+          classIds,
+          userIds,
+          timeStart,
+          timeFinish,
+          roomName,
+          schoolYearId,
+          subjectId,
+          semesterId,
+          date,
+        })
+        .then((e) => {
+          if (e.response) {
+            console.log(e.response);
+            window.alert("Trùng lịch.");
+          } else {
+            window.alert("Thành công.");
+          }
+        })
+        .catch((e) => {});
+    } else {
+      const response = await axios
+        .put(`calendars/${id}`, {
+          calendarEventName,
+          calendarEventType,
+          classIds,
+          userIds,
+          timeStart,
+          timeFinish,
+          roomName,
+          schoolYearId,
+          subjectId,
+          semesterId,
+          date,
+        })
+        .then((e) => {
+          if (e.response) {
+            console.log(e.response);
+            window.alert("Trùng lịch.");
+          } else {
+            window.alert("Thành công.");
+          }
+        })
+        .catch((e) => {});
+    }
+
+    setVisible(false);
+
+    //window.location.reload();
   };
+  const del = async (id) => {
+    if (window.confirm("Bạn có chắc muốn xóa lịch này?")) {
+      setlistCalendar(
+        listCalendar.filter((item) => item.calendarEventId !== id)
+      );
+      setlistcalendar(
+        listcalendar.filter((item) => item.calendarEventId !== id)
+      );
+      const { data } = await axios.delete(`calendars/${id}`);
+      //console.log(data);
+    }
+  };
+  const update = async (id) => {
+    setid(id);
+    settitle(false);
+    const { data } = await axios.get(`calendars/${id}`);
+    console.log(data);
+    setcalendarEventName(data.data.calendarEvent?.calendarEvent);
+    setcalendarEventType(data.data.calendarEvent?.calendarEventType);
+
+    setsubjectId(
+      listsubject.find((item) => {
+        return item.subject === data.data.calendarEvent?.subjectName;
+      })?.subjectId
+    );
+    settimeFinish(data.data.calendarEvent.timeFinish);
+    settimeStart(data.data.calendarEvent.timeStart);
+    setdate(data.data.calendarEvent.calendarDate);
+    // for (let i = 0; i < data.data.users?.length; i++) {
+    //   setuserIds(userIds.concat([Number(data.data.users[i].userId)]));
+    // }
+
+    data.data.users?.map((item) => {
+      //setuserIds(...userIds, [Number(item.userId)]);
+      userIds[userIds.length] = item.userId;
+    });
+    setuserIds(userIds);
+    //setclassIds(data.data.classIds);
+    setVisible(true);
+    settitle(false);
+  };
+  //console.log(userIds);
   return (
     <>
       <CModal
         alignment="center"
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setuserIds([]);
+        }}
       >
         <CModalHeader>
           <CModalTitle>
-            <h2>Thêm lịch</h2>
+            <h2>{title ? <div>Thêm lịch</div> : <div>Chỉnh sửa lịch</div>}</h2>
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
@@ -156,6 +275,7 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     onChange={(e) => setcalendarEventName(e.target.value)}
+                    defaultValue={calendarEventName}
                     type="text"
                     required
                   />
@@ -165,6 +285,7 @@ export const PaginationTable = () => {
                 <td>Loại lịch</td>
                 <td>
                   <CFormSelect
+                    defaultValue={calendarEventName}
                     onChange={(e) => setcalendarEventType(e.target.value)}
                   >
                     <option value="Meeting">Lịch họp</option>
@@ -176,22 +297,18 @@ export const PaginationTable = () => {
                 <tr>
                   <td>Môn học</td>
                   <td>
-                    <CFormSelect>
-                      <option value="Maths"> Toán</option>
-                      <option value="Physic"> Vật lí</option>
-                      <option value="Chemistry"> Hóa học</option>
-                      <option value="Biological"> Sinh học</option>
-                      <option value="Literature"> Văn học</option>
-                      <option value="History"> Lịch sử</option>
-                      <option value="Geographic"> Địa lí</option>
-                      <option value="Civic Education">Giáo dục công dân</option>
-
-                      <option value="Defense Education">
-                        Giáo dục quốc phòng
-                      </option>
-                      <option value="Technology"> Công nghệ</option>
-                      <option value="Physical Education"> Thể dục</option>
-                      <option value="Informatics"> Tin học</option>
+                    <CFormSelect
+                      defaultValue={subjectId}
+                      onChange={(e) => {
+                        setsubjectId(Number(e.target.value));
+                      }}
+                    >
+                      <option>Môn học</option>
+                      {listsubject?.map((item) => (
+                        <option value={item.subjectId}>
+                          {mapSubjects[item.subject.replace(" ", "_")]}
+                        </option>
+                      ))}
                     </CFormSelect>
                   </td>
                 </tr>
@@ -202,6 +319,7 @@ export const PaginationTable = () => {
                 <td>Thời gian bắt đầu</td>
                 <td>
                   <input
+                    defaultValue={timeStart}
                     onChange={(e) => settimeStart(e.target.value.toString())}
                     type="time"
                     required
@@ -213,6 +331,7 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     onChange={(e) => settimeFinish(e.target.value.toString())}
+                    defaultValue={timeFinish}
                     type="time"
                     required
                   />
@@ -223,6 +342,7 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     onChange={(e) => setdate(e.target.value.toString())}
+                    defaultValue={date}
                     type="date"
                     required
                   />
@@ -233,6 +353,7 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     onChange={(e) => setroomName(e.target.value)}
+                    defaultValue={roomName}
                     type="text"
                     required
                   />
@@ -246,7 +367,9 @@ export const PaginationTable = () => {
                       <th>
                         <CFormSelect
                           onChange={(e) => {
-                            setuserIds(userIds.concat([e.target.value]));
+                            setuserIds(
+                              userIds.concat([Number(e.target.value)])
+                            );
                           }}
                         >
                           <option>Giáo viên</option>
@@ -295,7 +418,9 @@ export const PaginationTable = () => {
                       <th>
                         <CFormSelect
                           onChange={(e) => {
-                            setclassIds(classIds.concat([e.target.value]));
+                            setclassIds(
+                              classIds.concat([Number(e.target.value)])
+                            );
                           }}
                         >
                           <option>Lớp</option>
@@ -346,7 +471,7 @@ export const PaginationTable = () => {
                 type="submit"
                 onClick={(e) => save()}
               >
-                Thêm mới
+                Lưu thông tin
               </div>
             </div>
           </form>
@@ -390,9 +515,12 @@ export const PaginationTable = () => {
                 <td style={{ textAlign: "end" }}>
                   <CButton
                     onClick={(e) => {
+                      settitle(true);
                       setVisible(true);
                       setuserIds([]);
                       setclassIds([]);
+                      setcalendarEventName("");
+                      setsubjectId(0);
                     }}
                     className="btn btn-primary"
                     type="button"
@@ -445,10 +573,23 @@ export const PaginationTable = () => {
                   );
                 })}
                 <td>
-                  <Link className="edit" title="Sửa" cshools-toggle="tooltip">
+                  <Link
+                    className="edit"
+                    title="Sửa"
+                    cshools-toggle="tooltip"
+                    onClick={(e) => {
+                      setuserIds([]);
+                      update(row.original.calendarEventId);
+                    }}
+                  >
                     <i className="material-icons">&#xE254;</i>
                   </Link>
-                  <Link className="delete" title="Xóa" cshools-toggle="tooltip">
+                  <Link
+                    className="delete"
+                    title="Xóa"
+                    cshools-toggle="tooltip"
+                    onClick={(e) => del(row.original.calendarEventId)}
+                  >
                     <i className="material-icons">&#xE872;</i>
                   </Link>
                 </td>

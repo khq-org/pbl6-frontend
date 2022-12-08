@@ -47,6 +47,19 @@ const _nav = [
       },
     ],
   },
+  {
+    component: CNavGroup,
+    name: "NHẬP ĐIỂM",
+    to: "#",
+    icon: <CIcon icon={cilPuzzle} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: "Nhập điểm",
+        to: "#",
+      },
+    ],
+  },
 ];
 
 export default _nav;
