@@ -256,7 +256,7 @@ export const PaginationTable = () => {
       </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <CFormSelect
-          className="form-control form-control-sm mr-3 w-25"
+          style={{ width: "200px" }}
           onChange={(e) => {
             setschoolyear(e.target.value);
             //getlistclassbyyear(e.target.value);

@@ -294,7 +294,7 @@ const CreateStudent = () => {
         </div>
         <br />
         <br />
-        <div
+        {/* <div
           classname="GreyBox"
           style={{ marginRight: "auto", marginLeft: "auto" }}
         >
@@ -430,7 +430,7 @@ const CreateStudent = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
 
         <div className="mt-2 text-center">
           <button

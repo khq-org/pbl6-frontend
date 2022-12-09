@@ -7,10 +7,9 @@ export const GlobalFilter = ({ filter, setFilter }) => {
     setFilter(value || undefined);
   }, 1000);
   return (
-    <span className="pb-2">
+    <span className="">
       Tìm kiếm:{" "}
       <input
-        style={{ height: "30px" }}
         type="text"
         value={value || ""}
         onChange={(e) => {

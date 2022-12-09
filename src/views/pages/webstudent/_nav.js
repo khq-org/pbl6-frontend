@@ -24,13 +24,13 @@ const _nav = [
     items: [
       {
         component: CNavItem,
-        name: "Học bạ",
+        name: "Hồ sơ",
         to: "/student/studentdetail",
       },
       {
         component: CNavItem,
         name: "Kết quả học tập",
-        to: "#",
+        to: "/student/learningresult",
       },
     ],
   },
@@ -43,12 +43,12 @@ const _nav = [
       {
         component: CNavItem,
         name: "Thời khóa biểu",
-        to: "#",
+        to: "/student/calendar",
       },
       {
         component: CNavItem,
         name: "Lịch thi",
-        to: "#",
+        to: "/student/exam",
       },
     ],
   },

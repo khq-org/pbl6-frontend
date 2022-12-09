@@ -149,7 +149,7 @@ export const PaginationTable = () => {
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <span className="mt-1">Năm học:</span>
         <CFormSelect
-          className="form-control form-control-sm mr-3 w-25"
+          style={{ width: "200px" }}
           onChange={(e) => {
             setschoolyear(e.target.value);
             //setcl(e.target.value);
@@ -162,7 +162,7 @@ export const PaginationTable = () => {
         </CFormSelect>
         <span className="mt-1">Lớp:</span>
         <CFormSelect
-          className="form-control form-control-sm mr-3 w-25"
+          style={{ width: "200px" }}
           onChange={(e) => {
             setclazz(e.target.value);
             show(schoolyear, e.target.value);

@@ -63,6 +63,7 @@ export const COLUMNS = [
     Header: "Môn thi(Lịch thi)",
 
     accessor: "subjectName",
+
     Cell: ({ value }) => {
       return mapSubjects[value?.replace(" ", "_")];
     },

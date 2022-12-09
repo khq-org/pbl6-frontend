@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Link, useParams } from "react-router-dom";
 import CITY from "../vn/CITY.json";
 import DISTRICT from "../vn/DISTRICT.json";
 import axios from "axios";
@@ -20,34 +19,32 @@ const StudentDetail = () => {
   const [district, setdistrict] = useState("");
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
-  const [workingPosition, setworkingPosition] = useState("");
+  const [workingPosition, setworkingPosition] = useState("Student");
   const [username, setusername] = useState("");
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
   const [classId, setclassId] = useState(1);
 
-  const { id } = useParams();
-
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`students/${id}`);
+        const { data } = await axios.get("users");
         console.log({ data });
-        setfirstName(data.data.student.firstName);
-        setlastName(data.data.student.lastName);
-        setgender(data.data.student.gender);
-        setdateOfBirth(data.data.student.dateOfBirth);
-        setphone(data.data.student.phone);
-        setemail(data.data.student.email);
-        setplaceOfBirth(data.data.student.placeOfBirth);
-        setstreet(data.data.student.street);
-        setdistrict(data.data.student.district);
-        setcity(data.data.student.city);
-        //setworkingPosition(data.data.students.workingPosition);
-        setnationality(data.data.student.nationality);
+        setfirstName(data.data.user.firstName);
+        setlastName(data.data.user.lastName);
+        setgender(data.data.user.gender);
+        setdateOfBirth(data.data.user.dateOfBirth);
+        setphone(data.data.user.phone);
+        setemail(data.data.user.email);
+        setplaceOfBirth(data.data.user.placeOfBirth);
+        setstreet(data.data.user.street);
+        setdistrict(data.data.user.district);
+        setcity(data.data.user.city);
+        //setworkingPosition(data.data.users.workingPosition);
+        setnationality(data.data.user.nationality);
 
-        setusername(data.data.student.username);
+        setusername(data.data.user.username);
       } catch (e) {}
     })();
   }, []);
@@ -70,7 +67,7 @@ const StudentDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`students/${id}`, {
+    const { data } = await axios.put("users", {
       firstName,
       lastName,
       dateOfBirth,
@@ -83,7 +80,7 @@ const StudentDetail = () => {
       city,
       nationality,
       workingPosition,
-      classId,
+      roleId: 4,
     });
     console.log(data);
   };
@@ -125,7 +122,7 @@ const StudentDetail = () => {
                       type="text"
                       value={lastName}
                       style={{ width: "180px" }}
-                      onChange={(e) => setlastName(e.target.value)}
+                      readOnly
                     />
                   </td>
 
@@ -135,7 +132,7 @@ const StudentDetail = () => {
                       type="text"
                       value={firstName}
                       style={{ width: "180px" }}
-                      onChange={(e) => setfirstName(e.target.value)}
+                      readOnly
                     />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
@@ -168,7 +165,7 @@ const StudentDetail = () => {
                       type="date"
                       style={{ width: "180px" }}
                       value={dateOfBirth}
-                      onChange={(e) => setdateOfBirth(e.target.value)}
+                      readOnly
                     />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style14">
@@ -220,6 +217,7 @@ const StudentDetail = () => {
                       type="text"
                       value={username}
                       style={{ width: "350px" }}
+                      readOnly
                     />
                   </td>
                   <td style={{ textAlign: "right" }} classname="auto-style10">
@@ -309,6 +307,15 @@ const StudentDetail = () => {
                 </tr>
               </tbody>
             </table>
+            <div className="text-end">
+              <button
+                className="btn btn-primary profile-button"
+                type="button"
+                onClick={save}
+              >
+                Cập nhật thông tin cá nhân
+              </button>
+            </div>
           </div>
         </div>
         <br />
@@ -454,188 +461,13 @@ const StudentDetail = () => {
             </table>
           </div>
         </div>
-        <div className="mt-5 text-center">
-          <button
-            className="btn btn-primary profile-button"
-            type="button"
-            onClick={save}
-          >
+        <div className="mt-5 text-end">
+          <button className="btn btn-primary profile-button" type="button">
             Cập nhật thông tin
           </button>
         </div>
         <br />
         <br />
-        <div
-          classname="GreyBox"
-          style={{ marginRight: "auto", marginLeft: "auto" }}
-        >
-          <div id="Div1" style={{ width: "100%" }}>
-            <div classname="GreyBoxCaption" style={{ height: "20px" }}>
-              <h4>KẾT QUẢ HỌC TẬP:</h4>
-            </div>
-            <br />
-            <div style={{ marginLeft: "10px", float: "left" }} />
-            <div style={{ clear: "both" }} />
-          </div>
-          <div>
-            <div>Lớp: ...</div>
-            <div>Năm học: ...</div>
-            <div>Giáo viên chủ nhiệm: ...</div>
-            <table className="table table-bordered">
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td style={{ textAlign: "center" }}>Điểm trung bình</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Môn học</td>
-                  <td style={{ textAlign: "center" }}>HKI</td>
-                  <td style={{ textAlign: "center" }}>HKII</td>
-                  <td style={{ textAlign: "center" }}>Cả năm</td>
-                  <td style={{ textAlign: "center" }}>Giáo viên bộ môn</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Toán</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Văn</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Anh</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Lí</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Hóa</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Sinh</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Lịch sử</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Địa lí</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>GIáo dục công dân</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Thể dục</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Quốc phòng an ninh</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Tin học</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>Công nghệ</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>NVH</td>
-                </tr>
-                <tr>
-                  <td style={{ textAlign: "center" }}>
-                    Điểm trung bình các môn học
-                  </td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}>5</td>
-                  <td style={{ textAlign: "center" }}></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <br />
-          <div>
-            <table className="table table-bordered table-primary">
-              <tr>
-                <td style={{ textAlign: "center" }}>HỌC KÌ</td>
-                <td style={{ textAlign: "center" }}>Hạnh kiểm</td>
-                <td style={{ textAlign: "center" }}>Học lực</td>
-                <td style={{ textAlign: "center" }}>
-                  Tổng số buổi nghỉ học cả năm
-                </td>
-                <td style={{ textAlign: "center" }}>Xét lên lớp</td>
-              </tr>
-              <tr>
-                <td style={{ textAlign: "center" }}>Học kì I</td>
-                <td style={{ textAlign: "center" }}>Tốt</td>
-                <td style={{ textAlign: "center" }}>TB</td>
-                <td style={{ textAlign: "center" }}>0</td>
-                <td style={{ textAlign: "center" }}></td>
-              </tr>
-              <tr>
-                <td style={{ textAlign: "center" }}>Học kì II</td>
-                <td style={{ textAlign: "center" }}>Tốt</td>
-                <td style={{ textAlign: "center" }}>TB</td>
-                <td style={{ textAlign: "center" }}>0</td>
-                <td style={{ textAlign: "center" }}></td>
-              </tr>
-              <tr>
-                <td style={{ textAlign: "center" }}>Cả năm</td>
-                <td style={{ textAlign: "center" }}>Tốt</td>
-                <td style={{ textAlign: "center" }}>TB</td>
-                <td style={{ textAlign: "center" }}>0</td>
-                <td style={{ textAlign: "center" }}>v</td>
-              </tr>
-            </table>
-          </div>
-        </div>
       </div>
     </>
   );

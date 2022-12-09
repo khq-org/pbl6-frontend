@@ -126,8 +126,7 @@ const Profile = () => {
                     type="text"
                     className="form-control"
                     value={lastName}
-                    onChange={(e) => setlastName(e.target.value)}
-                    required
+                    readOnly
                   />
                 </div>
                 <div className="col-md-6">
@@ -136,8 +135,7 @@ const Profile = () => {
                     type="text"
                     className="form-control"
                     value={firstName}
-                    onChange={(e) => setfirstName(e.target.value)}
-                    required
+                    readOnly
                   />
                 </div>
               </div>
@@ -149,15 +147,12 @@ const Profile = () => {
                     type="date"
                     className="form-control"
                     value={dateOfBirth}
-                    onChange={(e) => setdateOfBirth(e.target.value)}
+                    readOnly
                   />
                 </div>
                 <div className="col-md-12">
                   <b>Giới tính</b>
-                  <CFormSelect
-                    value={gender}
-                    onChange={(e) => setgender(e.target.value)}
-                  >
+                  <CFormSelect value={gender} readOnly>
                     <option value={true}>Nam</option>
                     <option value={false}>Nữ</option>
                   </CFormSelect>
