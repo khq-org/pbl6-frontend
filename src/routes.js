@@ -61,6 +61,11 @@ const routes = [
     element: StudentDetail,
   },
   {
+    path: "/all-students/:id",
+    name: "Hồ sơ học sinh",
+    element: StudentDetail,
+  },
+  {
     path: "/all-students/student",
     name: "Thêm mới học sinh",
     element: CreateStudent,

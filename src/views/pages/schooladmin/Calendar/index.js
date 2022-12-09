@@ -329,7 +329,7 @@ const Calendar = () => {
                 <td style={{ textAlign: "center", width: "10%" }}>Năm học:</td>
                 <td style={{ textAlign: "center", width: "15%" }}>
                   <CFormSelect
-                    onChange={(e) => setschoolYearId(e.target.value)}
+                    onChange={(e) => setschoolYearId(Number(e.target.value))}
                   >
                     <option>Năm học</option>
                     {listyear?.map((item) => (

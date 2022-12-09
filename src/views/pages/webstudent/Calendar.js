@@ -1,19 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  CModal,
-  CButton,
-  CModalHeader,
-  CModalBody,
-  CModalTitle,
-  CFormSelect,
-  CForm,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
-} from "@coreui/react";
+import { CFormSelect } from "@coreui/react";
 
 const Calendar = () => {
   const token = localStorage.getItem("access_token");

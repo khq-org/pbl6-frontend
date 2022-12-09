@@ -27,6 +27,11 @@ const _nav = [
         name: "Danh sách lớp",
         to: "#",
       },
+      {
+        component: CNavItem,
+        name: "Tạo lịch kiểm tra",
+        to: "/teacher/exam",
+      },
     ],
   },
   {
@@ -43,7 +48,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Lịch",
-        to: "#",
+        to: "/teacher/meeting",
       },
     ],
   },
