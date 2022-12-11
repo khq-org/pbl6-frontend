@@ -29,7 +29,7 @@ const Calendar = () => {
     Maths: "Toán học",
     Physic: "Vật lý",
     Physical_Education: "Thể dục",
-    Technology: "Tin học",
+    Technology: "Công nghệ",
   };
   const [listclass, setlistclass] = useState([]);
   const [listCalendar, setlistCalendar] = useState([]);
@@ -47,7 +47,7 @@ const Calendar = () => {
   }, []);
   const show = async (id, semester) => {
     const { data } = await axios.get(
-      `users/calendar?classId=${id}&semesterId=${semester}&calendarType=Study`
+      `users/calendar?classId=${id}&semesterId=${semester}&calendarEventType=Study`
     );
     console.log(data);
     setlistCalendar(data.data.items);

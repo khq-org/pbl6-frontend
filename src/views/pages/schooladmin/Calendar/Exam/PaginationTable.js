@@ -29,7 +29,6 @@ import {
 import { GlobalFilter } from "../../GlobalFilter";
 
 import { Link } from "react-router-dom";
-import { element } from "prop-types";
 
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -49,7 +48,7 @@ export const PaginationTable = () => {
     Maths: "Toán học",
     Physic: "Vật lý",
     Physical_Education: "Thể dục",
-    Technology: "Tin học",
+    Technology: "Công nghệ",
   };
 
   const [listroom, setlistroom] = useState([]);
@@ -111,7 +110,7 @@ export const PaginationTable = () => {
   }, []);
   const set = async (type) => {
     const { data } = await axios.get(
-      `calendars?calendarType=${type}&schoolYearId=${schoolYearId}&semesterId=${semesterId}`
+      `calendars?calendarEventType=${type}&schoolYearId=${schoolYearId}&semesterId=${semesterId}`
     );
     //console.log(data);
     setlistCalendar(data.data.items);
@@ -240,6 +239,11 @@ export const PaginationTable = () => {
       //setuserIds(...userIds, [Number(item.userId)]);
       userIds[userIds.length] = item.userId;
     });
+    data.data.classes?.map((item) => {
+      //setuserIds(...userIds, [Number(item.userId)]);
+      classIds[classIds.length] = item.clazzId;
+    });
+    setclassIds(classIds);
     setuserIds(userIds);
     //setclassIds(data.data.classIds);
     setVisible(true);
@@ -255,6 +259,7 @@ export const PaginationTable = () => {
         onClose={() => {
           setVisible(false);
           setuserIds([]);
+          setclassIds([]);
         }}
       >
         <CModalHeader>
@@ -360,7 +365,7 @@ export const PaginationTable = () => {
                     }
                   >
                     {listroom?.map((item) => (
-                      <option key={item.roomID} value={item.roomId}>
+                      <option key={item.roomId} value={item.roomId}>
                         {item.room}
                       </option>
                     ))}
@@ -493,7 +498,7 @@ export const PaginationTable = () => {
               <tr>
                 <td style={{ textAlign: "center", width: "15%" }}>
                   <CFormSelect
-                    onChange={(e) => setschoolYearId(e.target.value)}
+                    onChange={(e) => setschoolYearId(Number(e.target.value))}
                   >
                     <option>Năm học</option>
                     {listyear?.map((item) => (
@@ -507,7 +512,9 @@ export const PaginationTable = () => {
                 </td>
                 <td style={{ textAlign: "center", width: "7%" }}>Học kì:</td>
                 <td style={{ textAlign: "center", width: "10%" }}>
-                  <CFormSelect onChange={(e) => setsemesterId(e.target.value)}>
+                  <CFormSelect
+                    onChange={(e) => setsemesterId(Number(e.target.value))}
+                  >
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                   </CFormSelect>
@@ -588,7 +595,7 @@ export const PaginationTable = () => {
                     title="Sửa"
                     cshools-toggle="tooltip"
                     onClick={(e) => {
-                      setuserIds([]);
+                      //setuserIds([]);
                       update(row.original.calendarEventId);
                     }}
                   >

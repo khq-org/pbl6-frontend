@@ -12,7 +12,7 @@ var mapSubjects = {
   Maths: "Toán học",
   Physic: "Vật lý",
   Physical_Education: "Thể dục",
-  Technology: "Tin học",
+  Technology: "Công nghệ",
 };
 
 export const COLUMNS = [
