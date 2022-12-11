@@ -11,7 +11,9 @@ const Meeting = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("users/calendar?calendarType=Meeting");
+        const { data } = await axios.get(
+          "users/calendar?calendarEventType=Meeting"
+        );
         console.log(data);
         setlistCalendar(data.data.items);
       } catch (e) {}

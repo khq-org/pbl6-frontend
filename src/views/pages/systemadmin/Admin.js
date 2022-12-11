@@ -3,9 +3,9 @@ import {
   AppContent,
   AppSidebar,
   AppHeader,
-} from "../../../components/Student/index";
+} from "../../../components/SystemAdmin/index";
 
-const WebStudent = () => {
+const Admin = () => {
   return (
     <div>
       <link
@@ -35,4 +35,4 @@ const WebStudent = () => {
   );
 };
 
-export default WebStudent;
+export default Admin;

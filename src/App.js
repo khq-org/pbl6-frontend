@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./scss/style.scss";
-import Admin from "./views/pages/admin/Admin";
+import Admin from "./views/pages/systemadmin/Admin";
 import { Login } from "./views/pages/Login";
 import WebTeacher from "./views/pages/webteacher/webteacher";
 import WebStudent from "./views/pages/webstudent/webstudent";

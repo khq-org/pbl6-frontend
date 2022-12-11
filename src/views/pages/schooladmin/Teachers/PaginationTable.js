@@ -287,6 +287,7 @@ export const PaginationTable = () => {
                         Giáo dục Quốc phòng- An ninh
                       </option>
                       <option value="Informatics">Tin học</option>
+                      <option value="Technology">Công nghệ</option>
                     </CFormSelect>
                   </div>
                 </div>

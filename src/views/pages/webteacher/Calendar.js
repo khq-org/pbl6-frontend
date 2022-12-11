@@ -29,7 +29,7 @@ const Calendar = () => {
     Maths: "Toán học",
     Physic: "Vật lý",
     Physical_Education: "Thể dục",
-    Technology: "Tin học",
+    Technology: "Công nghệ",
   };
 
   const [listCalendar, setlistCalendar] = useState([]);
@@ -40,7 +40,9 @@ const Calendar = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`users/calendar?calendarType=Study`);
+        const { data } = await axios.get(
+          "users/calendar?calendarEventType=Teach"
+        );
         console.log(data);
         setlistCalendar(data.data.items);
       } catch (e) {}
@@ -105,7 +107,7 @@ const Calendar = () => {
                     <div>
                       {
                         mapSubjects[
-                          findcalendar(item, items)?.subjectName.replace(
+                          findcalendar(item, items)?.subjectName?.replace(
                             " ",
                             "_"
                           )

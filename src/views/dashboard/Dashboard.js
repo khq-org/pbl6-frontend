@@ -1,5 +1,7 @@
 import React from "react";
+import axios from "axios";
 
+import { useState, useEffect } from "react";
 import {
   CButton,
   CButtonGroup,
@@ -22,6 +24,37 @@ import { cilCloudDownload } from "@coreui/icons";
 import { cilArrowBottom, cilArrowTop, cilOptions } from "@coreui/icons";
 
 const Dashboard = () => {
+  const token = localStorage.getItem("access_token");
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+  const [classes, setclasses] = useState(0);
+  const [teachers, setteachers] = useState(0);
+  const [students, setstudents] = useState(0);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("teachers");
+        setteachers(data.data.totalItems);
+      } catch (e) {}
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("students");
+        setstudents(data.data.totalItems);
+      } catch (e) {}
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("classes");
+        setclasses(data.data.totalItems);
+      } catch (e) {}
+    })();
+  }, []);
+
   const random = (min, max) =>
     Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -46,19 +79,16 @@ const Dashboard = () => {
   return (
     <>
       <CRow>
-        <CCol sm={6} lg={3}>
+        <CCol sm={6} lg={4}>
           <CWidgetStatsA
             className="mb-4"
             color="primary"
             value={
               <>
-                26K{" "}
-                <span className="fs-6 fw-normal">
-                  (-12.4% <CIcon icon={cilArrowBottom} />)
-                </span>
+                <div>{classes}</div>
               </>
             }
-            title="Users"
+            title="LỚP"
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -72,10 +102,7 @@ const Dashboard = () => {
                   />
                 </CDropdownToggle>
                 <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem>Another action</CDropdownItem>
-                  <CDropdownItem>Something else here...</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                  <CDropdownItem href="/classes">Chi tiết</CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
             }
@@ -148,19 +175,27 @@ const Dashboard = () => {
             }
           />
         </CCol>
-        <CCol sm={6} lg={3}>
+        <CCol sm={6} lg={4}>
           <CWidgetStatsA
             className="mb-4"
             color="info"
             value={
               <>
-                $6.200{" "}
-                <span className="fs-6 fw-normal">
+                <div className="mx-5">
+                  <i>
+                    <img
+                      src="https://banner2.cleanpng.com/20191003/ee/transparent-graduation-by-trainee-level-ucsf-helen-diller-family-comprehe5d96e29ea98e08.4453840915701695026945.jpg"
+                      style={{ width: "90px", hight: "90px" }}
+                    ></img>
+                  </i>
+                </div>
+                {students}
+                {/* <span className="fs-6 fw-normal">
                   (40.9% <CIcon icon={cilArrowTop} />)
-                </span>
+                </span> */}
               </>
             }
-            title="Income"
+            title="HỌC SINH"
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -174,94 +209,25 @@ const Dashboard = () => {
                   />
                 </CDropdownToggle>
                 <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem>Another action</CDropdownItem>
-                  <CDropdownItem>Something else here...</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                  <CDropdownItem href="/all-students">Chi tiết</CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
             }
-            chart={
-              <CChartLine
-                className="mt-3 mx-3"
-                style={{ height: "70px" }}
-                data={{
-                  labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                  ],
-                  datasets: [
-                    {
-                      label: "My First dataset",
-                      backgroundColor: "transparent",
-                      borderColor: "rgba(255,255,255,.55)",
-                      pointBackgroundColor: getStyle("--cui-info"),
-                      data: [1, 18, 9, 17, 34, 22, 11],
-                    },
-                  ],
-                }}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  maintainAspectRatio: false,
-                  scales: {
-                    x: {
-                      grid: {
-                        display: false,
-                        drawBorder: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
-                    },
-                    y: {
-                      min: -9,
-                      max: 39,
-                      display: false,
-                      grid: {
-                        display: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
-                    },
-                  },
-                  elements: {
-                    line: {
-                      borderWidth: 1,
-                    },
-                    point: {
-                      radius: 4,
-                      hitRadius: 10,
-                      hoverRadius: 4,
-                    },
-                  },
-                }}
-              />
-            }
           />
         </CCol>
-        <CCol sm={6} lg={3}>
+        <CCol sm={6} lg={4}>
           <CWidgetStatsA
             className="mb-4"
             color="warning"
             value={
               <>
-                2.49{" "}
-                <span className="fs-6 fw-normal">
+                {teachers}
+                {/* <span className="fs-6 fw-normal">
                   (84.7% <CIcon icon={cilArrowTop} />)
-                </span>
+                </span> */}
               </>
             }
-            title="Conversion Rate"
+            title="CÁN BỘ"
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -275,10 +241,7 @@ const Dashboard = () => {
                   />
                 </CDropdownToggle>
                 <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem>Another action</CDropdownItem>
-                  <CDropdownItem>Something else here...</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
+                  <CDropdownItem href="/all-teachers">Chi tiết</CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
             }
@@ -330,108 +293,6 @@ const Dashboard = () => {
                       radius: 0,
                       hitRadius: 10,
                       hoverRadius: 4,
-                    },
-                  },
-                }}
-              />
-            }
-          />
-        </CCol>
-        <CCol sm={6} lg={3}>
-          <CWidgetStatsA
-            className="mb-4"
-            color="danger"
-            value={
-              <>
-                44K{" "}
-                <span className="fs-6 fw-normal">
-                  (-23.6% <CIcon icon={cilArrowBottom} />)
-                </span>
-              </>
-            }
-            title="Sessions"
-            action={
-              <CDropdown alignment="end">
-                <CDropdownToggle
-                  color="transparent"
-                  caret={false}
-                  className="p-0"
-                >
-                  <CIcon
-                    icon={cilOptions}
-                    className="text-high-emphasis-inverse"
-                  />
-                </CDropdownToggle>
-                <CDropdownMenu>
-                  <CDropdownItem>Action</CDropdownItem>
-                  <CDropdownItem>Another action</CDropdownItem>
-                  <CDropdownItem>Something else here...</CDropdownItem>
-                  <CDropdownItem disabled>Disabled action</CDropdownItem>
-                </CDropdownMenu>
-              </CDropdown>
-            }
-            chart={
-              <CChartBar
-                className="mt-3 mx-3"
-                style={{ height: "70px" }}
-                data={{
-                  labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December",
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                  ],
-                  datasets: [
-                    {
-                      label: "My First dataset",
-                      backgroundColor: "rgba(255,255,255,.2)",
-                      borderColor: "rgba(255,255,255,.55)",
-                      data: [
-                        78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84,
-                        67, 82,
-                      ],
-                      barPercentage: 0.6,
-                    },
-                  ],
-                }}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  scales: {
-                    x: {
-                      grid: {
-                        display: false,
-                        drawTicks: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
-                    },
-                    y: {
-                      grid: {
-                        display: false,
-                        drawBorder: false,
-                        drawTicks: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
                     },
                   },
                 }}
