@@ -61,7 +61,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Nhập điểm",
-        to: "#",
+        to: "/teacher/inputScore",
       },
     ],
   },

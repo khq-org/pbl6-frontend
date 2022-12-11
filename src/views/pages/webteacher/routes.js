@@ -3,6 +3,7 @@ import ChangePW from "./password";
 import Calendar from "./Calendar";
 import Exam from "./Exam";
 import Meeting from "./Meeting";
+import InputScore from "./InputScore";
 const routes = [
   { path: "/profile", exact: true, name: "" },
   {
@@ -54,6 +55,16 @@ const routes = [
     path: "/teacher/meeting",
     name: "Lịch họp",
     element: Meeting,
+  },
+  {
+    path: "/inputScore",
+    name: "Nhập điểm",
+    element: InputScore,
+  },
+  {
+    path: "/teacher/inputScore",
+    name: "Nhập điểm",
+    element: InputScore,
   },
 ];
 
