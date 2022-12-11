@@ -22,7 +22,8 @@
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "client-s3-deploy": "aws s3 sync build/ s3://pbll-6-v2",
-    "deploy": "npm run build && npm run client-s3-deploy "
+    "client-cloudfront-invalidation": "aws cloudfront create-invalidation --distribution-id E2TGOO7R4TYIM0 --paths '/*'",
+    "deploy": "npm run build && npm run client-s3-deploy"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
