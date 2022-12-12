@@ -122,7 +122,7 @@ const Calendar = () => {
     setcalendarEventName(listsubject[id - 1]?.subject);
     setlistTeacher2(
       listteacher.filter(
-        (item) => item.workingPosition === listsubject[id - 1]?.subject
+        (item) => item.teachSubject === listsubject[id - 1]?.subject
       )
     );
   };

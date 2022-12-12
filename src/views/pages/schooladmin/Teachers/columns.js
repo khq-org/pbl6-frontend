@@ -68,7 +68,7 @@ export const COLUMNS = [
   {
     Header: "Giáo viên bộ môn",
     Footer: "Giáo viên bộ môn",
-    accessor: "workingPosition",
+    accessor: "teachSubject",
     sticky: "left",
     Cell: ({ value }) => {
       return mapSubjects[value.replace(" ", "_")];

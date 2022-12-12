@@ -20,6 +20,7 @@ const TeacherDetail = () => {
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
   const [workingPosition, setworkingPosition] = useState("");
+  const [teachSubject, setteachSubject] = useState("");
   const [username, setusername] = useState("");
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
@@ -43,6 +44,7 @@ const TeacherDetail = () => {
         setdistrict(data.data.teacher.district);
         setcity(data.data.teacher.city);
         setworkingPosition(data.data.teacher.workingPosition);
+        setteachSubject(data.data.teacher.teachSubject);
         setnationality(data.data.teacher.nationality);
         setusername(data.data.teacher.username);
       } catch (e) {}
@@ -80,6 +82,7 @@ const TeacherDetail = () => {
       city,
       nationality,
       workingPosition,
+      teachSubject,
       roleId: 3,
     });
     alert("done.");
@@ -225,8 +228,8 @@ const TeacherDetail = () => {
             <div className="col-md-12">
               <b>Bộ môn</b>
               <CFormSelect
-                value={workingPosition}
-                onChange={(e) => setworkingPosition(e.target.value)}
+                value={teachSubject}
+                onChange={(e) => setteachSubject(e.target.value)}
               >
                 <option value="Maths">Toán</option>
                 <option value="Literature">Văn học</option>

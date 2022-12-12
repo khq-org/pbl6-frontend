@@ -52,7 +52,8 @@ export const PaginationTable = () => {
   const [district, setdistrict] = useState("");
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
-  const [workingPosition, setworkingPosition] = useState("");
+  const [workingPosition, setworkingPosition] = useState("Teacher");
+  const [teachSubject, setteachSubject] = useState("");
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
@@ -96,6 +97,7 @@ export const PaginationTable = () => {
       street,
       district,
       city,
+      teachSubject,
       nationality,
       workingPosition,
     });
@@ -271,7 +273,7 @@ export const PaginationTable = () => {
                   <div className="col-md-6">
                     Giáo viên bộ môn
                     <CFormSelect
-                      onChange={(e) => setworkingPosition(e.target.value)}
+                      onChange={(e) => setteachSubject(e.target.value)}
                     >
                       <option value="Maths">Toán</option>
                       <option value="Literature">Văn học</option>

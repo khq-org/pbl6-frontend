@@ -25,7 +25,21 @@ const Profile = () => {
   const [visible, setVisible] = useState(false);
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
-
+  var mapSubjects = {
+    Biological: "Sinh học",
+    Chemistry: "Hóa học",
+    Civic_Education: "Giáo dục công dân",
+    Defense_Education: "Giáo dục quốc phòng",
+    English: "Tiếng Anh",
+    Geographic: "Địa lý",
+    History: "Lịch Sử",
+    Informatics: "Tin học",
+    Literature: "Ngữ văn",
+    Maths: "Toán học",
+    Physic: "Vật lý",
+    Physical_Education: "Thể dục",
+    Technology: "Công nghệ",
+  };
   //console.log({ CITY });
   useEffect(() => {
     (async () => {
@@ -260,7 +274,7 @@ const Profile = () => {
                 <input
                   type="text"
                   className="form-control"
-                  value={workingPosition}
+                  value={mapSubjects[profile.teachSubject?.replace(" ", "_")]}
                   readOnly
                 />
               </div>
