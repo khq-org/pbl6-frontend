@@ -23,12 +23,12 @@ export const PaginationTable = () => {
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    console.log("name", name);
-    console.log("value", value);
+    //console.log("name", name);
+    //console.log("value", value);
     setInputs((values) => ({ ...values, [name]: parseFloat(value) }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const studentScores = [];
     for (let key in inputs) {
@@ -52,11 +52,13 @@ export const PaginationTable = () => {
         });
     }
     const dataUpdate = {
-      schoolYearId: 1,
-      semesterId: 1,
+      schoolYearId,
+      semesterId,
       studentScores: studentScores,
     };
     console.log(dataUpdate);
+    const { data } = await axios.post("inputscores", dataUpdate);
+    console.log(data);
   };
 
   //////////////////////////////////////
@@ -82,10 +84,18 @@ export const PaginationTable = () => {
   };
   const handlesetstudent = async (clazzId) => {
     const { data } = await axios.get(
-      `students?schoolYearId=${schoolYearId}&classId=${clazzId}&semesterId=${semesterId}`
+      `examresults/class?schoolYearId=${schoolYearId}&classId=${clazzId}&semesterId=${semesterId}`
     );
     console.log(data);
-    setliststudent(data.data.items);
+    setliststudent(data.data.examResults);
+    const tempInputs = {};
+    data.data.examResults.forEach((element) => {
+      element.scores.forEach((element2) => {
+        tempInputs[`${element.student.studentId}${element2.type}`] =
+          element2.score;
+      });
+    });
+    setInputs(tempInputs);
   };
 
   // const MOCK_DATA = {
@@ -153,7 +163,7 @@ export const PaginationTable = () => {
   // }, []);
   return (
     <>
-      {console.log(inputs)}
+      {/* {console.log(inputs)} */}
 
       <div style={{ height: "60%", width: "100%", padding: "5px 2px 2px 2px" }}>
         <div style={{ marginRight: "auto", marginLeft: "auto" }}>
@@ -219,8 +229,6 @@ export const PaginationTable = () => {
 
               <td colspan="4">Hệ số 2</td>
               <td rowspan="2">Thi HK</td>
-              <td rowspan="2">ĐTB môn</td>
-              <td rowspan="2">XLHK1</td>
             </tr>
             <tr>
               <td colspan="3">Miệng </td>
@@ -231,18 +239,20 @@ export const PaginationTable = () => {
             {liststudent?.map((item, index) => (
               <tr>
                 <td>{index}</td>
-                <td>{item.displayName}</td>
+                <td>
+                  {item.student.lastName} {item.student.firstName}
+                </td>
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A1`}
-                    value={inputs[`${item.userId}A1`] || ""}
+                    name={`${item.student.studentId}A1`}
+                    value={inputs[`${item.student.studentId}A1`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -250,14 +260,14 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A2`}
-                    value={inputs[`${item.userId}A2`] || ""}
+                    name={`${item.student.studentId}A2`}
+                    value={inputs[`${item.student.studentId}A2`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -265,12 +275,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A3`}
-                    value={inputs[`${item.userId}A3`] || ""}
+                    name={`${item.student.studentId}A3`}
+                    value={inputs[`${item.student.studentId}A3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -281,12 +291,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B1`}
-                    value={inputs[`${item.userId}B1`] || ""}
+                    name={`${item.student.studentId}B1`}
+                    value={inputs[`${item.student.studentId}B1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -296,12 +306,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B2`}
-                    value={inputs[`${item.userId}B2`] || ""}
+                    name={`${item.student.studentId}B2`}
+                    value={inputs[`${item.student.studentId}B2`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -311,12 +321,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B3`}
-                    value={inputs[`${item.userId}B3`] || ""}
+                    name={`${item.student.studentId}B3`}
+                    value={inputs[`${item.student.studentId}B3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -326,14 +336,14 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B4`}
-                    value={inputs[`${item.userId}B4`] || ""}
+                    name={`${item.student.studentId}B4`}
+                    value={inputs[`${item.student.studentId}B4`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -341,12 +351,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}C1`}
-                    value={inputs[`${item.userId}C1`] || ""}
+                    name={`${item.student.studentId}C1`}
+                    value={inputs[`${item.student.studentId}C1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -356,12 +366,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D1`}
-                    value={inputs[`${item.userId}D1`] || ""}
+                    name={`${item.student.studentId}D1`}
+                    value={inputs[`${item.student.studentId}D1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -371,12 +381,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D2`}
-                    value={inputs[`${item.userId}D2`] || ""}
+                    name={`${item.student.studentId}D2`}
+                    value={inputs[`${item.student.studentId}D2`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -386,12 +396,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D3`}
-                    value={inputs[`${item.userId}D3`] || ""}
+                    name={`${item.student.studentId}D3`}
+                    value={inputs[`${item.student.studentId}D3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -401,12 +411,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D4`}
-                    value={inputs[`${item.userId}D4`] || ""}
+                    name={`${item.student.studentId}D4`}
+                    value={inputs[`${item.student.studentId}D4`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -416,20 +426,18 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}E1`}
-                    value={inputs[`${item.userId}E1`] || ""}
+                    name={`${item.student.studentId}E1`}
+                    value={inputs[`${item.student.studentId}E1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
                     max="10"
                   />
                 </td>
-                <td></td>
-                <td></td>
               </tr>
             ))}
             {/* {MOCK_DATA.examResults.map((item, index) => (
@@ -439,14 +447,14 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A1`}
-                    value={inputs[`${item.userId}A1`] || ""}
+                    name={`${item.student.studentId}A1`}
+                    value={inputs[`${item.student.studentId}A1`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -454,14 +462,14 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A2`}
-                    value={inputs[`${item.userId}A2`] || ""}
+                    name={`${item.student.studentId}A2`}
+                    value={inputs[`${item.student.studentId}A2`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -469,12 +477,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}A3`}
-                    value={inputs[`${item.userId}A3`] || ""}
+                    name={`${item.student.studentId}A3`}
+                    value={inputs[`${item.student.studentId}A3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -485,12 +493,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B1`}
-                    value={inputs[`${item.userId}B1`] || ""}
+                    name={`${item.student.studentId}B1`}
+                    value={inputs[`${item.student.studentId}B1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -500,12 +508,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B2`}
-                    value={inputs[`${item.userId}B2`] || ""}
+                    name={`${item.student.studentId}B2`}
+                    value={inputs[`${item.student.studentId}B2`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -515,12 +523,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B3`}
-                    value={inputs[`${item.userId}B3`] || ""}
+                    name={`${item.student.studentId}B3`}
+                    value={inputs[`${item.student.studentId}B3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -530,14 +538,14 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}B4`}
-                    value={inputs[`${item.userId}B4`] || ""}
+                    name={`${item.student.studentId}B4`}
+                    value={inputs[`${item.student.studentId}B4`] || ""}
                     onChange={handleChange}
                     min="0"
                     max="10"
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                   />
@@ -545,12 +553,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}C1`}
-                    value={inputs[`${item.userId}C1`] || ""}
+                    name={`${item.student.studentId}C1`}
+                    value={inputs[`${item.student.studentId}C1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "60%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -560,12 +568,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D1`}
-                    value={inputs[`${item.userId}D1`] || ""}
+                    name={`${item.student.studentId}D1`}
+                    value={inputs[`${item.student.studentId}D1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -575,12 +583,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D2`}
-                    value={inputs[`${item.userId}D2`] || ""}
+                    name={`${item.student.studentId}D2`}
+                    value={inputs[`${item.student.studentId}D2`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -590,12 +598,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D3`}
-                    value={inputs[`${item.userId}D3`] || ""}
+                    name={`${item.student.studentId}D3`}
+                    value={inputs[`${item.student.studentId}D3`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -605,12 +613,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}D4`}
-                    value={inputs[`${item.userId}D4`] || ""}
+                    name={`${item.student.studentId}D4`}
+                    value={inputs[`${item.student.studentId}D4`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
@@ -620,12 +628,12 @@ export const PaginationTable = () => {
                 <td>
                   <input
                     type="number"
-                    name={`${item.userId}E1`}
-                    value={inputs[`${item.userId}E1`] || ""}
+                    name={`${item.student.studentId}E1`}
+                    value={inputs[`${item.student.studentId}E1`] || ""}
                     onChange={handleChange}
                     style={{
                       height: "100%",
-                      width: "35px",
+                      width: "60px",
                       padding: "5px 2px 2px 2px",
                     }}
                     min="0"
