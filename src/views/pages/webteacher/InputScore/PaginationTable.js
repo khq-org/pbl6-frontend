@@ -646,9 +646,12 @@ export const PaginationTable = () => {
             ))} */}
           </tbody>
         </table>
-        <input type="submit" />
+        <div className="text-end mt-3">
+          <button className="btn btn-primary " type="submit">
+            Lưu thông tin
+          </button>
+        </div>
       </form>
-      <button onClick={() => console.log(inputs)}>console.log</button>
     </>
   );
 };
