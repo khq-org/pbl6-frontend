@@ -24,7 +24,9 @@ const TeacherDetail = () => {
   const [username, setusername] = useState("");
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
+  const [listsubject, setlistsubject] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
+  const [subjectId, setsubjectId] = useState(1);
 
   const { id } = useParams();
 
@@ -47,6 +49,10 @@ const TeacherDetail = () => {
         setteachSubject(data.data.teacher.teachSubject);
         setnationality(data.data.teacher.nationality);
         setusername(data.data.teacher.username);
+
+        const res = await axios.get("subjects");
+        console.log({ res });
+        setlistsubject(res.data.data.items);
       } catch (e) {}
     })();
   }, []);
@@ -82,7 +88,7 @@ const TeacherDetail = () => {
       city,
       nationality,
       workingPosition,
-      teachSubject,
+      subjectId,
       roleId: 3,
     });
     alert("done.");
@@ -229,7 +235,15 @@ const TeacherDetail = () => {
               <b>Bộ môn</b>
               <CFormSelect
                 value={teachSubject}
-                onChange={(e) => setteachSubject(e.target.value)}
+                onChange={(e) => {
+                  setteachSubject(e.target.value);
+
+                  setsubjectId(
+                    listsubject?.find((element) => {
+                      return element.subject === e.target.value;
+                    })?.subjectId
+                  );
+                }}
               >
                 <option value="Maths">Toán</option>
                 <option value="Literature">Văn học</option>

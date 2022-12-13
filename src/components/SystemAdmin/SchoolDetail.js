@@ -88,11 +88,21 @@ export const SchoolDetail = () => {
       email,
       schoolId: id,
     });
-    setfirstName("");
-    setlastName("");
-    setemail("");
-    //console.log({ res });
-    window.location.reload();
+
+    console.log({ res });
+    setlistaccount([
+      ...listaccount,
+      {
+        schoolAdminId: res.data.data.id,
+        firstName,
+        lastName,
+        email,
+        schoolId: id,
+      },
+    ]);
+
+    setVisible(false);
+    window.alert("Done.");
   };
 
   const save = async (e) => {
@@ -111,17 +121,18 @@ export const SchoolDetail = () => {
 
     //console.log({ res });
 
-    alert("done.");
+    alert("Done.");
 
     //navigate(-1);
   };
   const del = async (schoolAdminId) => {
-    const res = await axios.delete(`schooladmins/${schoolAdminId}`);
-    //console.log(res);
-    setlistaccount(
-      listaccount.filter((item) => item.schoolAdminId !== schoolAdminId)
-    );
-
+    if (window.confirm(" Are you want to delete?")) {
+      const res = await axios.delete(`schooladmins/${schoolAdminId}`);
+      //console.log(res);
+      setlistaccount(
+        listaccount.filter((item) => item.schoolAdminId !== schoolAdminId)
+      );
+    }
     //window.location.reload();
   };
   //console.log(listaccount);
@@ -357,7 +368,14 @@ export const SchoolDetail = () => {
                     </tbody>
                   </table>
                   <div className="text-end">
-                    <CButton onClick={() => setVisible(!visible)}>
+                    <CButton
+                      onClick={() => {
+                        setfirstName("");
+                        setlastName("");
+                        setemail("");
+                        setVisible(!visible);
+                      }}
+                    >
                       Create
                     </CButton>
                   </div>

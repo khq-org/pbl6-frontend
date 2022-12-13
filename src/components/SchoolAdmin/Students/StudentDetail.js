@@ -20,12 +20,33 @@ const StudentDetail = () => {
   const [district, setdistrict] = useState("");
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
-  const [workingPosition, setworkingPosition] = useState("");
+  const [workingPosition, setworkingPosition] = useState("Student");
   const [username, setusername] = useState("");
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
   const [classId, setclassId] = useState(1);
+  const [classes, setclasses] = useState();
+  //cha
+  const [idFather, setidFather] = useState(0);
+  const [firstNameFather, setfirstNameFather] = useState("");
+  const [lastNameFather, setlastNameFather] = useState("");
+  const [phoneFather, setphoneFather] = useState("");
+  const [jobFather, setjobFather] = useState("");
+  const [streetFather, setstreetFather] = useState("");
+  const [districtFather, setdistrictFather] = useState("");
+  const [cityFather, setcityFather] = useState("");
+  const [listdistrictFather, setlistdistrictFather] = useState([]);
+  //me
+  const [idMother, setidMother] = useState(0);
+  const [firstNameMother, setfirstNameMother] = useState("");
+  const [lastNameMother, setlastNameMother] = useState("");
+  const [phoneMother, setphoneMother] = useState("");
+  const [jobMother, setjobMother] = useState("");
+  const [streetMother, setstreetMother] = useState("");
+  const [districtMother, setdistrictMother] = useState("");
+  const [cityMother, setcityMother] = useState("");
+  const [listdistrictMother, setlistdistrictMother] = useState([]);
 
   const { id } = useParams();
 
@@ -34,6 +55,8 @@ const StudentDetail = () => {
       try {
         const { data } = await axios.get(`students/${id}`);
         console.log({ data });
+        setclasses(data.data.classes);
+
         setfirstName(data.data.student.firstName);
         setlastName(data.data.student.lastName);
         setgender(data.data.student.gender);
@@ -46,8 +69,25 @@ const StudentDetail = () => {
         setcity(data.data.student.city);
         //setworkingPosition(data.data.students.workingPosition);
         setnationality(data.data.student.nationality);
-
         setusername(data.data.student.username);
+
+        setidFather(data.data.parents[0]?.userId);
+        setfirstNameFather(data.data.parents[0]?.firstName);
+        setlastNameFather(data.data.parents[0]?.lastName);
+        setphoneFather(data.data.parents[0]?.phone);
+        setjobFather(data.data.parents[0]?.job);
+        setstreetFather(data.data.parents[0]?.street);
+        setdistrictFather(data.data.parents[0]?.district);
+        setcityFather(data.data.parents[0]?.city);
+
+        setidMother(data.data.parents[1]?.userId);
+        setfirstNameMother(data.data.parents[1]?.firstName);
+        setlastNameMother(data.data.parents[1]?.lastName);
+        setphoneMother(data.data.parents[1]?.phone);
+        setjobMother(data.data.parents[1]?.job);
+        setstreetMother(data.data.parents[1]?.street);
+        setdistrictMother(data.data.parents[1]?.district);
+        setcityMother(data.data.parents[1]?.city);
       } catch (e) {}
     })();
   }, []);
@@ -57,6 +97,8 @@ const StudentDetail = () => {
       try {
         setlistcity(CITY);
         setlistdistrict(DISTRICT);
+        setlistdistrictFather(DISTRICT);
+        setlistdistrictMother(DISTRICT);
       } catch (e) {}
     })();
   }, []);
@@ -67,25 +109,64 @@ const StudentDetail = () => {
     const d = DISTRICT.filter((item) => item.parent_code === code);
     setlistdistrict(d);
   };
+  const setaddFather = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcityFather(c.name);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrictFather(d);
+  };
+  const setaddMother = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcityMother(c.name);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrictMother(d);
+  };
   const save = async (e) => {
     e.preventDefault();
 
     const { data } = await axios.put(`students/${id}`, {
-      firstName,
-      lastName,
-      dateOfBirth,
-      placeOfBirth,
-      gender,
-      phone,
-      email,
-      street,
-      district,
-      city,
-      nationality,
-      workingPosition,
-      classId,
+      student: {
+        firstName,
+        lastName,
+        dateOfBirth,
+        placeOfBirth,
+        gender,
+        phone,
+        email,
+        street,
+        district,
+        city,
+        nationality,
+        workingPosition,
+      },
+      classes,
+      parents: [
+        {
+          userId: idFather,
+          firstName: firstNameFather,
+          lastName: lastNameFather,
+          phone: phoneFather,
+          job: jobFather,
+          street: streetFather,
+          district: districtFather,
+          city: cityFather,
+        },
+        {
+          userId: idMother,
+          firstName: firstNameMother,
+          lastName: lastNameMother,
+          phone: phoneMother,
+          job: jobMother,
+          street: streetMother,
+          district: districtMother,
+          city: cityMother,
+        },
+      ],
     });
     console.log(data);
+    window.alert("Thành công.");
   };
   return (
     <>
@@ -334,11 +415,21 @@ const StudentDetail = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={lastNameFather}
+                      onChange={(e) => setlastNameFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={firstNameFather}
+                      onChange={(e) => setfirstNameFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -347,11 +438,21 @@ const StudentDetail = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={jobFather}
+                      onChange={(e) => setjobFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={phoneFather}
+                      onChange={(e) => setphoneFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -359,14 +460,21 @@ const StudentDetail = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={streetFather}
+                      onChange={(e) => setstreetFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
                     <CFormSelect
+                      value={
+                        listcity.find((item) => item.name === cityFather)?.code
+                      }
                       style={{ width: "200px" }}
-                      value={listcity.find((item) => item.name === city)?.code}
-                      onChange={(e) => setadd(e.target.value)}
+                      onChange={(e) => setaddFather(e.target.value)}
                     >
                       {listcity.map((item) => (
                         <option value={item.code} label={item.name}></option>
@@ -376,11 +484,11 @@ const StudentDetail = () => {
                   <td>Quận/huyện:</td>
                   <td>
                     <CFormSelect
+                      value={districtFather}
                       style={{ width: "200px" }}
-                      value={district}
-                      onChange={(e) => setdistrict(e.target.value)}
+                      onChange={(e) => setdistrictFather(e.target.value)}
                     >
-                      {listdistrict.map((item) => (
+                      {listdistrictFather.map((item) => (
                         <option value={item.name} label={item.name}></option>
                       ))}
                     </CFormSelect>
@@ -398,11 +506,21 @@ const StudentDetail = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={lastNameMother}
+                      onChange={(e) => setlastNameMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={firstNameMother}
+                      onChange={(e) => setfirstNameMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -411,11 +529,21 @@ const StudentDetail = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={jobMother}
+                      onChange={(e) => setjobMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={phoneMother}
+                      onChange={(e) => setphoneMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -423,14 +551,21 @@ const StudentDetail = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={streetMother}
+                      onChange={(e) => setstreetMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
                     <CFormSelect
+                      value={
+                        listcity.find((item) => item.name === cityMother)?.code
+                      }
                       style={{ width: "200px" }}
-                      value={listcity.find((item) => item.name === city)?.code}
-                      onChange={(e) => setadd(e.target.value)}
+                      onChange={(e) => setaddMother(e.target.value)}
                     >
                       {listcity.map((item) => (
                         <option value={item.code} label={item.name}></option>
@@ -440,11 +575,11 @@ const StudentDetail = () => {
                   <td>Quận/huyện:</td>
                   <td>
                     <CFormSelect
+                      value={districtMother}
                       style={{ width: "200px" }}
-                      value={district}
-                      onChange={(e) => setdistrict(e.target.value)}
+                      onChange={(e) => setdistrictMother(e.target.value)}
                     >
-                      {listdistrict.map((item) => (
+                      {listdistrictMother.map((item) => (
                         <option value={item.name} label={item.name}></option>
                       ))}
                     </CFormSelect>
@@ -454,6 +589,7 @@ const StudentDetail = () => {
             </table>
           </div>
         </div>
+
         <div className="mt-5 text-center">
           <button
             className="btn btn-primary profile-button"

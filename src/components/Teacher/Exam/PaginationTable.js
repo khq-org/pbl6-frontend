@@ -26,7 +26,7 @@ import {
   CDropdownMenu,
   CDropdownItem,
 } from "@coreui/react";
-import { GlobalFilter } from "../../schooladmin/GlobalFilter";
+import { GlobalFilter } from "../../SchoolAdmin/GlobalFilter";
 
 import { Link } from "react-router-dom";
 import { element } from "prop-types";

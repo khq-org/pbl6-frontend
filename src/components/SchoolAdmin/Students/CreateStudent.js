@@ -27,6 +27,25 @@ const CreateStudent = () => {
   const [listdistrict, setlistdistrict] = useState([]);
   const [listclass, setlistclass] = useState([]);
 
+  //cha
+  const [firstNameFather, setfirstNameFather] = useState("");
+  const [lastNameFather, setlastNameFather] = useState("");
+  const [phoneFather, setphoneFather] = useState("");
+  const [jobFather, setjobFather] = useState("");
+  const [streetFather, setstreetFather] = useState("");
+  const [districtFather, setdistrictFather] = useState("");
+  const [cityFather, setcityFather] = useState("");
+  const [listdistrictFather, setlistdistrictFather] = useState([]);
+  //me
+  const [firstNameMother, setfirstNameMother] = useState("");
+  const [lastNameMother, setlastNameMother] = useState("");
+  const [phoneMother, setphoneMother] = useState("");
+  const [jobMother, setjobMother] = useState("");
+  const [streetMother, setstreetMother] = useState("");
+  const [districtMother, setdistrictMother] = useState("");
+  const [cityMother, setcityMother] = useState("");
+  const [listdistrictMother, setlistdistrictMother] = useState([]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -41,6 +60,8 @@ const CreateStudent = () => {
       try {
         setlistcity(CITY);
         setlistdistrict(DISTRICT);
+        setlistdistrictFather(DISTRICT);
+        setlistdistrictMother(DISTRICT);
       } catch (e) {}
     })();
   }, []);
@@ -50,6 +71,20 @@ const CreateStudent = () => {
 
     const d = DISTRICT.filter((item) => item.parent_code === code);
     setlistdistrict(d);
+  };
+  const setaddFather = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcityFather(c.name);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrictFather(d);
+  };
+  const setaddMother = async (code) => {
+    const c = listcity.find((item) => item.code === code);
+    setcityMother(c.name);
+
+    const d = DISTRICT.filter((item) => item.parent_code === code);
+    setlistdistrictMother(d);
   };
 
   let nav = useNavigate();
@@ -69,9 +104,30 @@ const CreateStudent = () => {
       nationality,
       workingPosition,
       classId,
+      parents: [
+        {
+          firstName: firstNameFather,
+          lastName: lastNameFather,
+          phone: phoneFather,
+          job: jobFather,
+          street: streetFather,
+          district: districtFather,
+          city: cityFather,
+        },
+        {
+          firstName: firstNameMother,
+          lastName: lastNameMother,
+          phone: phoneMother,
+          job: jobMother,
+          street: streetMother,
+          district: districtMother,
+          city: cityMother,
+        },
+      ],
     });
-    //console.log(res);
-    nav(-1);
+    console.log(res);
+    window.alert("Thành công.");
+    //nav(-1);
   };
   return (
     <>
@@ -294,7 +350,7 @@ const CreateStudent = () => {
         </div>
         <br />
         <br />
-        {/* <div
+        <div
           classname="GreyBox"
           style={{ marginRight: "auto", marginLeft: "auto" }}
         >
@@ -315,11 +371,19 @@ const CreateStudent = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setlastNameFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setfirstNameFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -328,11 +392,19 @@ const CreateStudent = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setjobFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setphoneFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -340,13 +412,17 @@ const CreateStudent = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setstreetFather(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      onChange={(e) => setadd(e.target.value)}
+                      onChange={(e) => setaddFather(e.target.value)}
                     >
                       {listcity.map((item) => (
                         <option value={item.code} label={item.name}></option>
@@ -357,9 +433,9 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      onChange={(e) => setdistrict(e.target.value)}
+                      onChange={(e) => setdistrictFather(e.target.value)}
                     >
-                      {listdistrict.map((item) => (
+                      {listdistrictFather.map((item) => (
                         <option value={item.name} label={item.name}></option>
                       ))}
                     </CFormSelect>
@@ -377,11 +453,19 @@ const CreateStudent = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setlastNameMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setfirstNameMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -390,11 +474,19 @@ const CreateStudent = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setjobMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setphoneMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -402,13 +494,17 @@ const CreateStudent = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      onChange={(e) => setstreetMother(e.target.value)}
+                      type="text"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      onChange={(e) => setadd(e.target.value)}
+                      onChange={(e) => setaddMother(e.target.value)}
                     >
                       {listcity.map((item) => (
                         <option value={item.code} label={item.name}></option>
@@ -419,9 +515,9 @@ const CreateStudent = () => {
                   <td>
                     <CFormSelect
                       style={{ width: "200px" }}
-                      onChange={(e) => setdistrict(e.target.value)}
+                      onChange={(e) => setdistrictMother(e.target.value)}
                     >
-                      {listdistrict.map((item) => (
+                      {listdistrictMother.map((item) => (
                         <option value={item.name} label={item.name}></option>
                       ))}
                     </CFormSelect>
@@ -430,7 +526,7 @@ const CreateStudent = () => {
               </tbody>
             </table>
           </div>
-        </div> */}
+        </div>
 
         <div className="mt-2 text-center">
           <button

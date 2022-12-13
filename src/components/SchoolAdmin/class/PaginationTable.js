@@ -30,7 +30,7 @@ export const PaginationTable = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [className, setclassName] = useState("");
-  const [gradeId, setgradeId] = useState(0);
+  const [gradeId, setgradeId] = useState(1);
   const [isSpecializedClass, setisSpecializedClass] = useState(false);
   const [subject, setsubject] = useState("");
 
@@ -71,14 +71,29 @@ export const PaginationTable = () => {
       isSpecializedClass,
       subject,
     });
-    //console.log(res);
-    window.location.reload();
+    console.log(res);
+    setlistclass([
+      ...listclass,
+      {
+        classId: res.data.data.id,
+        clazz: className,
+        grade: { gradeId, grade: `Grade ${Number(9) + Number(gradeId)}` },
+        gradeId,
+        isSpecializedClass,
+        subject,
+      },
+    ]);
+    setVisible(false);
+    window.alert("Thành công.");
+    //window.location.reload();
     //alert("done.");
   };
   const del = async (id) => {
-    const res = await axios.delete(`classes/${id}`);
-    //console.log(res);
-    setlistclass(listclass.filter((item) => item.classId !== id));
+    if (window.confirm("Bạn muốn xóa lớp này?")) {
+      const res = await axios.delete(`classes/${id}`);
+      //console.log(res);
+      setlistclass(listclass.filter((item) => item.classId !== id));
+    }
   };
 
   const data = useMemo(() => listclass, [listclass]);

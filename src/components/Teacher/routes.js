@@ -1,5 +1,5 @@
 import Profile from "./Profile";
-import ChangePW from "./password";
+import ChangePW from "../SchoolAdmin/ChangePW";
 import Calendar from "./Calendar";
 import Exam from "./Exam";
 import Meeting from "./Meeting";

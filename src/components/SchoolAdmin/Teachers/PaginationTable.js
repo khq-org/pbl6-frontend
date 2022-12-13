@@ -53,7 +53,7 @@ export const PaginationTable = () => {
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
   const [workingPosition, setworkingPosition] = useState("Teacher");
-  const [teachSubject, setteachSubject] = useState("");
+  const [subjectId, setsubjectId] = useState(1);
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
@@ -97,18 +97,41 @@ export const PaginationTable = () => {
       street,
       district,
       city,
-      teachSubject,
+      subjectId,
       nationality,
       workingPosition,
     });
     console.log(res);
-    window.location.reload();
+    setlistTeacher([
+      ...listTeacher,
+      {
+        userId: res.data.data.id,
+        firstName,
+        lastName,
+        dateOfBirth,
+        placeOfBirth,
+        gender,
+        phone,
+        email,
+        street,
+        district,
+        city,
+        subjectId,
+        nationality,
+        workingPosition,
+      },
+    ]);
+    setVisible(false);
+    window.alert("Done.");
+    //window.location.reload();
     //alert("done.");
   };
   const del = async (id) => {
-    const res = await axios.delete(`teachers/${id}`);
-    console.log(res);
-    setlistTeacher(listTeacher.filter((item) => item.userId !== id));
+    if (window.confirm("Bạn thực sự muốn xóa giáo viên này?")) {
+      const res = await axios.delete(`teachers/${id}`);
+      console.log(res);
+      setlistTeacher(listTeacher.filter((item) => item.userId !== id));
+    }
   };
 
   const data = useMemo(() => listTeacher, [listTeacher]);
@@ -273,23 +296,21 @@ export const PaginationTable = () => {
                   <div className="col-md-6">
                     Giáo viên bộ môn
                     <CFormSelect
-                      onChange={(e) => setteachSubject(e.target.value)}
+                      onChange={(e) => setsubjectId(Number(e.target.value))}
                     >
-                      <option value="Maths">Toán</option>
-                      <option value="Literature">Văn học</option>
-                      <option value="English">Tiếng Anh</option>
-                      <option value="Physic">Vật lí</option>
-                      <option value="Chemistry">Hóa học</option>
-                      <option value="Biological">Sinh học</option>
-                      <option value="History">Lịch sử</option>
-                      <option value="Geographic">Địa lí</option>
-                      <option value="Civic Education">Giáo dục công dân</option>
-                      <option value="Physical Education">Thể dục</option>
-                      <option value="Defense Education">
-                        Giáo dục Quốc phòng- An ninh
-                      </option>
-                      <option value="Informatics">Tin học</option>
-                      <option value="Technology">Công nghệ</option>
+                      <option value="1">Toán</option>
+                      <option value="4">Văn học</option>
+                      <option value="8">Tiếng Anh</option>
+                      <option value="2">Vật lí</option>
+                      <option value="3">Hóa học</option>
+                      <option value="7">Sinh học</option>
+                      <option value="5">Lịch sử</option>
+                      <option value="6">Địa lí</option>
+                      <option value="9">Giáo dục công dân</option>
+                      <option value="12">Thể dục</option>
+                      <option value="11">Giáo dục Quốc phòng- An ninh</option>
+                      <option value="13">Tin học</option>
+                      <option value="10">Công nghệ</option>
                     </CFormSelect>
                   </div>
                 </div>
