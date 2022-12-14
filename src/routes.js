@@ -13,6 +13,7 @@ import Class from "./components/SchoolAdmin/class";
 import Calendar from "./components/SchoolAdmin/Calendar";
 import Exam from "./components/SchoolAdmin/Calendar/Exam";
 import Dashboard from "./views/dashboard/Dashboard";
+import StudentScore from "./components/SchoolAdmin/Students/StudentScore";
 // const StartNewYear = React.lazy(() =>
 //   import("./components/SchoolAdmin/System")
 // );
@@ -56,9 +57,9 @@ const routes = [
   },
 
   {
-    path: "/all-students/:id",
-    name: "Hồ sơ học sinh",
-    element: StudentDetail,
+    path: "/all-students/score/:id",
+    name: "Kết quả học tập học sinh",
+    element: StudentScore,
   },
   {
     path: "/all-students/:id",

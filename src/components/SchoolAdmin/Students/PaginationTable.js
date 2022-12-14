@@ -10,9 +10,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { COLUMNS } from "./columns";
-import { COLUMNSPROFILE } from "./columnsProfile";
+
 import "./table.css";
-import BasicTable from "./BasicTable";
 
 import {
   CModal,
@@ -32,14 +31,12 @@ import { GlobalFilter } from "./../GlobalFilter";
 import { Link } from "react-router-dom";
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
-  const columnsProfile = useMemo(() => COLUMNSPROFILE, []);
 
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [listStudent, setlistStudent] = useState([]);
-  const [profile, setProfile] = useState([]);
-  const [visible, setVisible] = useState(false);
+
   const [listclass, setlistclass] = useState([]);
   const [listyear, setlistyear] = useState([]);
   const [clazz, setclazz] = useState(1);
@@ -67,25 +64,8 @@ export const PaginationTable = () => {
       } catch (e) {}
     })();
   }, []);
-  const getProfile = async (id) => {
-    const { data } = await axios.get(`students/${id}/profile`);
-    console.log(data.data.learningResults);
-    setProfile(
-      data.data.learningResults.sort((a, b) => {
-        const x = a.schoolYear;
-        const y = b.schoolYear;
-        if (x < y) {
-          return -1;
-        }
-        if (x > y) {
-          return 1;
-        }
-        return 0;
-      })
-    );
-  };
+
   const data = useMemo(() => listStudent, [listStudent]);
-  const dataProfile = useMemo(() => profile, [profile]);
 
   const {
     getTableProps,
@@ -124,28 +104,9 @@ export const PaginationTable = () => {
     console.log(res);
     setlistStudent(res.data.data.items);
   };
-  const setcl = async (year) => {
-    const res = await axios.get(`classes?schoolYearId=${year}`);
-    console.log(res);
-    setlistclass(res.data.data.items);
-  };
+
   return (
     <>
-      <CModal
-        size="lg"
-        alignment="center"
-        visible={visible}
-        onClose={() => setVisible(false)}
-      >
-        <CModalHeader>
-          <CModalTitle>
-            <h2>Xem quá trình học tập</h2>
-          </CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <BasicTable columns={columnsProfile} data={dataProfile} />
-        </CModalBody>
-      </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <span className="mt-1">Năm học:</span>
         <CFormSelect
@@ -223,12 +184,7 @@ export const PaginationTable = () => {
                     <CDropdownToggle color="white"></CDropdownToggle>
                     <CDropdownMenu>
                       <CDropdownItem>
-                        <Link
-                          onClick={() => {
-                            getProfile(row.original.userId);
-                            setVisible(!visible);
-                          }}
-                        >
+                        <Link to={`/all-students/score/${row.original.userId}`}>
                           Xem kết quả học tập
                         </Link>
                       </CDropdownItem>
