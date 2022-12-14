@@ -45,11 +45,12 @@ jobs:
           AWS_REGION: 'us-east-1'   # optional: defaults to us-east-1
           SOURCE_DIR: 'build'      # optional: defaults to entire repository
         
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        
-      - name: Build Docker image
-        run: docker build . --file Dockerfile --tag 01092002/pbl6-frontend:${{steps.version.outputs.tag}}
-        
-      - name: Push to Docker Hub
-        run: docker push 01092002/pbl6-frontend:${{steps.version.outputs.tag}}
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: 01092002/pbl6-frontend
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
