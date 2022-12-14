@@ -142,11 +142,7 @@ export const PaginationTable = () => {
         </Link>
       </div>
 
-      <table
-        className="table table-borderded"
-        style={{ border: "1px solid #ddd" }}
-        {...getTableProps()}
-      >
+      <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>

@@ -48,7 +48,6 @@ const StudentDetail = () => {
   const [cityMother, setcityMother] = useState("");
   const [listdistrictMother, setlistdistrictMother] = useState([]);
 
-  const [listlearningResults, setlistlearningResults] = useState([]);
   const [learningResults, setlearningResults] = useState([]);
   const { id } = useParams();
   var mapSubjects = {
@@ -113,7 +112,7 @@ const StudentDetail = () => {
       try {
         const { data } = await axios.get(`students/profile?studentId=${id}`);
         //console.log({ data });
-        setlistlearningResults(data.data.learningResults);
+
         data.data.learningResults?.map((item) => {
           handlesetlearningResults(item.learningResultId);
         });

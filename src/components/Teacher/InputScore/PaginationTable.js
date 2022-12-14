@@ -222,7 +222,7 @@ export const PaginationTable = () => {
       <form onSubmit={handleSubmit}>
         <table>
           <tbody>
-            <tr>
+            <tr style={{ backgroundColor: "silver" }}>
               <td rowspan="2">STT</td>
               <td rowspan="2">Họ và tên</td>
               <td colspan="8">Hệ số 1</td>
@@ -230,7 +230,7 @@ export const PaginationTable = () => {
               <td colspan="4">Hệ số 2</td>
               <td rowspan="2">Thi HK</td>
             </tr>
-            <tr>
+            <tr style={{ backgroundColor: "silver" }}>
               <td colspan="3">Miệng </td>
               <td colspan="4">15 phút</td>
               <td>TH</td>
