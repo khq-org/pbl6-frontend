@@ -135,12 +135,10 @@ const StudentScore = () => {
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}A1`}
                       value={inputs1[`${item.subject.subjectId}A1`] || ""}
-                      min="0"
-                      max="10"
                       style={{
                         height: "60%",
                         width: "30px",
@@ -150,12 +148,10 @@ const StudentScore = () => {
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}A2`}
                       value={inputs1[`${item.subject.subjectId}A2`] || ""}
-                      min="0"
-                      max="10"
                       style={{
                         height: "60%",
                         width: "30px",
@@ -165,8 +161,8 @@ const StudentScore = () => {
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}A3`}
                       value={inputs1[`${item.subject.subjectId}A3`] || ""}
                       style={{
@@ -174,15 +170,13 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
 
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}B1`}
                       value={inputs1[`${item.subject.subjectId}B1`] || ""}
                       style={{
@@ -190,14 +184,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}B2`}
                       value={inputs1[`${item.subject.subjectId}B2`] || ""}
                       style={{
@@ -205,14 +197,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}B3`}
                       value={inputs1[`${item.subject.subjectId}B3`] || ""}
                       style={{
@@ -220,18 +210,14 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}B4`}
                       value={inputs1[`${item.subject.subjectId}B4`] || ""}
-                      min="0"
-                      max="10"
                       style={{
                         height: "60%",
                         width: "30px",
@@ -241,8 +227,8 @@ const StudentScore = () => {
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}C1`}
                       value={inputs1[`${item.subject.subjectId}C1`] || ""}
                       style={{
@@ -250,14 +236,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}D1`}
                       value={inputs1[`${item.subject.subjectId}D1`] || ""}
                       style={{
@@ -265,14 +249,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}D2`}
                       value={inputs1[`${item.subject.subjectId}D2`] || ""}
                       style={{
@@ -280,14 +262,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}D3`}
                       value={inputs1[`${item.subject.subjectId}D3`] || ""}
                       style={{
@@ -295,14 +275,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}D4`}
                       value={inputs1[`${item.subject.subjectId}D4`] || ""}
                       style={{
@@ -310,14 +288,12 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       name={`${item.subject.subjectId}E1`}
                       value={inputs1[`${item.subject.subjectId}E1`] || ""}
                       style={{
@@ -325,22 +301,18 @@ const StudentScore = () => {
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                   <td>
                     <input
-                      type="number"
-                      readonly
+                      type="text"
+                      readOnly
                       value={item.semesterScores[Number(semester)]?.avgScore}
                       style={{
                         height: "100%",
                         width: "30px",
                         padding: "5px 2px 2px 2px",
                       }}
-                      min="0"
-                      max="10"
                     />
                   </td>
                 </tr>

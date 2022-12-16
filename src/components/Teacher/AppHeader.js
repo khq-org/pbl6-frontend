@@ -22,6 +22,7 @@ const AppHeader = () => {
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.sidebarShow);
   const school = localStorage.getItem("school");
+  const account = localStorage.getItem("account");
   return (
     <CHeader position="sticky" className="mb-4">
       <CContainer fluid>
@@ -66,6 +67,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav> */}
         <CHeaderNav className="ms-3">
+          <b>Giáo viên: {account}- </b>
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>

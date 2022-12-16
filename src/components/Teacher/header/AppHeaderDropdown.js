@@ -30,43 +30,44 @@ const logout = () => {
   localStorage.removeItem("school");
   localStorage.removeItem("account");
 };
-const account = localStorage.getItem("account");
+//const account = localStorage.getItem("account");
 const AppHeaderDropdown = () => {
   return (
-    <CDropdown variant="nav-item">
-      <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <b>Giáo viên: {account}- </b>
-        <CAvatar
-          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-          size="md"
-        />
-      </CDropdownToggle>
-      <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-light fw-semibold py-2">
-          Tài khoản
-        </CDropdownHeader>
+    <>
+      <CDropdown variant="nav-item">
+        <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
+          <CAvatar
+            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+            size="md"
+          />
+        </CDropdownToggle>
+        <CDropdownMenu className="pt-0" placement="bottom-end">
+          <CDropdownHeader className="bg-light fw-semibold py-2">
+            Tài khoản
+          </CDropdownHeader>
 
-        <Link to="/teacher/profile">
-          <CDropdownItem>
-            <CIcon icon={cilUser} className="me-2" />
-            Thông tin
+          <Link to="/teacher/profile">
+            <CDropdownItem>
+              <CIcon icon={cilUser} className="me-2" />
+              Thông tin
+            </CDropdownItem>
+          </Link>
+
+          <Link to="/teacher/pw">
+            <CDropdownItem>
+              <CIcon icon={cilLockLocked} className="me-2" />
+              Mật khẩu
+            </CDropdownItem>
+          </Link>
+
+          <CDropdownDivider />
+          <CDropdownItem onClick={(e) => logout()} href="/">
+            <CIcon icon={cilAccountLogout} className="me-2" />
+            Đăng xuất
           </CDropdownItem>
-        </Link>
-
-        <Link to="/teacher/pw">
-          <CDropdownItem>
-            <CIcon icon={cilLockLocked} className="me-2" />
-            Mật khẩu
-          </CDropdownItem>
-        </Link>
-
-        <CDropdownDivider />
-        <CDropdownItem onClick={(e) => logout()} href="/">
-          <CIcon icon={cilAccountLogout} className="me-2" />
-          Đăng xuất
-        </CDropdownItem>
-      </CDropdownMenu>
-    </CDropdown>
+        </CDropdownMenu>
+      </CDropdown>
+    </>
   );
 };
 
