@@ -8,29 +8,26 @@ const ChangePW = () => {
   const [currentPassword, setcurrentPassword] = useState("");
   const [newPassword, setnewPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
+  const [messenger, setmessenger] = useState("");
 
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(
-        "users/password",
-        {
-          currentPassword,
-          newPassword,
-          confirmPassword,
-        },
-        { withCredentials: true }
-      );
-
+      const response = await axios.put("users/password", {
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      });
       console.log({ response });
-      setcurrentPassword("");
-      setnewPassword("");
-      setconfirmPassword("");
-
-      alert("Successed");
-    } catch (err) {
-      alert("Missing Password");
-    }
+      if (response?.status === 200) {
+        setcurrentPassword("");
+        setnewPassword("");
+        setconfirmPassword("");
+        setmessenger("Đổi mật khẩu thành công");
+      } else {
+        setmessenger("Thất bại. Kiểm tra lại.");
+      }
+    } catch (err) {}
   };
   return (
     <div className="mainDiv">
@@ -69,7 +66,9 @@ const ChangePW = () => {
               required
             />
           </div>
-
+          <div className="text-center" style={{ color: "red" }}>
+            {messenger}
+          </div>
           <div className="buttonWrapper">
             <button
               type="submit"

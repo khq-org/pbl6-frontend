@@ -1,6 +1,6 @@
 import { Home } from "./Home/index";
 import { InfoAdmin } from "./InfoAdmin";
-import { ChangePW } from "./ChangePW";
+import ChangePW from "../SchoolAdmin/ChangePW";
 import { SchoolDetail } from "./SchoolDetail";
 import { CreateSchool } from "./CreateSchool";
 import { AdminSchoolDetail } from "./AdminSchoolDetail";
