@@ -16,6 +16,7 @@ import {
   CDropdownItem,
   CDropdownToggle,
   CWidgetStatsA,
+  CAvatar,
 } from "@coreui/react";
 import { CChartLine, CChartBar } from "@coreui/react-chartjs";
 import { getStyle, hexToRgba } from "@coreui/utils";
@@ -85,10 +86,26 @@ const Dashboard = () => {
             color="primary"
             value={
               <>
-                <div>{classes}</div>
+                <tr>
+                  <td style={{ fontSize: "50px" }}>{classes}</td>
+                  <td>
+                    <div className="m-5">
+                      <i>
+                        <CAvatar
+                          src="https://png.pngtree.com/png-vector/20190723/ourlarge/pngtree-classroom-icon-for-your-project-png-image_1571714.jpg"
+                          style={{ width: "150px", hight: "150px" }}
+                        />
+                      </i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>LỚP HỌC</td>
+                  <td></td>
+                </tr>
               </>
             }
-            title="LỚP"
+            title=""
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -106,96 +123,38 @@ const Dashboard = () => {
                 </CDropdownMenu>
               </CDropdown>
             }
-            chart={
-              <CChartLine
-                className="mt-3 mx-3"
-                style={{ height: "70px" }}
-                data={{
-                  labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                  ],
-                  datasets: [
-                    {
-                      label: "My First dataset",
-                      backgroundColor: "transparent",
-                      borderColor: "rgba(255,255,255,.55)",
-                      pointBackgroundColor: getStyle("--cui-primary"),
-                      data: [65, 59, 84, 84, 51, 55, 40],
-                    },
-                  ],
-                }}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  maintainAspectRatio: false,
-                  scales: {
-                    x: {
-                      grid: {
-                        display: false,
-                        drawBorder: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
-                    },
-                    y: {
-                      min: 30,
-                      max: 89,
-                      display: false,
-                      grid: {
-                        display: false,
-                      },
-                      ticks: {
-                        display: false,
-                      },
-                    },
-                  },
-                  elements: {
-                    line: {
-                      borderWidth: 1,
-                      tension: 0.4,
-                    },
-                    point: {
-                      radius: 4,
-                      hitRadius: 10,
-                      hoverRadius: 4,
-                    },
-                  },
-                }}
-              />
-            }
           />
         </CCol>
         <CCol sm={6} lg={4}>
           <CWidgetStatsA
-            className="mb-4"
+            className="text-center mb-4"
             color="info"
             value={
               <>
-                <div className="mx-5">
-                  <i>
-                    <img
-                      src="https://banner2.cleanpng.com/20191003/ee/transparent-graduation-by-trainee-level-ucsf-helen-diller-family-comprehe5d96e29ea98e08.4453840915701695026945.jpg"
-                      style={{ width: "90px", hight: "90px" }}
-                    ></img>
-                  </i>
-                </div>
-                {students}
+                <tr>
+                  <td style={{ fontSize: "50px" }}>{students}</td>
+                  <td>
+                    <div className="m-5">
+                      <i>
+                        <CAvatar
+                          src="https://png.pngtree.com/element_our/png_detail/20181129/male-student-icon-png_251938.jpg"
+                          style={{ width: "150px", hight: "150px" }}
+                        />
+                      </i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>HỌC SINH</td>
+                  <td></td>
+                </tr>
+
                 {/* <span className="fs-6 fw-normal">
                   (40.9% <CIcon icon={cilArrowTop} />)
                 </span> */}
               </>
             }
-            title="HỌC SINH"
+            title=""
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -203,6 +162,10 @@ const Dashboard = () => {
                   caret={false}
                   className="p-0"
                 >
+                  {/* <img
+                    src="https://png.pngtree.com/png-vector/20190326/ourlarge/pngtree-vector-male-student-icon-png-image_864721.jpg"
+                    style={{ width: "90px", hight: "90px" }}
+                  ></img> */}
                   <CIcon
                     icon={cilOptions}
                     className="text-high-emphasis-inverse"
@@ -221,13 +184,26 @@ const Dashboard = () => {
             color="warning"
             value={
               <>
-                {teachers}
-                {/* <span className="fs-6 fw-normal">
-                  (84.7% <CIcon icon={cilArrowTop} />)
-                </span> */}
+                <tr>
+                  <td style={{ fontSize: "50px" }}>{classes}</td>
+                  <td>
+                    <div className="m-5">
+                      <i>
+                        <CAvatar
+                          src="https://cdn-icons-png.flaticon.com/512/206/206897.png"
+                          style={{ width: "150px", hight: "150px" }}
+                        />
+                      </i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GIÁO VIÊN</td>
+                  <td></td>
+                </tr>
               </>
             }
-            title="CÁN BỘ"
+            title=""
             action={
               <CDropdown alignment="end">
                 <CDropdownToggle
@@ -244,59 +220,6 @@ const Dashboard = () => {
                   <CDropdownItem href="/all-teachers">Chi tiết</CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
-            }
-            chart={
-              <CChartLine
-                className="mt-3"
-                style={{ height: "70px" }}
-                data={{
-                  labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                  ],
-                  datasets: [
-                    {
-                      label: "My First dataset",
-                      backgroundColor: "rgba(255,255,255,.2)",
-                      borderColor: "rgba(255,255,255,.55)",
-                      data: [78, 81, 80, 45, 34, 12, 40],
-                      fill: true,
-                    },
-                  ],
-                }}
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false,
-                    },
-                  },
-                  maintainAspectRatio: false,
-                  scales: {
-                    x: {
-                      display: false,
-                    },
-                    y: {
-                      display: false,
-                    },
-                  },
-                  elements: {
-                    line: {
-                      borderWidth: 2,
-                      tension: 0.4,
-                    },
-                    point: {
-                      radius: 0,
-                      hitRadius: 10,
-                      hoverRadius: 4,
-                    },
-                  },
-                }}
-              />
             }
           />
         </CCol>
