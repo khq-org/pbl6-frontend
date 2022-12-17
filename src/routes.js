@@ -45,7 +45,7 @@ import StudentScore from "./components/SchoolAdmin/Students/StudentScore";
 // );
 // const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const routes = [
-  { path: "/dashboard", exact: true, name: "" },
+  { path: "/dashboard", exact: true, name: "Dashboard" },
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
 
   { path: "/startnewyear", name: "Bắt đầu năm học mới", element: StartNewYear },

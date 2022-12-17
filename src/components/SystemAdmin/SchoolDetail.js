@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import CITY from "../vn/CITY.json";
 import DISTRICT from "../vn/DISTRICT.json";
@@ -30,7 +31,7 @@ export const SchoolDetail = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
-
+  const [mes, setmes] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
 
@@ -38,7 +39,7 @@ export const SchoolDetail = () => {
   const [visible, setVisible] = useState(false);
 
   //console.log({ id });
-
+  let navigate = useNavigate();
   useEffect(() => {
     (async () => {
       try {
@@ -89,20 +90,25 @@ export const SchoolDetail = () => {
       schoolId: id,
     });
 
-    console.log({ res });
-    setlistaccount([
-      ...listaccount,
-      {
-        schoolAdminId: res.data.data.id,
-        firstName,
-        lastName,
-        email,
-        schoolId: id,
-      },
-    ]);
+    console.log(res);
+    if (res.response?.status === 400) {
+      setmes("Email đã tồn tại.");
+    } else {
+      setlistaccount([
+        ...listaccount,
+        {
+          schoolAdminId: res.data.data?.id,
+          firstName,
+          lastName,
+          email,
+          schoolId: id,
+        },
+      ]);
 
-    setVisible(false);
-    window.alert("Done.");
+      setmes("");
+      setVisible(false);
+      window.alert("Tạo tài khoản thành công.");
+    }
   };
 
   const save = async (e) => {
@@ -121,12 +127,12 @@ export const SchoolDetail = () => {
 
     //console.log({ res });
 
-    alert("Done.");
+    alert("Đã lưu thông tin.");
 
     //navigate(-1);
   };
   const del = async (schoolAdminId) => {
-    if (window.confirm(" Are you want to delete?")) {
+    if (window.confirm("Bạn muốn xóa tài khoản này?")) {
       const res = await axios.delete(`schooladmins/${schoolAdminId}`);
       //console.log(res);
       setlistaccount(
@@ -146,29 +152,30 @@ export const SchoolDetail = () => {
       >
         <CModalHeader>
           <CModalTitle>
-            <h2>Create account schooladmin</h2>
+            <h2>Thêm mới tài khoản quản trị</h2>
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
           <form onSubmit={create}>
             <div className="col-md-12">
-              <b>First Name</b>
+              <b>Họ</b>
               <input
                 type="text"
+                size="100"
                 className="form-control"
-                placeholder="first name"
-                onChange={(e) => setfirstName(e.target.value)}
+                placeholder="họ"
+                onChange={(e) => setlastName(e.target.value)}
                 required
               />
             </div>
-
             <div className="col-md-12">
-              <b>Last Name</b>
+              <b>Tên</b>
               <input
                 type="text"
                 className="form-control"
-                placeholder="last name"
-                onChange={(e) => setlastName(e.target.value)}
+                placeholder="tên"
+                size="100"
+                onChange={(e) => setfirstName(e.target.value)}
                 required
               />
             </div>
@@ -176,16 +183,19 @@ export const SchoolDetail = () => {
             <div className="col-md-12">
               <b>Email</b>
               <input
-                type="text"
+                type="email"
                 className="form-control"
                 placeholder="email"
                 onChange={(e) => setemail(e.target.value)}
                 required
               />
             </div>
+            <div className="text-end" style={{ color: "red" }}>
+              {mes}
+            </div>
             <div className="mt-5 text-center">
               <button className="btn btn-primary " type="submit">
-                Create
+                Thêm mới
               </button>
             </div>
           </form>
@@ -200,13 +210,13 @@ export const SchoolDetail = () => {
                   <div>
                     <br />
                     <div>
-                      <h1 className="text-center">School Details</h1>
+                      <h1 className="text-center">Thông tin trường học</h1>
                     </div>
 
                     <table>
                       <tr>
                         <td>
-                          <b>Name School</b>
+                          <b>Trường học</b>
                         </td>
                         <td>
                           <input
@@ -220,12 +230,13 @@ export const SchoolDetail = () => {
                       </tr>
                       <tr>
                         <td>
-                          <b>Phone</b>
+                          <b>Số điện thoại</b>
                         </td>
                         <td>
                           <input
-                            type="text"
+                            type="tel"
                             className="form-control"
+                            pattern="[0-9]{10}"
                             value={phone}
                             onChange={(e) => setphone(e.target.value)}
                             required
@@ -234,7 +245,7 @@ export const SchoolDetail = () => {
                       </tr>
                       <tr>
                         <td>
-                          <b>Street</b>
+                          <b>Địa chỉ</b>
                         </td>
                         <td>
                           <input
@@ -249,7 +260,7 @@ export const SchoolDetail = () => {
 
                       <tr>
                         <td>
-                          <b>District</b>
+                          <b>Quận/Huyện</b>
                         </td>
                         <td>
                           <CFormSelect
@@ -267,7 +278,7 @@ export const SchoolDetail = () => {
                       </tr>
                       <tr>
                         <td>
-                          <b>City</b>
+                          <b>Tỉnh/Thành phố</b>
                         </td>
                         <td>
                           <CFormSelect
@@ -306,7 +317,13 @@ export const SchoolDetail = () => {
                         className="btn btn-primary profile-button"
                         type="submit"
                       >
-                        Save profile
+                        Lưu thông tin
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => navigate("/admin/home")}
+                      >
+                        Quay lại
                       </button>
                     </div>
                   </div>
@@ -320,7 +337,7 @@ export const SchoolDetail = () => {
                 <br />
                 <div className=" text-center">
                   <div className="text-center">
-                    <h3>Account </h3>
+                    <h3>Tài khoản quản trị </h3>
                   </div>
 
                   <br />
@@ -328,10 +345,10 @@ export const SchoolDetail = () => {
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>UserName</th>
-                        <th>Name</th>
+                        <th>Tài khoản</th>
+                        <th>Họ tên</th>
                         <th>Email</th>
-                        <th>Actions</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -376,7 +393,7 @@ export const SchoolDetail = () => {
                         setVisible(!visible);
                       }}
                     >
-                      Create
+                      Thêm mới
                     </CButton>
                   </div>
                 </div>

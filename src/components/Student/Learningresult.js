@@ -111,19 +111,19 @@ const StudentScore = () => {
           <table className="table table-bordered text-center">
             <tbody>
               <tr style={{ backgroundColor: "silver" }}>
-                <td rowspan="2">STT</td>
-                <td rowspan="2">Môn học</td>
-                <td colspan="8">Hệ số 1</td>
+                <td rowSpan="2">STT</td>
+                <td rowSpan="2">Môn học</td>
+                <td colSpan="8">Hệ số 1</td>
 
-                <td colspan="4">Hệ số 2</td>
-                <td rowspan="2">Thi HK</td>
-                <td rowspan="2">Điểm trung bình</td>
+                <td colSpan="4">Hệ số 2</td>
+                <td rowSpan="2">Thi HK</td>
+                <td rowSpan="2">Điểm trung bình</td>
               </tr>
               <tr style={{ backgroundColor: "silver" }}>
-                <td colspan="3">Miệng </td>
-                <td colspan="4">15 phút</td>
+                <td colSpan="3">Miệng </td>
+                <td colSpan="4">15 phút</td>
                 <td>TH</td>
-                <td colspan="4">1 tiết</td>
+                <td colSpan="4">1 tiết</td>
               </tr>
 
               {learningResults.studyScores?.map((item, index) => (
@@ -135,7 +135,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}A1`}
                       value={inputs1[`${item.subject.subjectId}A1`] || ""}
                       style={{
@@ -148,7 +148,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}A2`}
                       value={inputs1[`${item.subject.subjectId}A2`] || ""}
                       style={{
@@ -161,7 +161,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}A3`}
                       value={inputs1[`${item.subject.subjectId}A3`] || ""}
                       style={{
@@ -175,7 +175,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}B1`}
                       value={inputs1[`${item.subject.subjectId}B1`] || ""}
                       style={{
@@ -188,7 +188,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}B2`}
                       value={inputs1[`${item.subject.subjectId}B2`] || ""}
                       style={{
@@ -201,7 +201,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}B3`}
                       value={inputs1[`${item.subject.subjectId}B3`] || ""}
                       style={{
@@ -214,7 +214,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}B4`}
                       value={inputs1[`${item.subject.subjectId}B4`] || ""}
                       style={{
@@ -227,7 +227,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}C1`}
                       value={inputs1[`${item.subject.subjectId}C1`] || ""}
                       style={{
@@ -240,7 +240,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}D1`}
                       value={inputs1[`${item.subject.subjectId}D1`] || ""}
                       style={{
@@ -253,7 +253,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}D2`}
                       value={inputs1[`${item.subject.subjectId}D2`] || ""}
                       style={{
@@ -266,7 +266,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}D3`}
                       value={inputs1[`${item.subject.subjectId}D3`] || ""}
                       style={{
@@ -279,7 +279,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}D4`}
                       value={inputs1[`${item.subject.subjectId}D4`] || ""}
                       style={{
@@ -292,7 +292,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       name={`${item.subject.subjectId}E1`}
                       value={inputs1[`${item.subject.subjectId}E1`] || ""}
                       style={{
@@ -305,7 +305,7 @@ const StudentScore = () => {
                   <td>
                     <input
                       type="text"
-                      readonly
+                      readOnly
                       value={item.semesterScores[Number(semester)]?.avgScore}
                       style={{
                         height: "100%",

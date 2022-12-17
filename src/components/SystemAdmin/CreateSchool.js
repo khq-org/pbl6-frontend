@@ -29,6 +29,8 @@ export const CreateSchool = () => {
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setemail] = useState("");
+  const [mes1, setmes1] = useState("");
+  const [mes2, setmes2] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
 
@@ -53,7 +55,7 @@ export const CreateSchool = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.post("schools", {
+    const data = await axios.post("schools", {
       school,
       phone,
       street,
@@ -61,21 +63,33 @@ export const CreateSchool = () => {
       city,
       website,
     });
-    //console.log({ data });
-    const schoolId = data.data.id;
-    const res = await axios.post("schooladmins", {
-      firstName,
-      lastName,
-      email,
-      schoolId,
-    });
-    //console.log({ res });
+    if (data.status === 200) {
+      console.log(data);
+      const schoolId = data.data.data.id;
+      const res = await axios.post("schooladmins", {
+        firstName,
+        lastName,
+        email,
+        schoolId,
+      });
+      console.log({ res });
 
-    const id = await axios.get(`schooladmins/${res.data.data.id}`);
-    setUser(id.data.data.username);
-    //console.log({ id });
+      if (res.status === 200) {
+        const id = await axios.get(`schooladmins/${res.data.data.id}`);
+        setUser(id.data.data.username);
+        //console.log({ id });
+        setmes2("");
 
-    setVisible(true);
+        setVisible(true);
+      } else {
+        setmes2(
+          "Email đã tồn tại. Trường học đã được thêm vào hệ thống, bạn vào thông tin trường để tạo tài khoản quản trị."
+        );
+      }
+      setmes1("");
+    } else {
+      setmes1("Trường học ở tỉnh/thành phố này đã tồn tại trong hệ thống.");
+    }
   };
 
   return (
@@ -83,7 +97,7 @@ export const CreateSchool = () => {
       <CModal
         visible={visible}
         onClose={() => {
-          navigate(-1);
+          setVisible(false);
         }}
       >
         <CModalHeader>
@@ -92,15 +106,15 @@ export const CreateSchool = () => {
         <CModalBody>
           <table className="table table-bordered ">
             <tr>
-              <th>School</th>
+              <th>Trường học</th>
               <th>{school}</th>
             </tr>
             <tr>
-              <th>UserAdmin</th>
+              <th>Tài khoản</th>
               <th>{user}</th>
             </tr>
             <tr>
-              <th>PassWord</th>
+              <th>Mật khẩu</th>
               <th>{user}</th>
             </tr>
           </table>
@@ -121,20 +135,21 @@ export const CreateSchool = () => {
           <div className="col-md-7 border-right">
             <div className="p-5 py-3">
               <div className="">
-                <h2 className="text-center">Create Customer</h2>
+                <h2 className="text-center">Thêm mới trường học</h2>
               </div>
               <br />
 
               <table className="table">
                 <tr>
                   <td>
-                    <b>Name School</b>
+                    <b>Trường học</b>
                   </td>
                   <td>
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
-                      placeholder="name school"
+                      placeholder="tên trường"
                       onChange={(e) => setschool(e.target.value)}
                       required
                     />
@@ -142,14 +157,15 @@ export const CreateSchool = () => {
                 </tr>
                 <tr>
                   <td>
-                    <b>Phone</b>
+                    <b>Số điện thoại</b>
                   </td>
                   <td>
                     {" "}
                     <input
-                      type="text"
+                      type="tel"
                       className="form-control"
-                      placeholder="phone"
+                      placeholder="số điện thoại chuẩn 10 số"
+                      pattern="[0-9]{10}"
                       onChange={(e) => setphone(e.target.value)}
                       required
                     />
@@ -157,14 +173,14 @@ export const CreateSchool = () => {
                 </tr>
                 <tr>
                   <td>
-                    <b>Street</b>
+                    <b>Địa chỉ</b>
                   </td>
                   <td>
                     {" "}
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="street"
+                      placeholder="địa chỉ"
                       onChange={(e) => setstreet(e.target.value)}
                       required
                     />
@@ -173,7 +189,7 @@ export const CreateSchool = () => {
 
                 <tr>
                   <td>
-                    <b>District</b>
+                    <b>Quận/Huyện</b>
                   </td>
                   <td>
                     <CFormSelect onChange={(e) => setdistrict(e.target.value)}>
@@ -185,7 +201,7 @@ export const CreateSchool = () => {
                 </tr>
                 <tr>
                   <td>
-                    <b>City</b>
+                    <b>Tỉnh/Thành phố</b>
                   </td>
                   <td>
                     <CFormSelect onChange={(e) => setadd(e.target.value)}>
@@ -210,14 +226,8 @@ export const CreateSchool = () => {
                   </td>
                 </tr>
               </table>
-
-              <div className="mt-5 text-center">
-                <button
-                  className="btn btn-primary profile-button"
-                  type="submit"
-                >
-                  Create
-                </button>
+              <div className="text-end" style={{ color: "red" }}>
+                {mes1}
               </div>
             </div>
           </div>
@@ -226,7 +236,7 @@ export const CreateSchool = () => {
               <br />
               <br />
               <div className="d-flex justify-content-between align-items-center experience">
-                <h3>Account(School Admin)</h3>
+                <h3>Tài khoản quản trị</h3>
               </div>
               <br />
               <br />
@@ -234,30 +244,31 @@ export const CreateSchool = () => {
               <table className="table">
                 <tr>
                   <td>
-                    <b>First Name</b>
+                    <b>Họ</b>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      size="100"
+                      className="form-control"
+                      placeholder="họ"
+                      onChange={(e) => setlastName(e.target.value)}
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Tên</b>
                   </td>
                   <td>
                     {" "}
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="first name"
+                      size="100"
+                      placeholder="tên"
                       onChange={(e) => setfirstName(e.target.value)}
-                      required
-                    />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <b>Last Name</b>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="last name"
-                      onChange={(e) => setlastName(e.target.value)}
                       required
                     />
                   </td>
@@ -270,7 +281,7 @@ export const CreateSchool = () => {
                   <td>
                     {" "}
                     <input
-                      type="text"
+                      type="email"
                       className="form-control"
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}
@@ -279,7 +290,16 @@ export const CreateSchool = () => {
                   </td>
                 </tr>
               </table>
+              <div style={{ color: "red" }}>{mes2}</div>
             </div>
+          </div>
+          <div className="mt-5 text-center">
+            <button className="btn btn-primary profile-button" type="submit">
+              Tạo mới
+            </button>
+            <button className="btn btn-danger" onClick={() => navigate(-1)}>
+              Quay lại
+            </button>
           </div>
         </form>
       </div>

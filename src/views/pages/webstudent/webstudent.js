@@ -4,6 +4,7 @@ import {
   AppSidebar,
   AppHeader,
 } from "../../../components/Student/index";
+import { AppFooter } from "../../../components/SchoolAdmin";
 
 const WebStudent = () => {
   return (
@@ -30,6 +31,7 @@ const WebStudent = () => {
         <div className="body flex-grow-1 px-3">
           <AppContent />
         </div>
+        <AppFooter />
       </div>
     </div>
   );

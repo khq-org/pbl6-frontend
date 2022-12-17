@@ -152,7 +152,8 @@ const TeacherDetail = () => {
               <div className="col-md-12">
                 <b>Số điện thoại</b>
                 <input
-                  type="text"
+                  type="tel"
+                  pattern="[0-9]{10}"
                   className="form-control"
                   value={phone}
                   onChange={(e) => setphone(e.target.value)}
@@ -161,7 +162,7 @@ const TeacherDetail = () => {
               <div className="col-md-12">
                 <b>Email</b>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   value={email}
                   onChange={(e) => setemail(e.target.value)}

@@ -9,35 +9,35 @@ export const COLUMNS = [
     sticky: "left",
   },
   {
-    Header: "SchoolName",
+    Header: "Trường học",
 
     accessor: "school",
     disableFilters: true,
     sticky: "left",
   },
   {
-    Header: "Phone",
+    Header: "Số điện thoại",
 
     accessor: "phone",
     disableFilters: true,
     sticky: "left",
   },
   {
-    Header: "Street",
+    Header: "Địa chỉ",
 
     accessor: "street",
     disableFilters: true,
     sticky: "left",
   },
   {
-    Header: "District",
+    Header: "Quận/Huyện",
 
     accessor: "district",
     disableFilters: true,
     sticky: "left",
   },
   {
-    Header: "City",
+    Header: "Tỉnh/Thành phố",
 
     accessor: "city",
     disableFilters: true,

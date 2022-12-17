@@ -32,9 +32,9 @@ export const ChangePW = () => {
     <div className="container rounded bg-white mt-0 mb-0">
       <div className="cardStyle">
         <form onSubmit={submit} method="post" name="signupForm" id="signupForm">
-          <h4 className="formTitle">CHANGE TO PASSWORD</h4>
+          <h4 className="formTitle">ĐỔI MẬT KHẨU</h4>
           <div className="inputDiv">
-            Your Password
+            Mật khẩu cũ
             <input
               type="password"
               id="yourpassword"
@@ -45,7 +45,7 @@ export const ChangePW = () => {
           </div>
 
           <div className="inputDiv">
-            New Password
+            Mật khẩu mới
             <input
               type="password"
               id="password"
@@ -56,7 +56,7 @@ export const ChangePW = () => {
           </div>
 
           <div className="inputDiv">
-            Confirm Password
+            Nhập lại mật khẩu
             <input
               type="password"
               id="confirmPassword"
@@ -72,7 +72,7 @@ export const ChangePW = () => {
               id="submitButton"
               className="submitButton pure-button pure-button-primary"
             >
-              <span>Continue</span>
+              <span>Lưu thông tin</span>
             </button>
           </div>
         </form>

@@ -271,7 +271,7 @@ const CreateStudent = () => {
                   </td>
                   <td colSpan={2}>
                     <input
-                      type="text"
+                      type="email"
                       style={{ width: "310px" }}
                       onChange={(e) => setemail(e.target.value)}
                     />
@@ -284,7 +284,8 @@ const CreateStudent = () => {
                   </td>
                   <td colSpan={2}>
                     <input
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}"
                       style={{ width: "350px" }}
                       onChange={(e) => setphone(e.target.value)}
                     />
@@ -402,7 +403,8 @@ const CreateStudent = () => {
                   <td>
                     <input
                       onChange={(e) => setphoneFather(e.target.value)}
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -484,7 +486,8 @@ const CreateStudent = () => {
                   <td>
                     <input
                       onChange={(e) => setphoneMother(e.target.value)}
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}"
                       style={{ width: "200px" }}
                     />
                   </td>

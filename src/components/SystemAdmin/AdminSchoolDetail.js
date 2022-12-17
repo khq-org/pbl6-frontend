@@ -48,48 +48,54 @@ export const AdminSchoolDetail = () => {
     <div className="container rounded bg-white mt-0 mb-0">
       <div className="cardStyle">
         <form onSubmit={save} method="post" name="signupForm" id="signupForm">
-          <h4 className="formTitle">Account</h4>
+          <h4 className="formTitle">Thông tin tài khoản quản trị trường học</h4>
+
           <div className="inputDiv">
-            FirstName
+            Họ
             <input
               type="text"
+              value={lastName}
+              size="100"
+              onChange={(e) => setlastName(e.target.value)}
+            />
+          </div>
+          <div className="inputDiv">
+            Tên
+            <input
+              type="text"
+              size="100"
               value={firstName}
               onChange={(e) => setfirstName(e.target.value)}
             />
           </div>
 
           <div className="inputDiv">
-            LastName
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setlastName(e.target.value)}
-            />
-          </div>
-
-          <div className="inputDiv">
             Email
             <input
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setemail(e.target.value)}
             />
           </div>
           <div className="inputDiv">
-            UserName
+            Tài khoản
             <input type="text" value={username} readOnly />
           </div>
           <div className="inputDiv">
-            Password
-            <input type="text" onChange={(e) => setpassword(e.target.value)} />
+            Mật khẩu
+            <input
+              type="text"
+              size="100"
+              onChange={(e) => setpassword(e.target.value)}
+            />
           </div>
 
           <div className="text-center mt-3">
             <button type="submit" id="submitButton" className="btn btn-primary">
-              <span>Save</span>
+              <span>Lưu thông tin</span>
             </button>
-            <button className="btn btn-secondary" onClick={() => nav(-1)}>
-              Cancel
+            <button className="btn btn-danger" onClick={() => nav(-1)}>
+              Quay lại
             </button>
           </div>
         </form>

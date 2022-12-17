@@ -45,27 +45,27 @@ const AppHeaderDropdown = () => {
         </CDropdownToggle>
         <CDropdownMenu className="pt-0" placement="bottom-end">
           <CDropdownHeader className="bg-light fw-semibold py-2">
-            Account
+            Tài khoản
           </CDropdownHeader>
 
           <Link to="/admin/info">
             <CDropdownItem>
               <CIcon icon={cilUser} className="me-2" />
-              Profile
+              Thông tin
             </CDropdownItem>
           </Link>
 
           <Link to="/admin/changepassword">
             <CDropdownItem>
               <CIcon icon={cilLockLocked} className="me-2" />
-              PassWord
+              Mật khẩu
             </CDropdownItem>
           </Link>
 
           <CDropdownDivider />
           <CDropdownItem onClick={(e) => logout()} href="/">
             <CIcon icon={cilAccountLogout} className="me-2" />
-            LogOut
+            Đăng xuất
           </CDropdownItem>
         </CDropdownMenu>
       </CDropdown>

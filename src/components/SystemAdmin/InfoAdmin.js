@@ -126,7 +126,7 @@ export const InfoAdmin = () => {
         visible={visible}
         onClose={() => setVisible(false)}
       >
-        Success!
+        Thành công!
       </CAlert>
       <div className="container rounded bg-white mt-0 mb-0">
         <div className="row">
@@ -150,17 +150,7 @@ export const InfoAdmin = () => {
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                  <b>FirstName</b>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={firstName}
-                    onChange={(e) => setfirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="col-md-6">
-                  <b>LastName</b>
+                  <b>Họ</b>
                   <input
                     type="text"
                     className="form-control"
@@ -169,10 +159,20 @@ export const InfoAdmin = () => {
                     required
                   />
                 </div>
+                <div className="col-md-6">
+                  <b>Tên</b>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={firstName}
+                    onChange={(e) => setfirstName(e.target.value)}
+                    required
+                  />
+                </div>
               </div>
               <div className="row mt-3">
                 <div className="col-md-12">
-                  <b>DateOfBirth</b>
+                  <b>Ngày sinh</b>
                   <input
                     type="date"
                     className="form-control"
@@ -181,19 +181,20 @@ export const InfoAdmin = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <b>Gender</b>
+                  <b>Giới tính</b>
                   <CFormSelect
                     value={gender}
                     onChange={(e) => setgender(e.target.value)}
                   >
-                    <option value={true}>Male</option>
-                    <option value={false}>Female</option>
+                    <option value={true}>Nam</option>
+                    <option value={false}>Nữ</option>
                   </CFormSelect>
                 </div>
                 <div className="col-md-12">
-                  <b>Mobile Number</b>
+                  <b>Số điện thoại</b>
                   <input
-                    type="text"
+                    type="tel"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     className="form-control"
                     value={phone}
                     onChange={(e) => setphone(e.target.value)}
@@ -201,7 +202,7 @@ export const InfoAdmin = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <b>Place Of Birth</b>
+                  <b>Nơi sinh</b>
                   <input
                     type="text"
                     className="form-control"
@@ -211,7 +212,7 @@ export const InfoAdmin = () => {
                   />
                 </div>
                 <div className="col-md-12">
-                  <b>Street</b>
+                  <b>Địa chỉ</b>
                   <input
                     type="text"
                     className="form-control"
@@ -242,7 +243,7 @@ export const InfoAdmin = () => {
                   />
                 </div> */}
                 <div className="col-md-12">
-                  <b>District</b>
+                  <b>Quậ/Huyện</b>
                   <CFormSelect
                     value={district}
                     onChange={(e) => setdistrict(e.target.value)}
@@ -253,7 +254,7 @@ export const InfoAdmin = () => {
                   </CFormSelect>
                 </div>
                 <div className="col-md-12">
-                  <b>City</b>
+                  <b>Tỉnh/Thành phố</b>
                   <CFormSelect
                     value={listcity.find((item) => item.name === city)?.code}
                     onChange={(e) => setadd(e.target.value)}
@@ -265,9 +266,9 @@ export const InfoAdmin = () => {
                 </div>
 
                 <div className="col-md-12">
-                  <b>Email ID</b>
+                  <b>Email</b>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
@@ -282,7 +283,7 @@ export const InfoAdmin = () => {
                   type="button"
                   onClick={save}
                 >
-                  Save Profile
+                  Lưu thông tin
                 </button>
               </div>
             </div>

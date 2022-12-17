@@ -19,68 +19,68 @@ const routes = [
   { path: "/home", exact: true, name: "" },
   {
     path: "/home",
-    name: "Home",
+    name: "Trang chủ",
     element: Home,
   },
   {
     path: "/info",
-    name: "Profile",
+    name: "Thông tin tài khoản",
     element: InfoAdmin,
   },
   {
     path: "/changepassword",
-    name: "Password",
+    name: "Đổi mật khẩu",
     element: ChangePW,
   },
 
   {
     path: "/home/schooldetail/:id",
-    name: "SchoolDetail",
+    name: "Thông tin trường học",
     element: SchoolDetail,
   },
   {
     path: "/home/schooldetail/:id/adminschooldetail/:id",
-    name: "Adminschooldetail",
+    name: "Tài khoản quản trị viên",
     element: AdminSchoolDetail,
   },
 
   {
     path: "/home/create",
-    name: "CreateSchool",
+    name: "Tạo mới trường học",
     element: CreateSchool,
   },
   //
   { path: "/admin/home", exact: true, name: "" },
   {
-    path: "/admin/home",
-    name: "Home",
+    path: "/home",
+    name: "Trang chủ",
     element: Home,
   },
   {
     path: "/admin/info",
-    name: "Profile",
+    name: "Thông tin tài khoản",
     element: InfoAdmin,
   },
   {
     path: "/admin/changepassword",
-    name: "Password",
+    name: "Đổi mật khẩu",
     element: ChangePW,
   },
 
   {
     path: "/admin/home/schooldetail/:id",
-    name: "SchoolDetail",
+    name: "Thông tin trường học",
     element: SchoolDetail,
   },
   {
     path: "/admin/home/schooldetail/:id/adminschooldetail/:id",
-    name: "Adminschooldetail",
+    name: "Tài khoản quản trị viên",
     element: AdminSchoolDetail,
   },
 
   {
     path: "/admin/home/create",
-    name: "CreateSchool",
+    name: "Tạo mới trường học",
     element: CreateSchool,
   },
 ];

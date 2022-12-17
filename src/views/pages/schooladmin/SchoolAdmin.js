@@ -3,6 +3,7 @@ import {
   AppContent,
   AppSidebar,
   AppHeader,
+  AppFooter,
 } from "../../../components/SchoolAdmin/index";
 
 const SchoolAdmin = () => {
@@ -31,6 +32,7 @@ const SchoolAdmin = () => {
         <div className="body flex-grow-1 px-3">
           <AppContent />
         </div>
+        <AppFooter />
       </div>
     </div>
   );

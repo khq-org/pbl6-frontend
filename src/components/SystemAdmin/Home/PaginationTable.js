@@ -25,7 +25,7 @@ export const PaginationTable = () => {
   const [visible, setVisible] = useState(false);
 
   const del = async (id) => {
-    if (window.confirm("Are you want to delete?")) {
+    if (window.confirm("Bạn muốn xóa thông tin trường học này?")) {
       const res = await axios.delete(`schools/${id}`);
       //console.log(res);
       setListschool(listschool.filter((item) => item.schoolId !== id));
@@ -86,124 +86,135 @@ export const PaginationTable = () => {
         visible={visible}
         onClose={() => setVisible(false)}
       >
-        Deleted!
+        Đã xóa!
       </CAlert>
-      <div className="main">
-        <div className="table-title mt-3">
-          <div className="row">
-            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-              <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-              <Link to="create">
-                <button className="btn btn-primary" type="button">
-                  Create
-                </button>
-              </Link>
+      <div className="container rounded bg-white mt-0 mb-0">
+        <div className="main" style={{ width: "100%" }}>
+          <div className="table-title mt-3">
+            <div className="row">
+              <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                <GlobalFilter
+                  filter={globalFilter}
+                  setFilter={setGlobalFilter}
+                />
+                <Link to="create">
+                  <button className="btn btn-primary" type="button">
+                    Thêm mới
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        <table className="table table-bordered " {...getTableProps()}>
-          <thead style={{ background: "#ddd", color: "#4985B2" }}>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-
-                    <span>
-                      {column.isSorted
-                        ? column.isSortedDesc
-                          ? " 🔽"
-                          : " 🔼"
-                        : ""}
-                    </span>
-
-                    {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
-                  </th>
-                ))}
-
-                <th>Actions</th>
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                  <td>
-                    <Link
-                      to={`schooldetail/${row.original.schoolId}`}
-                      className="edit"
-                      title="Sửa"
-                      cshools-toggle="tooltip"
+          <table
+            className="table table-bordered "
+            style={{ width: "100%" }}
+            {...getTableProps()}
+          >
+            <thead style={{ background: "#ddd", color: "#4985B2" }}>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
-                      <i className="material-icons">&#xE254;</i>
-                    </Link>
-                    <Link
-                      onClick={() => del(row.original.schoolId)}
-                      className="delete"
-                      title="Xóa"
-                      cshools-toggle="tooltip"
-                    >
-                      <i className="material-icons">&#xE872;</i>
-                    </Link>
-                  </td>
+                      {column.render("Header")}
+
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
+
+                      {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
+                    </th>
+                  ))}
+
+                  <th>Actions</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <div>
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {"<<"}
-          </button>{" "}
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-            Previous
-          </button>{" "}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
-            Next
-          </button>{" "}
-          <button
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            {">>"}
-          </button>{" "}
-          <span>
-            Page{" "}
-            <strong>
-              {pageIndex + 1} / {pageOptions.length}
-            </strong>{" "}
-          </span>
-          <span>
-            | Go to page:{" "}
-            <input
-              type="number"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const pageNumber = e.target.value
-                  ? Number(e.target.value) - 1
-                  : 0;
-                gotoPage(pageNumber);
-              }}
-              style={{ width: "50px" }}
-            />
-          </span>{" "}
-          <select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-          >
-            {[5, 10, 25, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      );
+                    })}
+                    <td>
+                      <Link
+                        to={`schooldetail/${row.original.schoolId}`}
+                        className="edit"
+                        title="Sửa"
+                        cshools-toggle="tooltip"
+                      >
+                        <i className="material-icons">&#xE254;</i>
+                      </Link>
+                      <Link
+                        onClick={() => del(row.original.schoolId)}
+                        className="delete"
+                        title="Xóa"
+                        cshools-toggle="tooltip"
+                      >
+                        <i className="material-icons">&#xE872;</i>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div>
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {"<<"}
+            </button>{" "}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              Previous
+            </button>{" "}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              Next
+            </button>{" "}
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              {">>"}
+            </button>{" "}
+            <span>
+              Page{" "}
+              <strong>
+                {pageIndex + 1} / {pageOptions.length}
+              </strong>{" "}
+            </span>
+            <span>
+              | Go to page:{" "}
+              <input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={(e) => {
+                  const pageNumber = e.target.value
+                    ? Number(e.target.value) - 1
+                    : 0;
+                  gotoPage(pageNumber);
+                }}
+                style={{ width: "50px" }}
+              />
+            </span>{" "}
+            <select
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+            >
+              {[5, 10, 25, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </>

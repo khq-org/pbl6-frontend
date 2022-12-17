@@ -9,7 +9,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
   return (
     <span className="pb-2">
       <input
-        placeholder="Search..."
+        placeholder="Tìm kiếm ..."
         type="text"
         value={value || ""}
         onChange={(e) => {

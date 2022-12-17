@@ -104,6 +104,13 @@ export const PaginationTable = () => {
     console.log(res);
     setlistStudent(res.data.data.items);
   };
+  const handleDelete = async (id) => {
+    if (window.confirm("Bạn muốn xóa học sinh này khỏi hệ thống?")) {
+      const res = await axios.delete(`students/${id}`);
+      console.log(res);
+      setlistStudent(listStudent.filter((item) => item.userId !== id));
+    }
+  };
 
   return (
     <>
@@ -190,7 +197,11 @@ export const PaginationTable = () => {
                         </Link>
                       </CDropdownItem>
                       <CDropdownItem>
-                        <Link>Xóa</Link>
+                        <Link
+                          onClick={(e) => handleDelete(row.original.userId)}
+                        >
+                          Xóa
+                        </Link>
                       </CDropdownItem>
                     </CDropdownMenu>
                   </CDropdown>

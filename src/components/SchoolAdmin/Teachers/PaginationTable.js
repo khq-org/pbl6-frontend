@@ -264,7 +264,8 @@ export const PaginationTable = () => {
                   <div className="col-md-12">
                     Số điện thoại
                     <input
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}"
                       className="form-control"
                       placeholder="sdt"
                       onChange={(e) => setphone(e.target.value)}
@@ -274,7 +275,7 @@ export const PaginationTable = () => {
                   <div className="col-md-12">
                     Email
                     <input
-                      type="text"
+                      type="email"
                       className="form-control"
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}
