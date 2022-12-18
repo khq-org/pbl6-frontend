@@ -250,6 +250,7 @@ export const PaginationTable = () => {
                     onChange={handleChange}
                     min="0"
                     max="10"
+                    step="0.01"
                     style={{
                       height: "60%",
                       width: "60px",
@@ -265,6 +266,7 @@ export const PaginationTable = () => {
                     onChange={handleChange}
                     min="0"
                     max="10"
+                    step="0.01"
                     style={{
                       height: "60%",
                       width: "60px",
@@ -285,6 +287,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
 
@@ -301,6 +304,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -316,6 +320,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -331,6 +336,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -341,6 +347,7 @@ export const PaginationTable = () => {
                     onChange={handleChange}
                     min="0"
                     max="10"
+                    step="0.01"
                     style={{
                       height: "60%",
                       width: "60px",
@@ -361,6 +368,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -376,6 +384,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -391,6 +400,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -406,6 +416,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -421,6 +432,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
                 <td>
@@ -436,6 +448,7 @@ export const PaginationTable = () => {
                     }}
                     min="0"
                     max="10"
+                    step="0.01"
                   />
                 </td>
               </tr>
