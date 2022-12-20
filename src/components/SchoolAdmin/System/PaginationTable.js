@@ -43,11 +43,11 @@ export const PaginationTable = () => {
         setlistclass2(
           data.data.items.filter((item) => item.grade.gradeId !== 1)
         );
-        // data.data.items
-        //   .filter((item) => item.grade.gradeId !== 3)
-        //   ?.map((item, index) => {
-        //     oldClassIds[index] = item.classId;
-        //   });
+        data.data.items
+          .filter((item) => item.grade.gradeId !== 3)
+          ?.map((item, index) => {
+            oldClassIds[index] = item.classId;
+          });
         // data.data.items
         //   .filter((item) => item.grade.gradeId !== 1)
         //   ?.map((item, index) => {
