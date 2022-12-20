@@ -19,13 +19,13 @@ export const PaginationTable = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [visible, setVisible] = useState(true);
-  const [visible2, setVisible2] = useState(false);
+
   const [schoolYearName, setSchoolYearName] = useState("");
   const [messenger, setmessenger] = useState("");
-  const [listclass, setlistclass] = useState([]);
+  const [listyear, setlistyear] = useState([]);
   const [listclass1, setlistclass1] = useState([]);
   const [listclass2, setlistclass2] = useState([]);
-  const [newSchoolYearId, setnewSchoolYearId] = useState(13);
+  const [newSchoolYearId, setnewSchoolYearId] = useState(1);
   const [oldClassIds, setoldClassIds] = useState([]);
   const [newClassIds, setnewClassIds] = useState([]);
   const [teacherIds, setteacherIds] = useState([
@@ -36,28 +36,31 @@ export const PaginationTable = () => {
     (async () => {
       try {
         const { data } = await axios.get("classes");
-        setlistclass(data.data.items);
+
         setlistclass1(
           data.data.items.filter((item) => item.grade.gradeId !== 3)
         );
         setlistclass2(
           data.data.items.filter((item) => item.grade.gradeId !== 1)
         );
-        data.data.items
-          .filter((item) => item.grade.gradeId !== 3)
-          ?.map((item, index) => {
-            oldClassIds[index] = item.classId;
-          });
-        data.data.items
-          .filter((item) => item.grade.gradeId !== 1)
-          ?.map((item, index) => {
-            newClassIds[index] = item.classId;
-          });
+        // data.data.items
+        //   .filter((item) => item.grade.gradeId !== 3)
+        //   ?.map((item, index) => {
+        //     oldClassIds[index] = item.classId;
+        //   });
+        // data.data.items
+        //   .filter((item) => item.grade.gradeId !== 1)
+        //   ?.map((item, index) => {
+        //     newClassIds[index] = item.classId;
+        //   });
+
+        const res = await axios.get("schoolyear");
+        //console.log({ data });
+        setlistyear(res.data.data.items);
       } catch (e) {}
     })();
   }, []);
 
-  useEffect(() => {}, []);
   const createNewyear = async (e) => {
     e.preventDefault();
 
@@ -68,9 +71,9 @@ export const PaginationTable = () => {
       setmessenger("Năm học đã tồn tại trong hệ thống.");
     } else {
       setmessenger("");
+      setVisible(false);
     }
-    setVisible(false);
-    setVisible2(true);
+
     console.log(res);
   };
   const save = async (e) => {
@@ -82,10 +85,14 @@ export const PaginationTable = () => {
       newClassIds,
       teacherIds,
     });
-    console.log(res);
+    if (res.status === 200) {
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại. Kiểm tra lại.");
+    }
+    console.log(newSchoolYearId);
     console.log("old", oldClassIds);
     console.log("new", newClassIds);
-    setVisible2(false);
   };
   return (
     <>
@@ -132,50 +139,82 @@ export const PaginationTable = () => {
           </form>
         </CModalBody>
       </CModal>
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <CButton
-          className="btn btn-primary"
-          type="button"
-          onClick={() => setVisible(!visible)}
-        >
-          Thêm mới năm học
-        </CButton>
+      <div className="container rounded bg-white mt-0 mb-0">
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+          <CButton
+            className="btn btn-primary"
+            type="button"
+            onClick={() => setVisible(!visible)}
+          >
+            Thêm mới năm học
+          </CButton>
+        </div>
+
+        <form className="row m-5" onSubmit={save}>
+          <table>
+            <tr>
+              <th>STT</th>
+              <th>Tên lớp năm cũ</th>
+              <th>Tên lớp chuyển đến</th>
+            </tr>
+
+            {listclass1?.map((item, index) => (
+              <tr>
+                <td>{index}</td>
+                <td>{item.clazz}</td>
+                <td>
+                  <CFormSelect
+                    onChange={(e) => {
+                      newClassIds[index] = Number(e.target.value);
+                    }}
+                  >
+                    <option>Lớp</option>
+                    {listclass2?.map((item2, index2) => (
+                      <option value={item2.classId}>{item2.clazz}</option>
+                    ))}
+                  </CFormSelect>
+                </td>
+              </tr>
+            ))}
+
+            {/* <tr>
+              <td>
+                {listclass1?.map((item, index) => (
+                  <tr>{index}</tr>
+                ))}
+              </td>
+              <td>
+                {listclass1?.map((item, index) => (
+                  <tr>{item.clazz}</tr>
+                ))}
+              </td>
+              <td>
+                {listclass2?.map((item, index) => (
+                  <tr>{item.clazz}</tr>
+                ))}
+              </td>
+            </tr> */}
+          </table>
+          <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+            <CButton className="btn btn-primary " type="submit">
+              Kết chuyển dữ liệu đến năm học
+            </CButton>
+            <CFormSelect
+              style={{ width: "200px" }}
+              onChange={(e) => {
+                setnewSchoolYearId(e.target.value);
+              }}
+            >
+              {listyear.map((item) => (
+                <option
+                  value={item.schoolYearId}
+                  label={item.schoolYear}
+                ></option>
+              ))}
+            </CFormSelect>
+          </div>
+        </form>
       </div>
-      <CModal alignment="center" visible={visible2} onClose={() => {}}>
-        <CModalBody>
-          <form className="row m-5" onSubmit={save}>
-            <table>
-              <tr>
-                <th>STT</th>
-                <th>Tên lớp năm cũ</th>
-                <th>Tên lớp chuyển đến</th>
-              </tr>
-              <tr>
-                <td>
-                  {listclass1?.map((item, index) => (
-                    <tr>{index}</tr>
-                  ))}
-                </td>
-                <td>
-                  {listclass1?.map((item, index) => (
-                    <tr>{item.clazz}</tr>
-                  ))}
-                </td>
-                <td>
-                  {listclass2?.map((item, index) => (
-                    <tr>{item.clazz}</tr>
-                  ))}
-                </td>
-              </tr>
-            </table>
-            <div className="mt-5 text-center">
-              <button className="btn btn-primary " type="submit">
-                Kết chuyển năm học
-              </button>
-            </div>
-          </form>
-        </CModalBody>
-      </CModal>
     </>
   );
 };

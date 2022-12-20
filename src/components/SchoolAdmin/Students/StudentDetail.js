@@ -49,7 +49,7 @@ const StudentDetail = () => {
   const [listdistrictMother, setlistdistrictMother] = useState([]);
 
   const [learningResults, setlearningResults] = useState([]);
-  const [listlearningResults, setlistlearningResults] = useState([]);
+
   const { id } = useParams();
   var mapSubjects = {
     Biological: "Sinh học",
@@ -117,7 +117,6 @@ const StudentDetail = () => {
         data.data.learningResults?.map((item, index) => {
           handlesetlearningResults(item.learningResultId, index);
         });
-        setlistlearningResults(learningResults);
       } catch (e) {}
     })();
   }, []);
@@ -126,9 +125,9 @@ const StudentDetail = () => {
     const { data } = await axios.get(`learningresults/${id}`);
 
     learningResults[index] = data.data;
-    //setlearningResults(learningResults);
+    setlearningResults([...learningResults, data.data]);
   };
-  //console.log("test", learningResults);
+  console.log("test", learningResults);
   useEffect(() => {
     (async () => {
       try {
@@ -653,95 +652,275 @@ const StudentDetail = () => {
             <div style={{ marginLeft: "10px", float: "left" }} />
             <div style={{ clear: "both" }} />
           </div>
-          {listlearningResults.map((items) => (
-            <div className="mb-5">
+
+          <div className="mb-5">
+            <div>
               <div>
-                <div>
-                  <b>Lớp: </b>
-                  {items.learningResult?.className}
-                </div>
-                <div>
-                  <b>Năm học:</b> {items.learningResult?.schoolYear}
-                </div>
-                <div>
-                  <b>Giáo viên chủ nhiệm:</b>{" "}
-                </div>
-                <table className="table table-bordered">
-                  <tbody className="text-center">
-                    <tr>
-                      <td></td>
-
-                      <td colSpan={3}>Điểm trung bình</td>
-
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Môn học</td>
-                      <td>HKI</td>
-                      <td>HKII</td>
-                      <td>Cả năm</td>
-                      <td>Giáo viên bộ môn</td>
-                    </tr>
-                    {items.studyScores?.map((item, i) => (
-                      <tr>
-                        <td>
-                          {
-                            mapSubjects[
-                              item.subject.subjectName.replace(" ", "_")
-                            ]
-                          }
-                        </td>
-                        <td>{item.semesterScores[0]?.avgScore}</td>
-                        <td>{item.semesterScores[1]?.avgScore}</td>
-                        <td>{item.avgScore}</td>
-                        <td></td>
-                      </tr>
-                    ))}
-                    <tr>
-                      <td>Điểm trung bình các môn học</td>
-                      <td></td>
-                      <td></td>
-                      <td>{items.avgScore}</td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
+                <b>Lớp: </b>
+                {learningResults[0]?.learningResult?.className}
               </div>
-              <br />
-              <div className="text-center">
-                <table className="table table-bordered table-primary">
+              <div>
+                <b>Năm học:</b> {learningResults[0]?.learningResult?.schoolYear}
+              </div>
+              <div>
+                <b>Giáo viên chủ nhiệm:</b>{" "}
+              </div>
+              <table className="table table-bordered">
+                <tbody className="text-center">
                   <tr>
-                    <td>HỌC KÌ</td>
-                    <td>Hạnh kiểm</td>
-                    <td>Học lực</td>
-                    <td>Tổng số buổi nghỉ học cả năm</td>
-                    <td>Xét lên lớp</td>
-                  </tr>
-                  <tr>
-                    <td>Học kì I</td>
-                    <td>{items.learningResult?.conduct}</td>
-                    <td>{items.learningResult?.learningGrade}</td>
-                    <td>0</td>
+                    <td></td>
+
+                    <td colSpan={3}>Điểm trung bình</td>
+
                     <td></td>
                   </tr>
                   <tr>
-                    <td>Học kì II</td>
-                    <td>{items.learningResult?.conduct}</td>
-                    <td>{items.learningResult?.learningGrade}</td>
-                    <td>0</td>
-                    <td></td>
-                  </tr>
-                  <tr>
+                    <td>Môn học</td>
+                    <td>HKI</td>
+                    <td>HKII</td>
                     <td>Cả năm</td>
-                    <td>{items.learningResult?.conduct}</td>
-                    <td>{items.learningResult?.learningGrade}</td>
-                    <td>0</td>
-                    <td>{items.learningResult?.isPassed ? "v" : ""}</td>
+                    <td>Giáo viên bộ môn</td>
                   </tr>
-                </table>
-              </div>
+                  {learningResults[0]?.studyScores?.map((item, i) => (
+                    <tr>
+                      <td>
+                        {
+                          mapSubjects[
+                            item.subject.subjectName.replace(" ", "_")
+                          ]
+                        }
+                      </td>
+                      <td>{item.semesterScores[0]?.avgScore}</td>
+                      <td>{item.semesterScores[1]?.avgScore}</td>
+                      <td>{item.avgScore}</td>
+                      <td></td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td>Điểm trung bình các môn học</td>
+                    <td></td>
+                    <td></td>
+                    <td>{learningResults[0]?.avgScore}</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          ))}
+            <br />
+            <div className="text-center">
+              <table className="table table-bordered table-primary">
+                <tr>
+                  <td>HỌC KÌ</td>
+                  <td>Hạnh kiểm</td>
+                  <td>Học lực</td>
+                  <td>Tổng số buổi nghỉ học cả năm</td>
+                  <td>Xét lên lớp</td>
+                </tr>
+                <tr>
+                  <td>Học kì I</td>
+                  <td>{learningResults[0]?.learningResult?.conduct}</td>
+                  <td>{learningResults[0]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Học kì II</td>
+                  <td>{learningResults[0]?.learningResult?.conduct}</td>
+                  <td>{learningResults[0]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Cả năm</td>
+                  <td>{learningResults[0]?.learningResult?.conduct}</td>
+                  <td>{learningResults[0]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td>
+                    {learningResults[0]?.learningResult?.isPassed ? "v" : ""}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div className="mb-5">
+            <div>
+              <div>
+                <b>Lớp: </b>
+                {learningResults[1]?.learningResult?.className}
+              </div>
+              <div>
+                <b>Năm học:</b> {learningResults[1]?.learningResult?.schoolYear}
+              </div>
+              <div>
+                <b>Giáo viên chủ nhiệm:</b>{" "}
+              </div>
+              <table className="table table-bordered">
+                <tbody className="text-center">
+                  <tr>
+                    <td></td>
+
+                    <td colSpan={3}>Điểm trung bình</td>
+
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Môn học</td>
+                    <td>HKI</td>
+                    <td>HKII</td>
+                    <td>Cả năm</td>
+                    <td>Giáo viên bộ môn</td>
+                  </tr>
+                  {learningResults[1]?.studyScores?.map((item, i) => (
+                    <tr>
+                      <td>
+                        {
+                          mapSubjects[
+                            item.subject.subjectName.replace(" ", "_")
+                          ]
+                        }
+                      </td>
+                      <td>{item.semesterScores[0]?.avgScore}</td>
+                      <td>{item.semesterScores[1]?.avgScore}</td>
+                      <td>{item.avgScore}</td>
+                      <td></td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td>Điểm trung bình các môn học</td>
+                    <td></td>
+                    <td></td>
+                    <td>{learningResults[1]?.avgScore}</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br />
+            <div className="text-center">
+              <table className="table table-bordered table-primary">
+                <tr>
+                  <td>HỌC KÌ</td>
+                  <td>Hạnh kiểm</td>
+                  <td>Học lực</td>
+                  <td>Tổng số buổi nghỉ học cả năm</td>
+                  <td>Xét lên lớp</td>
+                </tr>
+                <tr>
+                  <td>Học kì I</td>
+                  <td>{learningResults[1]?.learningResult?.conduct}</td>
+                  <td>{learningResults[1]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Học kì II</td>
+                  <td>{learningResults[1]?.learningResult?.conduct}</td>
+                  <td>{learningResults[1]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Cả năm</td>
+                  <td>{learningResults[1]?.learningResult?.conduct}</td>
+                  <td>{learningResults[1]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td>
+                    {learningResults[1]?.learningResult?.isPassed ? "v" : ""}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div className="mb-5">
+            <div>
+              <div>
+                <b>Lớp: </b>
+                {learningResults[2]?.learningResult?.className}
+              </div>
+              <div>
+                <b>Năm học:</b> {learningResults[2]?.learningResult?.schoolYear}
+              </div>
+              <div>
+                <b>Giáo viên chủ nhiệm:</b>{" "}
+              </div>
+              <table className="table table-bordered">
+                <tbody className="text-center">
+                  <tr>
+                    <td></td>
+
+                    <td colSpan={3}>Điểm trung bình</td>
+
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Môn học</td>
+                    <td>HKI</td>
+                    <td>HKII</td>
+                    <td>Cả năm</td>
+                    <td>Giáo viên bộ môn</td>
+                  </tr>
+                  {learningResults[2]?.studyScores?.map((item, i) => (
+                    <tr>
+                      <td>
+                        {
+                          mapSubjects[
+                            item.subject.subjectName.replace(" ", "_")
+                          ]
+                        }
+                      </td>
+                      <td>{item.semesterScores[0]?.avgScore}</td>
+                      <td>{item.semesterScores[1]?.avgScore}</td>
+                      <td>{item.avgScore}</td>
+                      <td></td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td>Điểm trung bình các môn học</td>
+                    <td></td>
+                    <td></td>
+                    <td>{learningResults[2]?.avgScore}</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br />
+            <div className="text-center">
+              <table className="table table-bordered table-primary">
+                <tr>
+                  <td>HỌC KÌ</td>
+                  <td>Hạnh kiểm</td>
+                  <td>Học lực</td>
+                  <td>Tổng số buổi nghỉ học cả năm</td>
+                  <td>Xét lên lớp</td>
+                </tr>
+                <tr>
+                  <td>Học kì I</td>
+                  <td>{learningResults[2]?.learningResult?.conduct}</td>
+                  <td>{learningResults[2]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Học kì II</td>
+                  <td>{learningResults[2]?.learningResult?.conduct}</td>
+                  <td>{learningResults[2]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Cả năm</td>
+                  <td>{learningResults[2]?.learningResult?.conduct}</td>
+                  <td>{learningResults[2]?.learningResult?.learningGrade}</td>
+                  <td>0</td>
+                  <td>
+                    {learningResults[2]?.learningResult?.isPassed ? "v" : ""}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
           {/* <div className=" text-center mb-5">
             <table>
               <thead>
@@ -755,7 +934,7 @@ const StudentDetail = () => {
                 <th></th>
               </thead>
               <tbody>
-                {listlearningResults?.map((item, index) => (
+                {learningResults?.map((item, index) => (
                   <tr key={item.learningResultId}>
                     <td>{index + 1}</td>
                     <td>{item.schoolYear}</td>

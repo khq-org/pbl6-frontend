@@ -14,6 +14,7 @@ const StudentScore = () => {
   const [inputs1, setInputs1] = useState({});
   const [semester, setsemester] = useState(0);
   const [school, setschool] = useState(0);
+
   const { id } = useParams();
   var mapSubjects = {
     Biological: "Sinh học",
@@ -44,6 +45,7 @@ const StudentScore = () => {
   const handlesetlearningResults = async (id, sem) => {
     const { data } = await axios.get(`learningresults/${id}`);
     setlearningResults(data.data);
+
     console.log(data.data);
 
     const tempInputs1 = {};
@@ -104,6 +106,9 @@ const StudentScore = () => {
               </b>
               <b> Ngày sinh: </b>
               {student?.dayOfBirth}
+              <div>
+                <b>Lớp: {learningResults?.learningResult?.className} </b>
+              </div>
             </td>
           </tr>
         </div>
