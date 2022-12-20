@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
+import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-import { COLUMNS } from "./columns";
 import "./table.css";
 
 import {
@@ -12,79 +11,91 @@ import {
   CModalBody,
   CModalTitle,
   CFormSelect,
-  CForm,
-  CDropdown,
-  CDropdownToggle,
-  CDropdownMenu,
-  CDropdownItem,
 } from "@coreui/react";
-import { Link } from "react-router-dom";
-export const PaginationTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
+import { Modal } from "@coreui/coreui";
 
+export const PaginationTable = () => {
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [visible2, setVisible2] = useState(false);
   const [schoolYearName, setSchoolYearName] = useState("");
+  const [messenger, setmessenger] = useState("");
   const [listclass, setlistclass] = useState([]);
-  const [listyear, setlistyear] = useState([]);
-  const [clazz, setclazz] = useState(1);
-  const [schoolyear, setschoolyear] = useState(1);
-  const [listTeacher, setlistTeacher] = useState([]);
-  var newListClass = [];
+  const [listclass1, setlistclass1] = useState([]);
+  const [listclass2, setlistclass2] = useState([]);
+  const [newSchoolYearId, setnewSchoolYearId] = useState(13);
+  const [oldClassIds, setoldClassIds] = useState([]);
+  const [newClassIds, setnewClassIds] = useState([]);
+  const [teacherIds, setteacherIds] = useState([
+    78, 109, 111, 110, 92, 24, 27, 107, 106,
+  ]);
+
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("schoolyear");
-        console.log(data);
-        setlistyear(data.data.items);
-        const res = await axios.get("classes?schoolYearId=1");
-        setlistclass(res.data.data.items);
-        const data2 = await axios.get("teachers");
-        // console.log({ data2 });
-        setlistTeacher(data2.data.data.items);
-        // console.log("listTeacher", data2.data.items);
-        console.log("newListClass");
-        const len = res.data.data.items.length;
-        console.log(len);
-        newListClass = new Array(len).fill(res.data.data.items[0].classId);
-        console.log(newListClass);
-
-      } catch (e) { }
+        const { data } = await axios.get("classes");
+        setlistclass(data.data.items);
+        setlistclass1(
+          data.data.items.filter((item) => item.grade.gradeId !== 3)
+        );
+        setlistclass2(
+          data.data.items.filter((item) => item.grade.gradeId !== 1)
+        );
+        data.data.items
+          .filter((item) => item.grade.gradeId !== 3)
+          ?.map((item, index) => {
+            oldClassIds[index] = item.classId;
+          });
+        data.data.items
+          .filter((item) => item.grade.gradeId !== 1)
+          ?.map((item, index) => {
+            newClassIds[index] = item.classId;
+          });
+      } catch (e) {}
     })();
   }, []);
 
-  const setcl = async (year) => {
-    const res = await axios.get(`classes?schoolYearId=${year}`);
-    console.log(res);
-    setlistclass(res.data.data.items);
-  };
-  const create = async (e) => {
+  useEffect(() => {}, []);
+  const createNewyear = async (e) => {
     e.preventDefault();
+
     const res = await axios.post("schoolyear", {
       schoolYearName,
-
     });
-    //console.log(res);
-    window.location.reload();
-    //alert("done.");
+    if (res.response.status === 400) {
+      setmessenger("Năm học đã tồn tại trong hệ thống.");
+    } else {
+      setmessenger("");
+    }
+    setVisible(false);
+    setVisible2(true);
+    console.log(res);
   };
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`teachers/`, {
-
+    const res = await axios.post("schoolyear/startNewSchoolYear", {
+      newSchoolYearId,
+      oldClassIds,
+      newClassIds,
+      teacherIds,
     });
-    alert("chua xong.");
+    console.log(res);
+    console.log("old", oldClassIds);
+    console.log("new", newClassIds);
+    setVisible2(false);
   };
   return (
     <>
       <CModal
         alignment="center"
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setmessenger("");
+        }}
       >
         <CModalHeader>
           <CModalTitle>
@@ -92,7 +103,7 @@ export const PaginationTable = () => {
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <form onSubmit={create}>
+          <form onSubmit={createNewyear}>
             <div className="col">
               <div className="">
                 <div className="row mt-3">
@@ -101,14 +112,14 @@ export const PaginationTable = () => {
                     <input
                       type="text"
                       className="form-control"
-                      // placeholder="tên lớp"
+                      placeholder="y-y"
                       onChange={(e) => setSchoolYearName(e.target.value)}
                       required
                     />
                   </div>
-
-
-
+                </div>
+                <div className="text-end" style={{ color: "red" }}>
+                  {messenger}
                 </div>
 
                 <div className="mt-5 text-center">
@@ -122,21 +133,6 @@ export const PaginationTable = () => {
         </CModalBody>
       </CModal>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        Năm học:
-        <CFormSelect
-          disabled
-          className="form-control form-control-sm mr-3 w-25"
-          onChange={(e) => {
-            setschoolyear(e.target.value);
-            setcl(e.target.value);
-          }}
-        >
-          {listyear?.map((item) => (
-            <option value={item.schoolYearId} label={item.schoolYear}></option>
-          ))}
-        </CFormSelect>
-
-
         <CButton
           className="btn btn-primary"
           type="button"
@@ -145,51 +141,41 @@ export const PaginationTable = () => {
           Thêm mới năm học
         </CButton>
       </div>
-      <form className="row m-5" onSubmit={save}>
-
-        <table>
-          <tr>
-            <th>STT</th>
-            <th>Tên lớp năm cũ</th>
-            <th>Tên lớp chuyển đến</th>
-            <th>Giáo viên chủ nhiệm</th>
-          </tr>
-          {listclass?.map((item, index) => (
-            <tr>
-              <td>{index + 1}</td>
-              <td>{item.clazz}</td>
-              <td>
-                <CFormSelect
-                  className="form-control form-control-sm mr-3 w-26"
-                >
-                  {listclass?.map((items) => (
-                    <option value={items.classId} label={items.clazz}></option>
+      <CModal alignment="center" visible={visible2} onClose={() => {}}>
+        <CModalBody>
+          <form className="row m-5" onSubmit={save}>
+            <table>
+              <tr>
+                <th>STT</th>
+                <th>Tên lớp năm cũ</th>
+                <th>Tên lớp chuyển đến</th>
+              </tr>
+              <tr>
+                <td>
+                  {listclass1?.map((item, index) => (
+                    <tr>{index}</tr>
                   ))}
-                </CFormSelect>
-              </td>
-              <td>
-                <CFormSelect
-                  className="form-control form-control-sm mr-3 w-26"
-                >
-                  {listTeacher?.map((items) => (
-                    <option value={items.userId} label={items.displayName}></option>
+                </td>
+                <td>
+                  {listclass1?.map((item, index) => (
+                    <tr>{item.clazz}</tr>
                   ))}
-                </CFormSelect>
-              </td>
-
-
-            </tr>
-
-          ))}
-        </table>
-        <div className="mt-5 text-center">
-          <button className="btn btn-primary " type="submit">
-            Kết chuyển năm học
-          </button>
-        </div>
-      </form>
-
-
+                </td>
+                <td>
+                  {listclass2?.map((item, index) => (
+                    <tr>{item.clazz}</tr>
+                  ))}
+                </td>
+              </tr>
+            </table>
+            <div className="mt-5 text-center">
+              <button className="btn btn-primary " type="submit">
+                Kết chuyển năm học
+              </button>
+            </div>
+          </form>
+        </CModalBody>
+      </CModal>
     </>
   );
 };

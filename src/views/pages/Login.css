@@ -1,11 +1,12 @@
-body {
+/* body {
   background: rgb(251, 252, 252);
+  background-image: url("https://casstt.com/theme/posts/385/gbsb-global-online-education-blog.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Open Sans", sans-serif;
   color: #333;
-}
+} */
 .box-form {
   margin: 60px auto;
   width: 80%;

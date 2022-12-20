@@ -49,6 +49,7 @@ const StudentDetail = () => {
   const [listdistrictMother, setlistdistrictMother] = useState([]);
 
   const [learningResults, setlearningResults] = useState([]);
+  const [listlearningResults, setlistlearningResults] = useState([]);
   const { id } = useParams();
   var mapSubjects = {
     Biological: "Sinh học",
@@ -113,19 +114,21 @@ const StudentDetail = () => {
         const { data } = await axios.get(`students/profile?studentId=${id}`);
         //console.log({ data });
 
-        data.data.learningResults?.map((item) => {
-          handlesetlearningResults(item.learningResultId);
+        data.data.learningResults?.map((item, index) => {
+          handlesetlearningResults(item.learningResultId, index);
         });
+        setlistlearningResults(learningResults);
       } catch (e) {}
     })();
   }, []);
 
-  const handlesetlearningResults = async (id) => {
+  const handlesetlearningResults = async (id, index) => {
     const { data } = await axios.get(`learningresults/${id}`);
 
-    setlearningResults([...learningResults, data.data]);
+    learningResults[index] = data.data;
+    //setlearningResults(learningResults);
   };
-  console.log("test", learningResults);
+  //console.log("test", learningResults);
   useEffect(() => {
     (async () => {
       try {
@@ -650,15 +653,15 @@ const StudentDetail = () => {
             <div style={{ marginLeft: "10px", float: "left" }} />
             <div style={{ clear: "both" }} />
           </div>
-          {learningResults?.map((items, index) => (
+          {listlearningResults.map((items) => (
             <div className="mb-5">
               <div>
                 <div>
                   <b>Lớp: </b>
-                  {items.learningResult.className}
+                  {items.learningResult?.className}
                 </div>
                 <div>
-                  <b>Năm học:</b> {items.learningResult.schoolYear}
+                  <b>Năm học:</b> {items.learningResult?.schoolYear}
                 </div>
                 <div>
                   <b>Giáo viên chủ nhiệm:</b>{" "}
@@ -716,24 +719,24 @@ const StudentDetail = () => {
                   </tr>
                   <tr>
                     <td>Học kì I</td>
-                    <td>{items.learningResult.conduct}</td>
-                    <td>{items.learningResult.learningGrade}</td>
+                    <td>{items.learningResult?.conduct}</td>
+                    <td>{items.learningResult?.learningGrade}</td>
                     <td>0</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td>Học kì II</td>
-                    <td>{items.learningResult.conduct}</td>
-                    <td>{items.learningResult.learningGrade}</td>
+                    <td>{items.learningResult?.conduct}</td>
+                    <td>{items.learningResult?.learningGrade}</td>
                     <td>0</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td>Cả năm</td>
-                    <td>{items.learningResult.conduct}</td>
-                    <td>{items.learningResult.learningGrade}</td>
+                    <td>{items.learningResult?.conduct}</td>
+                    <td>{items.learningResult?.learningGrade}</td>
                     <td>0</td>
-                    <td>{items.learningResult.isPassed ? "v" : ""}</td>
+                    <td>{items.learningResult?.isPassed ? "v" : ""}</td>
                   </tr>
                 </table>
               </div>
