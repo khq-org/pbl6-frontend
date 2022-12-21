@@ -25,6 +25,7 @@ export const PaginationTable = () => {
   const [listyear, setlistyear] = useState([]);
   const [listclass1, setlistclass1] = useState([]);
   const [listclass2, setlistclass2] = useState([]);
+  const [oldSchoolYearId, setoldSchoolYearId] = useState(1);
   const [newSchoolYearId, setnewSchoolYearId] = useState(1);
   const [oldClassIds, setoldClassIds] = useState([]);
   const [newClassIds, setnewClassIds] = useState([]);
@@ -80,6 +81,7 @@ export const PaginationTable = () => {
     e.preventDefault();
 
     const res = await axios.post("schoolyear/startNewSchoolYear", {
+      oldSchoolYearId,
       newSchoolYearId,
       oldClassIds,
       newClassIds,
@@ -203,6 +205,20 @@ export const PaginationTable = () => {
               style={{ width: "200px" }}
               onChange={(e) => {
                 setnewSchoolYearId(e.target.value);
+              }}
+            >
+              {listyear.map((item) => (
+                <option
+                  value={item.schoolYearId}
+                  label={item.schoolYear}
+                ></option>
+              ))}
+            </CFormSelect>
+            Đến
+            <CFormSelect
+              style={{ width: "200px" }}
+              onChange={(e) => {
+                setoldSchoolYearId(e.target.value);
               }}
             >
               {listyear.map((item) => (
