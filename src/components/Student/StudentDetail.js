@@ -24,7 +24,7 @@ const StudentDetail = () => {
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
-  const [classId, setclassId] = useState(1);
+  const [profile, setprofile] = useState();
 
   useEffect(() => {
     (async () => {
@@ -43,8 +43,10 @@ const StudentDetail = () => {
         setcity(data.data.user.city);
         //setworkingPosition(data.data.users.workingPosition);
         setnationality(data.data.user.nationality);
-
         setusername(data.data.user.username);
+        const res = await axios.get("students/profile");
+        console.log(res);
+        setprofile(res.data.data);
       } catch (e) {}
     })();
   }, []);
@@ -67,7 +69,7 @@ const StudentDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put("users", {
+    const res = await axios.put("users", {
       firstName,
       lastName,
       dateOfBirth,
@@ -82,7 +84,12 @@ const StudentDetail = () => {
       workingPosition,
       roleId: 4,
     });
-    console.log(data);
+
+    if (res.status === 200) {
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
   };
   return (
     <>
@@ -120,6 +127,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       value={lastName}
                       style={{ width: "180px" }}
                       readOnly
@@ -130,6 +138,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       value={firstName}
                       style={{ width: "180px" }}
                       readOnly
@@ -141,6 +150,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       value={placeOfBirth}
                       style={{ width: "230px" }}
                       onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -174,6 +184,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       value={nationality}
                       style={{ width: "230px" }}
                       onChange={(e) => setnationality(e.target.value)}
@@ -184,7 +195,7 @@ const StudentDetail = () => {
                 <tr>
                   <td classname="auto-style11">Số CCCD:</td>
                   <td>
-                    <input type="text" style={{ width: "180px" }} />
+                    <input type="text" size="100" style={{ width: "180px" }} />
                   </td>
                   <td classname="auto-style17">Ngày cấp:</td>
                   <td classname="auto-style1">
@@ -215,6 +226,7 @@ const StudentDetail = () => {
                   <td colSpan={2}>
                     <input
                       type="text"
+                      size="100"
                       value={username}
                       style={{ width: "350px" }}
                       readOnly
@@ -225,7 +237,8 @@ const StudentDetail = () => {
                   </td>
                   <td colSpan={2}>
                     <input
-                      type="text"
+                      type="email"
+                      size="100"
                       style={{ width: "310px" }}
                       value={email}
                       onChange={(e) => setemail(e.target.value)}
@@ -239,7 +252,8 @@ const StudentDetail = () => {
                   </td>
                   <td colSpan={2}>
                     <input
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{10}"
                       style={{ width: "350px" }}
                       value={phone}
                       onChange={(e) => setphone(e.target.value)}
@@ -258,6 +272,7 @@ const StudentDetail = () => {
                   <td colSpan={3}>
                     <input
                       type="text"
+                      size="100"
                       value={street}
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
@@ -341,11 +356,21 @@ const StudentDetail = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[0]?.lastName}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[0]?.firstName}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -354,11 +379,21 @@ const StudentDetail = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[0]?.job}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={phone}
+                      type="tel"
+                      pattern="[0-9]{10}"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -366,7 +401,12 @@ const StudentDetail = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={street}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
@@ -405,11 +445,21 @@ const StudentDetail = () => {
                     Họ:
                   </td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[1]?.lastName}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td>Tên:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[1]?.firstName}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
 
                   <td></td>
@@ -418,11 +468,21 @@ const StudentDetail = () => {
                 <tr>
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={profile?.student?.parents[1]?.job}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={phone}
+                      type="tel"
+                      pattern="[0-9]{10}"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td></td>
                   <td></td>
@@ -430,7 +490,12 @@ const StudentDetail = () => {
                 <tr>
                   <td>Địa chỉ:</td>
                   <td>
-                    <input type="text" style={{ width: "200px" }} />
+                    <input
+                      value={street}
+                      type="text"
+                      size="100"
+                      style={{ width: "200px" }}
+                    />
                   </td>
                   <td style={{ textAlign: "right" }}>Tỉnh/thành phố:</td>
                   <td>
@@ -461,11 +526,11 @@ const StudentDetail = () => {
             </table>
           </div>
         </div>
-        <div className="mt-5 text-end">
+        {/* <div className="mt-5 text-end">
           <button className="btn btn-primary profile-button" type="button">
             Cập nhật thông tin
           </button>
-        </div>
+        </div> */}
         <br />
         <br />
       </div>

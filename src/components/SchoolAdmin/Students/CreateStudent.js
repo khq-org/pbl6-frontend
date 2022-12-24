@@ -126,7 +126,11 @@ const CreateStudent = () => {
       ],
     });
     console.log(res);
-    window.alert("Thành công.");
+    if (res.status === 200) {
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
     //nav(-1);
   };
   return (
@@ -165,6 +169,7 @@ const CreateStudent = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       style={{ width: "180px" }}
                       onChange={(e) => setlastName(e.target.value)}
                     />
@@ -174,6 +179,7 @@ const CreateStudent = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       style={{ width: "180px" }}
                       onChange={(e) => setfirstName(e.target.value)}
                     />
@@ -184,6 +190,7 @@ const CreateStudent = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       style={{ width: "230px" }}
                       onChange={(e) => setplaceOfBirth(e.target.value)}
                     />
@@ -216,6 +223,7 @@ const CreateStudent = () => {
                   <td>
                     <input
                       type="text"
+                      size="100"
                       style={{ width: "230px" }}
                       onChange={(e) => setnationality(e.target.value)}
                     />
@@ -225,7 +233,7 @@ const CreateStudent = () => {
                 <tr>
                   <td classname="auto-style11">Số CCCD:</td>
                   <td>
-                    <input type="text" style={{ width: "180px" }} />
+                    <input type="text" size="100" style={{ width: "180px" }} />
                   </td>
                   <td classname="auto-style17">Ngày cấp:</td>
                   <td classname="auto-style1">
@@ -272,6 +280,7 @@ const CreateStudent = () => {
                   <td colSpan={2}>
                     <input
                       type="email"
+                      size="100"
                       style={{ width: "310px" }}
                       onChange={(e) => setemail(e.target.value)}
                     />
@@ -303,6 +312,7 @@ const CreateStudent = () => {
                   <td colSpan={3}>
                     <input
                       type="text"
+                      size="100"
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
                       onChange={(e) => setstreet(e.target.value)}
@@ -375,6 +385,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setlastNameFather(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -383,6 +394,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setfirstNameFather(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -396,6 +408,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setjobFather(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -417,6 +430,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setstreetFather(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -458,6 +472,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setlastNameMother(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -466,6 +481,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setfirstNameMother(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -479,6 +495,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setjobMother(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -500,6 +517,7 @@ const CreateStudent = () => {
                     <input
                       onChange={(e) => setstreetMother(e.target.value)}
                       type="text"
+                      size="100"
                       style={{ width: "200px" }}
                     />
                   </td>

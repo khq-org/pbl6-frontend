@@ -93,7 +93,7 @@ export const SchoolDetail = () => {
     console.log(res);
     if (res.response?.status === 400) {
       setmes("Email đã tồn tại.");
-    } else {
+    } else if (res?.status === 200) {
       setlistaccount([
         ...listaccount,
         {
@@ -114,7 +114,7 @@ export const SchoolDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`schools/${id}`, {
+    const res = await axios.put(`schools/${id}`, {
       school,
       phone,
       street,
@@ -126,8 +126,11 @@ export const SchoolDetail = () => {
     //console.log({ data });
 
     //console.log({ res });
-
-    alert("Đã lưu thông tin.");
+    if (res.status === 200) {
+      window.alert("Đã lưu thông tin.");
+    } else {
+      window.alert("Thất bại.");
+    }
 
     //navigate(-1);
   };
@@ -135,9 +138,14 @@ export const SchoolDetail = () => {
     if (window.confirm("Bạn muốn xóa tài khoản này?")) {
       const res = await axios.delete(`schooladmins/${schoolAdminId}`);
       //console.log(res);
-      setlistaccount(
-        listaccount.filter((item) => item.schoolAdminId !== schoolAdminId)
-      );
+      if (res.status === 200) {
+        window.alert("Thành công.");
+        setlistaccount(
+          listaccount.filter((item) => item.schoolAdminId !== schoolAdminId)
+        );
+      } else {
+        window.alert("Thất bại.");
+      }
     }
     //window.location.reload();
   };
@@ -184,6 +192,7 @@ export const SchoolDetail = () => {
               <b>Email</b>
               <input
                 type="email"
+                size="100"
                 className="form-control"
                 placeholder="email"
                 onChange={(e) => setemail(e.target.value)}
@@ -221,6 +230,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
+                            size="100"
                             className="form-control"
                             value={school}
                             onChange={(e) => setschool(e.target.value)}
@@ -250,6 +260,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
+                            size="100"
                             className="form-control"
                             value={street}
                             onChange={(e) => setstreet(e.target.value)}
@@ -303,6 +314,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
+                            size="100"
                             className="form-control"
                             value={website}
                             onChange={(e) => setwebsite(e.target.value)}

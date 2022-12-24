@@ -25,12 +25,7 @@ const _nav = [
       {
         component: CNavItem,
         name: "Danh sách lớp",
-        to: "#",
-      },
-      {
-        component: CNavItem,
-        name: "Tạo lịch kiểm tra",
-        to: "/teacher/exam",
+        to: "/teacher/class",
       },
     ],
   },

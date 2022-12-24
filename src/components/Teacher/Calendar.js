@@ -33,42 +33,44 @@ const Calendar = () => {
   };
 
   const [listCalendar, setlistCalendar] = useState([]);
-
-  const [classId, setclassId] = useState(0);
+  const [listyear, setlistyear] = useState([]);
+  const [schoolYearId, setschoolYearId] = useState(1);
   const [semesterId, setsemesterId] = useState(1);
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "users/calendar?calendarEventType=Teach"
-        );
-        console.log(data);
-        setlistCalendar(data.data.items);
+        const { data } = await axios.get("schoolyear");
+        //console.log({ data });
+        setlistyear(data.data.items);
       } catch (e) {}
     })();
   }, []);
-
   const findcalendar = (tiet, day) => {
     return listCalendar?.find((element) => {
       return element.dayOfWeek === day && element.lessonStart === tiet;
     });
   };
+  const show = async (schoolyear, semester) => {
+    const { data } = await axios.get(
+      `users/calendar?schoolYearId=${schoolyear}&semesterId=${semester}&calendarEventType=Teach`
+    );
+    console.log(data);
+    setlistCalendar(data.data.items);
+  };
   return (
     <>
-      {/* <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <CFormSelect
-          style={{ width: "10%" }}
+          style={{ width: "200px" }}
           onChange={(e) => {
-            setclassId(Number(e.target.value));
+            setschoolYearId(Number(e.target.value));
             show(e.target.value, semesterId);
           }}
         >
-          <option>Lớp</option>
-          {listclass?.map((item) => (
-            <option key={item.classId} value={item.classId}>
-              {item.clazz}
-            </option>
+          <option>Năm học</option>
+          {listyear.map((item) => (
+            <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}
         </CFormSelect>
         Học kì:
@@ -76,13 +78,13 @@ const Calendar = () => {
           style={{ width: "10%" }}
           onChange={(e) => {
             setsemesterId(Number(e.target.value));
-            show(classId, e.target.value);
+            show(schoolYearId, e.target.value);
           }}
         >
           <option value={1}>1</option>
           <option value={2}>2</option>
         </CFormSelect>
-      </div> */}
+      </div>
       <table className="table table-bordered table-active">
         <thead>
           <tr>

@@ -68,11 +68,20 @@ export const PaginationTable = () => {
     const res = await axios.post("schoolyear", {
       schoolYearName,
     });
-    if (res.response.status === 400) {
+    //console.log(res);
+    if (res.response?.status === 400) {
       setmessenger("Năm học đã tồn tại trong hệ thống.");
-    } else {
+    } else if (res.status === 200) {
+      setlistyear([
+        ...listyear,
+        {
+          schoolYearId: res.data.data.id,
+          schoolYear: res.data.data.name,
+        },
+      ]);
       setmessenger("");
       setVisible(false);
+      window.alert("Đã thêm năm học mới.");
     }
 
     console.log(res);
@@ -119,9 +128,10 @@ export const PaginationTable = () => {
                   <div className="col-md-12">
                     Tên năm học
                     <input
-                      type="text"
+                      type="tel"
+                      pattern="[0-9]{4}-[0-9]{4}"
                       className="form-control"
-                      placeholder="y-y"
+                      placeholder="yyyy-yyyy"
                       onChange={(e) => setSchoolYearName(e.target.value)}
                       required
                     />
@@ -142,17 +152,16 @@ export const PaginationTable = () => {
         </CModalBody>
       </CModal>
       <div className="container rounded bg-white mt-0 mb-0">
-        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-          <CButton
-            className="btn btn-primary"
-            type="button"
-            onClick={() => setVisible(!visible)}
-          >
-            Thêm mới năm học
-          </CButton>
-        </div>
-
-        <form className="row m-5" onSubmit={save}>
+        <form className="row mx-5" onSubmit={save}>
+          <div className="text-end">
+            <CButton
+              className="btn btn-primary"
+              type="button"
+              onClick={() => setVisible(!visible)}
+            >
+              Thêm mới năm học
+            </CButton>
+          </div>
           <table>
             <tr>
               <th>STT</th>
@@ -161,7 +170,7 @@ export const PaginationTable = () => {
             </tr>
 
             {listclass1?.map((item, index) => (
-              <tr>
+              <tr className="text-center">
                 <td>{index}</td>
                 <td>{item.clazz}</td>
                 <td>

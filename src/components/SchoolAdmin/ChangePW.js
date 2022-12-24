@@ -38,6 +38,7 @@ const ChangePW = () => {
             Mật khẩu hiện tại
             <input
               type="password"
+              size="100"
               id="yourpassword"
               name="yourpassword"
               onChange={(e) => setcurrentPassword(e.target.value)}
@@ -49,6 +50,7 @@ const ChangePW = () => {
             Mật khẩu mới
             <input
               type="password"
+              size="100"
               id="password"
               name="password"
               onChange={(e) => setnewPassword(e.target.value)}
@@ -60,6 +62,7 @@ const ChangePW = () => {
             Nhập lại mật khẩu
             <input
               type="password"
+              size="100"
               id="confirmPassword"
               name="confirmPassword"
               onChange={(e) => setconfirmPassword(e.target.value)}

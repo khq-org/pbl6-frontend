@@ -81,8 +81,12 @@ const InfoAdmin = () => {
       workingPosition,
       roleId,
     });
-    setVisible(true);
 
+    if (res.status === 200) {
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
     //alert("done.");
     //console.log({ res });
   };
@@ -124,6 +128,7 @@ const InfoAdmin = () => {
                   <b>Họ</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={lastName}
                     onChange={(e) => setlastName(e.target.value)}
@@ -134,6 +139,7 @@ const InfoAdmin = () => {
                   <b>Tên</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={firstName}
                     onChange={(e) => setfirstName(e.target.value)}
@@ -177,6 +183,7 @@ const InfoAdmin = () => {
                   <b>Email</b>
                   <input
                     type="email"
+                    size="100"
                     className="form-control"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
@@ -187,6 +194,7 @@ const InfoAdmin = () => {
                   <b>Quê quán</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={placeOfBirth}
                     onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -197,6 +205,7 @@ const InfoAdmin = () => {
                   <b>Địa chỉ hiện tại</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={street}
                     onChange={(e) => setstreet(e.target.value)}
@@ -207,6 +216,7 @@ const InfoAdmin = () => {
                   <b>District</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={district}
                     onChange={(e) => setdistrict(e.target.value)}
@@ -218,6 +228,7 @@ const InfoAdmin = () => {
                   <b>City</b>
                   <input
                     type="text"
+                    size="100"
                     className="form-control"
                     value={city}
                     onChange={(e) => setcity(e.target.value)}
@@ -270,6 +281,7 @@ const InfoAdmin = () => {
                 <b>Role</b>
                 <input
                   type="text"
+                  size="100"
                   className="form-control"
                   value={profile.role}
                   readOnly
@@ -280,6 +292,7 @@ const InfoAdmin = () => {
                 <b>ID</b>
                 <input
                   type="text"
+                  size="100"
                   className="form-control"
                   value={profile.userId}
                   readOnly
@@ -290,6 +303,7 @@ const InfoAdmin = () => {
                 <b>Tài khoản</b>
                 <input
                   type="text"
+                  size="100"
                   className="form-control"
                   value={profile.username}
                   readOnly

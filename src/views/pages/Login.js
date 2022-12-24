@@ -88,6 +88,7 @@ export const Login = () => {
             <div className="inputs">
               <input
                 type="text"
+                size="100"
                 placeholder="Tài khoản"
                 onChange={(e) => setUser(e.target.value)}
                 required
@@ -95,6 +96,7 @@ export const Login = () => {
               <br />
               <input
                 type="password"
+                size="100"
                 placeholder="Mật khẩu"
                 onChange={(e) => setPassword(e.target.value)}
                 required

@@ -83,16 +83,27 @@ export const PaginationTable = () => {
         subject,
       },
     ]);
-    setVisible(false);
-    window.alert("Thành công.");
+
+    if (res.status === 200) {
+      setVisible(false);
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
+
     //window.location.reload();
     //alert("done.");
   };
   const del = async (id) => {
     if (window.confirm("Bạn muốn xóa lớp này?")) {
       const res = await axios.delete(`classes/${id}`);
+      if (res.status === 200) {
+        setlistclass(listclass.filter((item) => item.classId !== id));
+        window.alert("Đã xóa.");
+      } else {
+        window.alert("Thất bại.");
+      }
       //console.log(res);
-      setlistclass(listclass.filter((item) => item.classId !== id));
     }
   };
 
@@ -137,12 +148,7 @@ export const PaginationTable = () => {
     //console.log({ res });
     //setVisible2(true);
   };
-  const getlistclassbyyear = async (yearid) => {
-    const res = await axios.get(`classes?schoolYearId=${yearid}`);
 
-    console.log(res);
-    setlistclass(res.data.data.items);
-  };
   return (
     <>
       <CModal
@@ -258,7 +264,7 @@ export const PaginationTable = () => {
                   <td>{item.userId}</td>
                   <td>{item.displayName}</td>
                   <td>{item.dateOfBirth}</td>
-                  <td>{item.gender}</td>
+                  <td>{item.gender ? "Nam" : "Nữ"}</td>
                   <td>{item.street}</td>
                   <td>{item.district}</td>
                   <td>{item.city}</td>

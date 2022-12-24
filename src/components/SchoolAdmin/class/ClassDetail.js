@@ -36,13 +36,17 @@ const ClassDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.put(`classes/${id}`, {
+    const res = await axios.put(`classes/${id}`, {
       className,
       gradeId,
       isSpecializedClass,
       subject,
     });
-    alert("done.");
+    if (res.status === 200) {
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
   };
   return (
     <>
@@ -56,6 +60,7 @@ const ClassDetail = () => {
               Tên lớp
               <input
                 type="text"
+                size="100"
                 className="form-control"
                 value={className}
                 onChange={(e) => setclassName(e.target.value)}

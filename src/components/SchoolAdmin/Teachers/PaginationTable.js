@@ -121,16 +121,26 @@ export const PaginationTable = () => {
         workingPosition,
       },
     ]);
-    setVisible(false);
-    window.alert("Done.");
+    if (res.status === 200) {
+      setVisible(false);
+      window.alert("Thành công.");
+    } else {
+      window.alert("Thất bại.");
+    }
+
     //window.location.reload();
     //alert("done.");
   };
   const del = async (id) => {
     if (window.confirm("Bạn thực sự muốn xóa giáo viên này?")) {
       const res = await axios.delete(`teachers/${id}`);
+      if (res.status === 200) {
+        setlistTeacher(listTeacher.filter((item) => item.userId !== id));
+        window.alert("Thành công.");
+      } else {
+        window.alert("Thất bại.");
+      }
       console.log(res);
-      setlistTeacher(listTeacher.filter((item) => item.userId !== id));
     }
   };
 
@@ -189,6 +199,7 @@ export const PaginationTable = () => {
                     Họ
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
                       placeholder="họ"
                       onChange={(e) => setlastName(e.target.value)}
@@ -199,6 +210,7 @@ export const PaginationTable = () => {
                     Tên
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
                       placeholder="tên"
                       onChange={(e) => setfirstName(e.target.value)}
@@ -229,6 +241,7 @@ export const PaginationTable = () => {
                     Quê quán
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
                       placeholder="quê quán"
                       onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -239,6 +252,7 @@ export const PaginationTable = () => {
                     Địa chỉ
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
                       placeholder="số nhà/thôn xóm, xã/phường/thị trấn"
                       onChange={(e) => setstreet(e.target.value)}
@@ -276,6 +290,7 @@ export const PaginationTable = () => {
                     Email
                     <input
                       type="email"
+                      size="100"
                       className="form-control"
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}
@@ -288,6 +303,7 @@ export const PaginationTable = () => {
                     Quốc tịch
                     <input
                       type="text"
+                      size="100"
                       className="form-control"
                       placeholder="quốc tịch"
                       onChange={(e) => setnationality(e.target.value)}

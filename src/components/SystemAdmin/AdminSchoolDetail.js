@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect } from "react";
@@ -41,12 +42,17 @@ export const AdminSchoolDetail = () => {
       password,
       schoolId,
     });
-    nav(-1);
+    if (res.status === 200) {
+      window.alert("Thành công.");
+      nav(-1);
+    } else {
+      window.alert("Thất bại.");
+    }
   };
 
   return (
     <div className="container rounded bg-white mt-0 mb-0">
-      <div className="cardStyle">
+      <div className="p-5" style={{ width: "50%", marginLeft: "25%" }}>
         <form onSubmit={save} method="post" name="signupForm" id="signupForm">
           <h4 className="formTitle">Thông tin tài khoản quản trị trường học</h4>
 

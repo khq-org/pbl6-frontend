@@ -200,11 +200,16 @@ const Calendar = () => {
 
   const del = async (id) => {
     if (window.confirm("Bạn có chắc muốn xóa lịch này?")) {
-      setVisible(false);
-      setlistCalendar(
-        listCalendar.filter((item) => item.calendarEventId !== id)
-      );
-      const { data } = await axios.delete(`calendars/${id}`);
+      const res = await axios.delete(`calendars/${id}`);
+      if (res.status === 200) {
+        setVisible(false);
+        setlistCalendar(
+          listCalendar.filter((item) => item.calendarEventId !== id)
+        );
+        window.alert("Đã xóa.");
+      } else {
+        window.alert("Thất bại.");
+      }
       //console.log(data);
     }
   };

@@ -28,9 +28,13 @@ export const PaginationTable = () => {
     if (window.confirm("Bạn muốn xóa thông tin trường học này?")) {
       const res = await axios.delete(`schools/${id}`);
       //console.log(res);
-      setListschool(listschool.filter((item) => item.schoolId !== id));
-      //window.location.reload();
-      setVisible(true);
+      if (res.status === 200) {
+        setListschool(listschool.filter((item) => item.schoolId !== id));
+        //window.location.reload();
+        setVisible(true);
+      } else {
+        window.alert("Thất bại.");
+      }
     }
   };
 

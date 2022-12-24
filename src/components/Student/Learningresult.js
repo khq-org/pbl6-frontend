@@ -103,6 +103,9 @@ const StudentScore = () => {
               </b>
               <b> Ngày sinh: </b>
               {student?.dayOfBirth}
+              <div>
+                <b>Lớp: {learningResults?.learningResult?.className} </b>
+              </div>
             </td>
           </tr>
         </div>
