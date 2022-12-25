@@ -3,26 +3,18 @@ import { Link } from "react-router-dom";
 
 export const COLUMNS = [
   {
+    Header: "Họ tên",
+    Footer: "Họ tên",
+    accessor: "displayName",
+    sticky: "left",
+  },
+  {
     Header: "Id",
     Footer: "Id",
     accessor: "userId",
     disableFilters: true,
     sticky: "left",
   },
-  {
-    Header: "Họ tên",
-    Footer: "Họ tên",
-    accessor: "displayName",
-    sticky: "left",
-    Cell: ({ value }) => {
-      return (
-        <Link to="#">
-          {value}
-        </Link>
-      )
-    },
-  },
-
   {
     Header: "Ngày sinh",
     Footer: "Ngày sinh",

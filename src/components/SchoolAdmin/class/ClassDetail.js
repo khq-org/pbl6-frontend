@@ -108,7 +108,7 @@ const ClassDetail = () => {
                 <option value="Tin học">Tin học</option>
               </CFormSelect>
             </div>
-            <div className="inputDiv">
+            {/* <div className="inputDiv">
               Giáo viên chủ nhiệm
               <CFormSelect
                 value={teacherID}
@@ -118,7 +118,7 @@ const ClassDetail = () => {
                   <option value={item.userId} label={item.displayName}></option>
                 ))}
               </CFormSelect>
-            </div>
+            </div> */}
 
             <div className="buttonWrapper">
               <button

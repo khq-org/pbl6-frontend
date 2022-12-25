@@ -117,6 +117,7 @@ export const PaginationTable = () => {
             <thead style={{ background: "#ddd", color: "#4985B2" }}>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
+                  <th>STT</th>
                   {headerGroup.headers.map((column) => (
                     <th
                       {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -134,16 +135,16 @@ export const PaginationTable = () => {
                       {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
                     </th>
                   ))}
-
                   <th>Actions</th>
                 </tr>
               ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-              {page.map((row) => {
+              {page.map((row, index) => {
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps()}>
+                    <td>{index + 1}</td>
                     {row.cells.map((cell) => {
                       return (
                         <td {...cell.getCellProps()}>{cell.render("Cell")}</td>

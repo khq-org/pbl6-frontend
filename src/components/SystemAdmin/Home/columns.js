@@ -2,16 +2,16 @@ import { format } from "date-fns";
 
 export const COLUMNS = [
   {
-    Header: "ID",
+    Header: "Trường học",
 
-    accessor: "schoolId",
+    accessor: "school",
     disableFilters: true,
     sticky: "left",
   },
   {
-    Header: "Trường học",
+    Header: "ID",
 
-    accessor: "school",
+    accessor: "schoolId",
     disableFilters: true,
     sticky: "left",
   },

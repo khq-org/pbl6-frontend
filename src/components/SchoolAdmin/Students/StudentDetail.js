@@ -218,7 +218,8 @@ const StudentDetail = () => {
   };
   return (
     <>
-      <div
+      <form
+        onSubmit={save}
         id="tabs_LcSV-divT0"
         style={{ width: "100%", padding: "5px 2px 2px 2px" }}
       >
@@ -657,11 +658,7 @@ const StudentDetail = () => {
         </div>
 
         <div className="mt-5 text-center">
-          <button
-            className="btn btn-primary profile-button"
-            type="button"
-            onClick={save}
-          >
+          <button className="btn btn-primary profile-button" type="submit">
             Cập nhật thông tin
           </button>
         </div>
@@ -981,7 +978,7 @@ const StudentDetail = () => {
             </table>
           </div> */}
         </div>
-      </div>
+      </form>
     </>
   );
 };

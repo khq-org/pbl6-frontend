@@ -51,6 +51,7 @@ export const PaginationTable = () => {
       } catch (e) {}
     })();
   }, []);
+
   useEffect(() => {
     (async () => {
       try {
@@ -114,11 +115,15 @@ export const PaginationTable = () => {
   const { pageIndex, pageSize, globalFilter } = state;
 
   const getliststudentbyidclass = async (classid) => {
+    // const res = await axios.get(
+    //   `students?schoolYearId=${schoolYearId}&classId=${classid}`
+    // );
+    // setliststudent(res.data.data.items);
     const res = await axios.get(
-      `students?schoolYearId=${schoolYearId}&classId=${classid}`
+      `class/learning-result?schoolYearId=${schoolYearId}&classId=${classid}`
     );
-    setliststudent(res.data.data.items);
-    //console.log({ res });
+    setliststudent(res.data.data.studentLearningResults);
+    console.log({ res });
     //setVisible2(true);
   };
 
@@ -157,6 +162,7 @@ export const PaginationTable = () => {
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
+              <th>STT</th>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
@@ -176,10 +182,11 @@ export const PaginationTable = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
+                <td>{index + 1}</td>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>

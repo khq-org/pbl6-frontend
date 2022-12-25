@@ -102,7 +102,7 @@ const InfoAdmin = () => {
       >
         Success!
       </CAlert>
-      <div className="container rounded bg-white mt-0 mb-0">
+      <form onSubmit={save} className="container rounded bg-white mt-0 mb-0">
         <div className="row">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -262,8 +262,7 @@ const InfoAdmin = () => {
               <div className="mt-5 text-center">
                 <button
                   className="btn btn-primary profile-button"
-                  type="button"
-                  onClick={save}
+                  type="submit"
                 >
                   Lưu thông tin
                 </button>
@@ -312,7 +311,7 @@ const InfoAdmin = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

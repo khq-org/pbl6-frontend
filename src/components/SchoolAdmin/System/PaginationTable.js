@@ -83,7 +83,7 @@ export const PaginationTable = () => {
     });
     //console.log(res);
     if (res.response?.status === 400) {
-      setmessenger("Năm học đã tồn tại trong hệ thống.");
+      setmessenger("Giá trị không hợp lệ.");
     } else if (res.status === 200) {
       setlistyear([
         ...listyear,

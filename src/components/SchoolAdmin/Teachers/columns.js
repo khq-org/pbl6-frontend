@@ -16,6 +16,12 @@ var mapSubjects = {
 };
 export const COLUMNS = [
   {
+    Header: "Họ tên",
+    Footer: "Họ tên",
+    accessor: "displayName",
+    sticky: "left",
+  },
+  {
     Header: "Id",
     Footer: "Id",
     accessor: "userId",
@@ -23,13 +29,6 @@ export const COLUMNS = [
     sticky: "left",
     sorter: true,
   },
-  {
-    Header: "Họ tên",
-    Footer: "Họ tên",
-    accessor: "displayName",
-    sticky: "left",
-  },
-
   {
     Header: "Ngày sinh",
     Footer: "Ngày sinh",

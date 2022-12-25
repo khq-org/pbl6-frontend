@@ -135,7 +135,8 @@ const CreateStudent = () => {
   };
   return (
     <>
-      <div
+      <form
+        onSubmit={create}
         id="tabs_LcSV-divT0"
         style={{ width: "100%", padding: "5px 2px 2px 2px" }}
       >
@@ -168,6 +169,7 @@ const CreateStudent = () => {
                   <td classname="auto-style11">Họ:</td>
                   <td>
                     <input
+                      required
                       type="text"
                       size="100"
                       style={{ width: "180px" }}
@@ -178,6 +180,7 @@ const CreateStudent = () => {
                   <td classname="auto-style11">Tên:</td>
                   <td>
                     <input
+                      required
                       type="text"
                       size="100"
                       style={{ width: "180px" }}
@@ -189,6 +192,7 @@ const CreateStudent = () => {
                   </td>
                   <td>
                     <input
+                      required
                       type="text"
                       size="100"
                       style={{ width: "230px" }}
@@ -210,6 +214,7 @@ const CreateStudent = () => {
                   <td classname="auto-style11">Ngày sinh:</td>
                   <td classname="auto-style1">
                     <input
+                      required
                       type="date"
                       style={{ width: "180px" }}
                       onChange={(e) =>
@@ -222,6 +227,7 @@ const CreateStudent = () => {
                   </td>
                   <td>
                     <input
+                      required
                       type="text"
                       size="100"
                       style={{ width: "230px" }}
@@ -233,11 +239,16 @@ const CreateStudent = () => {
                 <tr>
                   <td classname="auto-style11">Số CCCD:</td>
                   <td>
-                    <input type="text" size="100" style={{ width: "180px" }} />
+                    <input
+                      required
+                      type="text"
+                      size="100"
+                      style={{ width: "180px" }}
+                    />
                   </td>
                   <td classname="auto-style17">Ngày cấp:</td>
                   <td classname="auto-style1">
-                    <input type="date" style={{ width: "180px" }} />
+                    <input required type="date" style={{ width: "180px" }} />
                   </td>
                   <td classname="auto-style15">&nbsp;</td>
                   <td>&nbsp;</td>
@@ -279,6 +290,7 @@ const CreateStudent = () => {
                   </td>
                   <td colSpan={2}>
                     <input
+                      required
                       type="email"
                       size="100"
                       style={{ width: "310px" }}
@@ -293,6 +305,7 @@ const CreateStudent = () => {
                   </td>
                   <td colSpan={2}>
                     <input
+                      required
                       type="tel"
                       pattern="[0-9]{10}"
                       style={{ width: "350px" }}
@@ -311,6 +324,7 @@ const CreateStudent = () => {
                   </td>
                   <td colSpan={3}>
                     <input
+                      required
                       type="text"
                       size="100"
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
@@ -383,6 +397,7 @@ const CreateStudent = () => {
                   </td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setlastNameFather(e.target.value)}
                       type="text"
                       size="100"
@@ -392,6 +407,7 @@ const CreateStudent = () => {
                   <td>Tên:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setfirstNameFather(e.target.value)}
                       type="text"
                       size="100"
@@ -406,6 +422,7 @@ const CreateStudent = () => {
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setjobFather(e.target.value)}
                       type="text"
                       size="100"
@@ -415,6 +432,7 @@ const CreateStudent = () => {
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setphoneFather(e.target.value)}
                       type="tel"
                       pattern="[0-9]{10}"
@@ -428,6 +446,7 @@ const CreateStudent = () => {
                   <td>Địa chỉ:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setstreetFather(e.target.value)}
                       type="text"
                       size="100"
@@ -470,6 +489,7 @@ const CreateStudent = () => {
                   </td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setlastNameMother(e.target.value)}
                       type="text"
                       size="100"
@@ -479,6 +499,7 @@ const CreateStudent = () => {
                   <td>Tên:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setfirstNameMother(e.target.value)}
                       type="text"
                       size="100"
@@ -493,6 +514,7 @@ const CreateStudent = () => {
                   <td style={{ textAlign: "right" }}>Nghề nghiệp:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setjobMother(e.target.value)}
                       type="text"
                       size="100"
@@ -502,6 +524,7 @@ const CreateStudent = () => {
                   <td style={{ textAlign: "right" }}>Số điện thoại:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setphoneMother(e.target.value)}
                       type="tel"
                       pattern="[0-9]{10}"
@@ -515,6 +538,7 @@ const CreateStudent = () => {
                   <td>Địa chỉ:</td>
                   <td>
                     <input
+                      required
                       onChange={(e) => setstreetMother(e.target.value)}
                       type="text"
                       size="100"
@@ -550,15 +574,11 @@ const CreateStudent = () => {
         </div>
 
         <div className="mt-2 text-center">
-          <button
-            className="btn btn-primary profile-button"
-            type="button"
-            onClick={create}
-          >
+          <button className="btn btn-primary profile-button" type="submit">
             Thêm mới
           </button>
         </div>
-      </div>
+      </form>
     </>
   );
 };

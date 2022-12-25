@@ -356,6 +356,7 @@ export const PaginationTable = () => {
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
+              <th>STT</th>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render("Header")}
@@ -377,10 +378,11 @@ export const PaginationTable = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
+                <td>{index + 1}</td>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
