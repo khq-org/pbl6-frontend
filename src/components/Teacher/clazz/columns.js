@@ -69,13 +69,13 @@ export const COLUMNS = [
     sticky: "left",
   },
   {
-    Header: "GDQP AN",
+    Header: "QP AN",
 
     accessor: "",
     sticky: "left",
   },
   {
-    Header: "Công nghệ",
+    Header: "CN",
 
     accessor: "",
     sticky: "left",
