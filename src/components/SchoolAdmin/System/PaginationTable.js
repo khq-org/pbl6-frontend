@@ -23,15 +23,15 @@ export const PaginationTable = () => {
   const [schoolYearName, setSchoolYearName] = useState("");
   const [messenger, setmessenger] = useState("");
   const [listyear, setlistyear] = useState([]);
+  const [listteacher, setlistteacher] = useState([]);
   const [listclass1, setlistclass1] = useState([]);
   const [listclass2, setlistclass2] = useState([]);
+  const [listclass3, setlistclass3] = useState([]);
   const [oldSchoolYearId, setoldSchoolYearId] = useState(1);
   const [newSchoolYearId, setnewSchoolYearId] = useState(1);
   const [oldClassIds, setoldClassIds] = useState([]);
   const [newClassIds, setnewClassIds] = useState([]);
-  const [teacherIds, setteacherIds] = useState([
-    78, 109, 111, 110, 92, 24, 27, 107, 106,
-  ]);
+  const [teacherIds, setteacherIds] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -43,6 +43,9 @@ export const PaginationTable = () => {
         );
         setlistclass2(
           data.data.items.filter((item) => item.grade.gradeId !== 1)
+        );
+        setlistclass3(
+          data.data.items.filter((item) => item.grade.gradeId === 1)
         );
         data.data.items
           .filter((item) => item.grade.gradeId !== 3)
@@ -58,6 +61,16 @@ export const PaginationTable = () => {
         const res = await axios.get("schoolyear");
         //console.log({ data });
         setlistyear(res.data.data.items);
+      } catch (e) {}
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("teachers");
+
+        setlistteacher(res.data.data.items);
       } catch (e) {}
     })();
   }, []);
@@ -104,6 +117,7 @@ export const PaginationTable = () => {
     console.log(newSchoolYearId);
     console.log("old", oldClassIds);
     console.log("new", newClassIds);
+    console.log("teacher", teacherIds);
   };
   return (
     <>
@@ -167,11 +181,30 @@ export const PaginationTable = () => {
               <th>STT</th>
               <th>Tên lớp năm cũ</th>
               <th>Tên lớp chuyển đến</th>
+              <th>Giáo viên chủ nhiệm(Lớp mới)</th>
             </tr>
-
-            {listclass1?.map((item, index) => (
+            {listclass3?.map((i, index) => (
               <tr className="text-center">
                 <td>{index}</td>
+                <td></td>
+                <td>{i.clazz}</td>
+                <td>
+                  <CFormSelect
+                    onChange={(e) => {
+                      teacherIds[index] = Number(e.target.value);
+                    }}
+                  >
+                    <option>GVCN</option>
+                    {listteacher?.map((item, index2) => (
+                      <option value={item.userId}>{item.displayName}</option>
+                    ))}
+                  </CFormSelect>
+                </td>
+              </tr>
+            ))}
+            {listclass1?.map((item, index) => (
+              <tr className="text-center">
+                <td>{index + 3}</td>
                 <td>{item.clazz}</td>
                 <td>
                   <CFormSelect
@@ -182,6 +215,18 @@ export const PaginationTable = () => {
                     <option>Lớp</option>
                     {listclass2?.map((item2, index2) => (
                       <option value={item2.classId}>{item2.clazz}</option>
+                    ))}
+                  </CFormSelect>
+                </td>
+                <td>
+                  <CFormSelect
+                    onChange={(e) => {
+                      teacherIds[index + 3] = Number(e.target.value);
+                    }}
+                  >
+                    <option>GVCN</option>
+                    {listteacher?.map((item3, index3) => (
+                      <option value={item3.userId}>{item3.displayName}</option>
                     ))}
                   </CFormSelect>
                 </td>
