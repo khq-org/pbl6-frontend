@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { PaginationTable } from "./PaginationTable";
 
-const Classes = () => {
+const Class = () => {
   return (
     <>
       <PaginationTable />
@@ -11,4 +11,4 @@ const Classes = () => {
   );
 };
 
-export default Classes;
+export default Class;

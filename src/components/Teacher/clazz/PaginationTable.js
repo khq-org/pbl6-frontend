@@ -22,6 +22,7 @@ import {
   CForm,
 } from "@coreui/react";
 import { GlobalFilter } from "./../../SchoolAdmin/GlobalFilter";
+import { element } from "prop-types";
 
 export const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
@@ -30,6 +31,7 @@ export const PaginationTable = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [listclass, setlistclass] = useState([]);
+  const [listclazz, setlistclazz] = useState([]);
   const [listyear, setlistyear] = useState([]);
 
   const [liststudent, setliststudent] = useState([]);
@@ -39,7 +41,16 @@ export const PaginationTable = () => {
   const [visible2, setVisible2] = useState(false);
   const [schoolYearId, setschoolYearId] = useState(1);
   const [semesterId, setsemesterId] = useState(1);
-
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("users/classes");
+        //console.log({ data });
+        setlistclazz(data.data);
+        //console.log({ res });
+      } catch (e) {}
+    })();
+  }, []);
   useEffect(() => {
     (async () => {
       try {
@@ -50,16 +61,26 @@ export const PaginationTable = () => {
       } catch (e) {}
     })();
   }, []);
-  const handlesetclass = async (YearId, seId) => {
-    const { data } = await axios.get(
-      `classes?schoolYearId=${YearId}&semesterId=${seId}`
+  const handlesetclass = async (YearId) => {
+    setlistclass(
+      listclazz.filter(
+        (item) =>
+          item.schoolYear ===
+          listyear.find((element) => {
+            return element.schoolYearId === YearId;
+          })?.schoolYear
+      )
     );
-    console.log(data);
+    listyear.find((element) => {
+      return element.schoolYearId === YearId;
+    });
+    // const { data } = await axios.get("users/classes");
+    // console.log(data);
 
-    //console.log([...new Set(data.data.items)]);
-    setlistclass(data.data.items);
+    // //console.log([...new Set(data.data.items)]);
+    // setlistclass(data.data);
   };
-  const data = useMemo(() => listclass, [listclass]);
+  const data = useMemo(() => liststudent, [liststudent]);
   const {
     getTableProps,
     getTableBodyProps,
@@ -94,7 +115,7 @@ export const PaginationTable = () => {
 
   const getliststudentbyidclass = async (classid) => {
     const res = await axios.get(
-      `students?schoolYearId=${schoolyear}&classId=${classid}`
+      `students?schoolYearId=${schoolYearId}&classId=${classid}`
     );
     setliststudent(res.data.data.items);
     //console.log({ res });
@@ -103,56 +124,12 @@ export const PaginationTable = () => {
 
   return (
     <>
-      <CModal
-        size="xl"
-        alignment="center"
-        visible={visible2}
-        onClose={() => setVisible2(false)}
-      >
-        <CModalHeader>
-          <CModalTitle>
-            <h2>Danh sách học sinh lớp {clazz}</h2>
-          </CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Họ tên</th>
-                <th>Ngày sinh </th>
-                <th>Giới tính</th>
-                <th>Số nhà</th>
-                <th>Quận/Huyện</th>
-                <th>Tỉnh/Thành phố</th>
-                <th>Liên lạc</th>
-              </tr>
-            </thead>
-            <tbody>
-              {liststudent.map((item) => (
-                <tr key={item.userId}>
-                  <td>{item.userId}</td>
-                  <td>{item.displayName}</td>
-                  <td>{item.dateOfBirth}</td>
-                  <td>{item.gender ? "Nam" : "Nữ"}</td>
-                  <td>{item.street}</td>
-                  <td>{item.district}</td>
-                  <td>{item.city}</td>
-                  <td> {item.phone}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </CModalBody>
-      </CModal>
-
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <CFormSelect
           style={{ width: "200px" }}
           onChange={(e) => {
-            setschoolyear(e.target.value);
             setschoolYearId(Number(e.target.value));
-            handlesetclass(Number(e.target.value), semesterId);
+            handlesetclass(Number(e.target.value));
             //getlistclassbyyear(e.target.value);
           }}
         >
@@ -164,13 +141,15 @@ export const PaginationTable = () => {
         <CFormSelect
           style={{ width: "200px" }}
           onChange={(e) => {
-            setsemesterId(Number(e.target.value));
-            handlesetclass(schoolYearId, Number(e.target.value));
+            getliststudentbyidclass(e.target.value);
           }}
         >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
+          <option>Lớp</option>
+          {listclass.map((item) => (
+            <option value={item.classId} label={item.clazz}></option>
+          ))}
         </CFormSelect>
+
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       </div>
 
@@ -193,7 +172,6 @@ export const PaginationTable = () => {
                   {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
                 </th>
               ))}
-              <th></th>
             </tr>
           ))}
         </thead>
@@ -207,20 +185,6 @@ export const PaginationTable = () => {
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
-                <td>
-                  <Link
-                    onClick={() => {
-                      getliststudentbyidclass(row.original.classId);
-                      setclazz(row.original.clazz);
-                      setVisible2(true);
-                    }}
-                    className="Xem"
-                    title="Xem"
-                    cshools-toggle="tooltip"
-                  >
-                    <i className="material-icons">&#xE417;</i>
-                  </Link>
-                </td>
               </tr>
             );
           })}

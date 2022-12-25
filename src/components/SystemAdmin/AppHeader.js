@@ -66,6 +66,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav> */}
         <CHeaderNav className="ms-3">
+          <b>ADMINISTRATOR </b>
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>

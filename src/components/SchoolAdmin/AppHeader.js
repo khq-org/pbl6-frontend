@@ -70,7 +70,7 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav> */}
         <CHeaderNav className="ms-3">
-          <b>Quản trị viên : {account}- </b>
+          <b>Quản trị viên : {account} </b>
           <AppHeaderDropdown />
         </CHeaderNav>
       </CContainer>

@@ -27,6 +27,11 @@ const _nav = [
         name: "Danh sách lớp",
         to: "/teacher/class",
       },
+      {
+        component: CNavItem,
+        name: "Lớp chủ nhiệm",
+        to: "/teacher/clazz",
+      },
     ],
   },
   {

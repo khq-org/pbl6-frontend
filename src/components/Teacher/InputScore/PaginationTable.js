@@ -57,8 +57,12 @@ export const PaginationTable = () => {
       studentScores: studentScores,
     };
     console.log(dataUpdate);
-    const { data } = await axios.post("inputscores", dataUpdate);
-    console.log(data);
+    const res = await axios.post("inputscores", dataUpdate);
+    if (res.status === 200) {
+      alert("Đã lưu.");
+    } else {
+      alert("Thất bại. Kiểm tra lại.");
+    }
   };
 
   //////////////////////////////////////

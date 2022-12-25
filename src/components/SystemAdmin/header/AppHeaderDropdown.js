@@ -35,7 +35,6 @@ const AppHeaderDropdown = () => {
   return (
     <>
       {" "}
-      <b>ADMINISTRATOR- </b>
       <CDropdown variant="nav-item">
         <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
           <CAvatar

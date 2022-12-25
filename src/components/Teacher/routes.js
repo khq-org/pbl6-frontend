@@ -4,7 +4,8 @@ import Calendar from "./Calendar";
 import Exam from "./Exam";
 import Meeting from "./Meeting";
 import InputScore from "./InputScore";
-import Class from "./class";
+import Classes from "./class";
+import Class from "./clazz";
 const routes = [
   { path: "/profile", exact: true, name: "" },
   {
@@ -70,11 +71,21 @@ const routes = [
   {
     path: "/teacher/class",
     name: "Danh sách lớp",
-    element: Class,
+    element: Classes,
   },
   {
     path: "/class",
     name: "Danh sách lớp",
+    element: Classes,
+  },
+  {
+    path: "/teacher/clazz",
+    name: "Lớp chủ nhiệm",
+    element: Class,
+  },
+  {
+    path: "/clazz",
+    name: "Lớp chủ nhiệm",
     element: Class,
   },
 ];
