@@ -46,7 +46,7 @@ export const PaginationTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("classes");
+        const { data } = await axios.get("classes?schoolYearId=1");
         setlistclass(data.data.items);
       } catch (e) {}
     })();
@@ -148,7 +148,12 @@ export const PaginationTable = () => {
     //console.log({ res });
     //setVisible2(true);
   };
-
+  const getlistclassbyyear = async (id) => {
+    const res = await axios.get(`classes?schoolYearId=${id}`);
+    setlistclass(res.data.data.items);
+    //console.log({ res });
+    //setVisible2(true);
+  };
   return (
     <>
       <CModal
@@ -280,7 +285,7 @@ export const PaginationTable = () => {
           style={{ width: "200px" }}
           onChange={(e) => {
             setschoolyear(e.target.value);
-            //getlistclassbyyear(e.target.value);
+            getlistclassbyyear(e.target.value);
           }}
         >
           {listyear.map((item) => (

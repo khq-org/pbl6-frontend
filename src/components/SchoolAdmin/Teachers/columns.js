@@ -71,7 +71,7 @@ export const COLUMNS = [
     accessor: "teachSubject",
     sticky: "left",
     Cell: ({ value }) => {
-      return mapSubjects[value.replace(" ", "_")];
+      return mapSubjects[value?.replace(" ", "_")];
     },
   },
   {

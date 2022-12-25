@@ -49,7 +49,7 @@ const StudentDetail = () => {
   const [listdistrictMother, setlistdistrictMother] = useState([]);
 
   const [learningResults, setlearningResults] = useState([]);
-
+  //const learningResults = [];
   const { id } = useParams();
   var mapSubjects = {
     Biological: "Sinh học",
@@ -113,6 +113,12 @@ const StudentDetail = () => {
       try {
         const { data } = await axios.get(`students/profile?studentId=${id}`);
         //console.log({ data });
+        // for (let i = 0; i < data.data.learningResults.length(); i++) {
+        //   handlesetlearningResults(
+        //     data.data.learningResults[i]?.learningResultId,
+        //     i
+        //   );
+        // }
 
         data.data.learningResults?.map((item, index) => {
           handlesetlearningResults(item.learningResultId, index);
@@ -125,7 +131,9 @@ const StudentDetail = () => {
     const { data } = await axios.get(`learningresults/${id}`);
 
     learningResults[index] = data.data;
-    setlearningResults([...learningResults, data.data]);
+    setlearningResults([...learningResults]);
+
+    //setlearningResults(learningResults.concat([data.data]));
   };
   console.log("test", learningResults);
   useEffect(() => {

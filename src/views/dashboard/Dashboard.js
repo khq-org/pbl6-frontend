@@ -185,7 +185,7 @@ const Dashboard = () => {
             value={
               <>
                 <tr>
-                  <td style={{ fontSize: "50px" }}>{classes}</td>
+                  <td style={{ fontSize: "50px" }}>{teachers}</td>
                   <td>
                     <div className="m-5">
                       <i>
