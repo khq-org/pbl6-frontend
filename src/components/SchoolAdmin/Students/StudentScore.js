@@ -146,7 +146,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}A1`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -159,7 +159,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}A2`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -172,7 +172,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}A3`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -186,7 +186,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}B1`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -199,7 +199,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}B2`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -212,7 +212,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}B3`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -225,7 +225,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}B4`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -238,7 +238,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}C1`] || ""}
                       style={{
                         height: "60%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -251,7 +251,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}D1`] || ""}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -264,7 +264,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}D2`] || ""}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -277,7 +277,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}D3`] || ""}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -290,7 +290,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}D4`] || ""}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -303,7 +303,7 @@ const StudentScore = () => {
                       value={inputs1[`${item.subject.subjectId}E1`] || ""}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />
@@ -312,10 +312,12 @@ const StudentScore = () => {
                     <input
                       type="text"
                       readOnly
-                      value={item.semesterScores[Number(semester)]?.avgScore}
+                      value={item.semesterScores[
+                        Number(semester)
+                      ]?.avgScore.toFixed(2)}
                       style={{
                         height: "100%",
-                        width: "30px",
+                        width: "40px",
                         padding: "5px 2px 2px 2px",
                       }}
                     />

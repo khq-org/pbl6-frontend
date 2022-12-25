@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 export const COLUMNS = [
   {
     Header: "Họ tên",
@@ -11,110 +9,158 @@ export const COLUMNS = [
   {
     Header: "Toán",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[0]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Lí",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[1]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Hóa",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[2]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Sinh",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[6]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Anh",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[7]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Văn",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[3]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Sử",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[4]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Địa",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[5]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "GDCD",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[8]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Tin",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[12]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "QP AN",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[10]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "CN",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[9]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Thể dục",
 
-    accessor: "",
+    accessor: "arrAvgSubjectScore[11]",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
 
   {
     Header: "HKI",
 
-    accessor: "",
+    accessor: "avgSemesterI",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "HKII",
 
-    accessor: "",
+    accessor: "avgSemesterII",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Cả năm",
 
-    accessor: "",
+    accessor: "avgSchoolYear",
     sticky: "left",
+    Cell: ({ value }) => {
+      return value.toFixed(2);
+    },
   },
   {
     Header: "Học lực",
 
-    accessor: "",
+    accessor: "learningGrade",
     sticky: "left",
   },
   {
     Header: "Hạnh kiểm",
 
-    accessor: "",
+    accessor: "conduct",
     sticky: "left",
   },
   {
