@@ -211,10 +211,14 @@ export const PaginationTable = () => {
                 }}
               >
                 <option>HL</option>
-                <option value="Very good">Giỏi</option>
+                {/* <option value="Very good">Giỏi</option>
                 <option value="Good">Khá</option>
                 <option value="Average">TB</option>
-                <option value="Weak">Yếu</option>
+                <option value="Weak">Yếu</option> */}
+                <option value="Giỏi">Giỏi</option>
+                <option value="Khá">Khá</option>
+                <option value="Trung bình">TB</option>
+                <option value="Yếu">Yếu</option>
               </CFormSelect>
             </td>
             <td>
@@ -228,10 +232,14 @@ export const PaginationTable = () => {
                 }}
               >
                 <option>HK</option>
-                <option value="Very good">Tốt</option>
+                {/* <option value="Very good">Tốt</option>
                 <option value="Good">Khá</option>
                 <option value="Average">TB</option>
-                <option value="Weak">Yếu</option>
+                <option value="Weak">Yếu</option> */}
+                <option value="Tốt">Tốt</option>
+                <option value="Khá">Khá</option>
+                <option value="Trung bình">TB</option>
+                <option value="Yếu">Yếu</option>
               </CFormSelect>
             </td>
             <td>

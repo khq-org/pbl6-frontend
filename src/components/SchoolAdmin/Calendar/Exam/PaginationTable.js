@@ -272,7 +272,7 @@ export const PaginationTable = () => {
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <form onSubmit={save}>
+          <form onSubmit={() => save()}>
             <table>
               <tr>
                 <td style={{ width: "200px" }}>Tiêu đề</td>
@@ -484,7 +484,7 @@ export const PaginationTable = () => {
             </table>
             <br />
             <div className="text-center">
-              <div className="btn btn-primary " type="submit">
+              <div className="btn btn-primary " type="submit" onClick={save}>
                 Lưu thông tin
               </div>
             </div>
