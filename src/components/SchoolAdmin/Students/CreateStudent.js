@@ -156,7 +156,7 @@ const CreateStudent = () => {
             <div style={{ clear: "both" }} />
           </div>
           <div>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "left", width: "180px" }} rowSpan={7}>
@@ -389,7 +389,7 @@ const CreateStudent = () => {
           </div>
           <div>
             <h5>Cha</h5>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -481,7 +481,7 @@ const CreateStudent = () => {
           </div>
           <div>
             <h5>Mẹ</h5>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">

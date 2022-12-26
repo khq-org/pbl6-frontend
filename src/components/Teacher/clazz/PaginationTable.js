@@ -1,44 +1,19 @@
-import React, { useMemo } from "react";
-import {
-  useTable,
-  usePagination,
-  useSortBy,
-  useFilters,
-  useGlobalFilter,
-} from "react-table";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 
-import { COLUMNS } from "./columns";
-import "./table.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {
-  CModal,
-  CButton,
-  CModalHeader,
-  CModalBody,
-  CModalTitle,
-  CFormSelect,
-  CForm,
-} from "@coreui/react";
-import { GlobalFilter } from "./../../SchoolAdmin/GlobalFilter";
-import { element } from "prop-types";
+import { CFormSelect } from "@coreui/react";
 
 export const PaginationTable = () => {
-  const columns = useMemo(() => COLUMNS, []);
-
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
   const [listclass, setlistclass] = useState([]);
   const [listclazz, setlistclazz] = useState([]);
   const [listyear, setlistyear] = useState([]);
-
+  const [inputs, setInputs] = useState({});
   const [liststudent, setliststudent] = useState([]);
-  const [clazz, setclazz] = useState("");
-  const [schoolyear, setschoolyear] = useState(1);
 
-  const [visible2, setVisible2] = useState(false);
   const [schoolYearId, setschoolYearId] = useState(1);
   const [semesterId, setsemesterId] = useState(1);
   useEffect(() => {
@@ -72,47 +47,7 @@ export const PaginationTable = () => {
           })?.schoolYear
       )
     );
-    listyear.find((element) => {
-      return element.schoolYearId === YearId;
-    });
-    // const { data } = await axios.get("users/classes");
-    // console.log(data);
-
-    // //console.log([...new Set(data.data.items)]);
-    // setlistclass(data.data);
   };
-  const data = useMemo(() => liststudent, [liststudent]);
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    nextPage,
-    previousPage,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    state,
-    gotoPage,
-    pageCount,
-    setPageSize,
-    prepareRow,
-
-    setGlobalFilter,
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0 },
-    },
-
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
-  const { pageIndex, pageSize, globalFilter } = state;
 
   const getliststudentbyidclass = async (classid) => {
     // const res = await axios.get(
@@ -125,6 +60,69 @@ export const PaginationTable = () => {
     setliststudent(res.data.data.studentLearningResults);
     console.log({ res });
     //setVisible2(true);
+    const tempInputs = {};
+    res.data.data.studentLearningResults.forEach((element) => {
+      tempInputs[`${element.learningResultId}cd`] = element.conduct;
+      tempInputs[`${element.learningResultId}lg`] = element.learningGrade;
+    });
+    console.log("test", tempInputs);
+    setInputs(tempInputs);
+  };
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    console.log("name", name);
+    console.log("value", value);
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const studentScores = [];
+    for (let key in inputs) {
+      if (
+        studentScores?.find(
+          (item) => item?.learningResultId === key.slice(0, -2)
+        )
+      ) {
+        if (key.slice(-2) === "cd") {
+          studentScores.find(
+            (item) => item?.learningResultId === key.slice(0, -2)
+          ).conduct = inputs[key];
+        }
+        if (key.slice(-2) === "lg") {
+          studentScores.find(
+            (item) => item?.learningResultId === key.slice(0, -2)
+          ).learningGrade = inputs[key];
+        }
+      } else {
+        if (key.slice(-2) === "cd") {
+          studentScores.push({
+            learningResultId: key.slice(0, -2),
+            conduct: inputs[key],
+            learningGrade: "",
+            isPassed: true,
+          });
+        }
+        if (key.slice(-2) === "lg") {
+          studentScores.push({
+            learningResultId: key.slice(0, -2),
+            conduct: "",
+            learningGrade: inputs[key],
+            isPassed: true,
+          });
+        }
+      }
+    }
+    const dataUpdate = {
+      studentLearningResults: studentScores,
+    };
+    console.log(dataUpdate);
+    const res = await axios.put("class/learning-result", dataUpdate);
+    if (res.status === 200) {
+      alert("Đã lưu.");
+    } else {
+      alert("Thất bại. Kiểm tra lại.");
+    }
   };
 
   return (
@@ -154,92 +152,88 @@ export const PaginationTable = () => {
             <option value={item.classId} label={item.clazz}></option>
           ))}
         </CFormSelect>
-
-        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       </div>
 
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              <th>STT</th>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("Header")}
-
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
-                  </span>
-
-                  {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                <td>{index + 1}</td>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
+      <table>
+        <tr>
+          <th>STT</th>
+          <th>Họ tên</th>
+          <th>Toán</th>
+          <th>Lí</th>
+          <th>Hóa</th>
+          <th>Sinh</th>
+          <th>Anh</th>
+          <th>Văn</th>
+          <th>Sử</th>
+          <th>Địa</th>
+          <th>GDCD</th>
+          <th>Tin</th>
+          <th>QP AN</th>
+          <th>CN</th>
+          <th>Thể dục</th>
+          <th>HKI</th>
+          <th>HKII</th>
+          <th>Cả năm</th>
+          <th>Học lực</th>
+          <th>Hạnh kiểm</th>
+          <th>Lên lớp</th>
+        </tr>
+        {liststudent.map((item, index) => (
+          <tr>
+            <td>{index + 1}</td>
+            <td>{item.displayName}</td>
+            <td>{item.arrAvgSubjectScore[0]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[1]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[2]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[6]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[7]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[3]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[4]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[5]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[8]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[12]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[10]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[9]?.toFixed(2)}</td>
+            <td>{item.arrAvgSubjectScore[11]?.toFixed(2)}</td>
+            <td>{item.avgSemesterI?.toFixed(2)}</td>
+            <td>{item.avgSemesterII?.toFixed(2)}</td>
+            <td>{item.avgSchoolYear?.toFixed(2)}</td>
+            <td>
+              <select
+                name={`${item.learningResultId}lg`}
+                defaultvalue={[`${item.learningResultId}lg`]}
+                onChange={handleChange}
+              >
+                <option>HL</option>
+                <option value="Giỏi">Giỏi</option>
+                <option value="Khá">Khá</option>
+                <option value="TB">TB</option>
+                <option value="Yếu">Yếu</option>
+              </select>
+            </td>
+            <td>
+              <select
+                name={`${item.learningResultId}cd`}
+                defaultvalue={[`${item.learningResultId}cd`]}
+                onChange={handleChange}
+              >
+                <option>HK</option>
+                <option value="Tốt">Tốt</option>
+                <option value="Khá">Khá</option>
+                <option value="TB">TB</option>
+                <option value="Yếu">Yếu</option>
+              </select>
+            </td>
+            <td>
+              <input type="checkbox" checked={true} />
+            </td>
+          </tr>
+        ))}
       </table>
-      <div>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
-        </button>{" "}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Trước
-        </button>{" "}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Sau
-        </button>{" "}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
-        </button>{" "}
-        <span>
-          Trang{" "}
-          <strong>
-            {pageIndex + 1} / {pageOptions.length}
-          </strong>{" "}
-        </span>
-        <span>
-          | Tới trang:{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const pageNumber = e.target.value
-                ? Number(e.target.value) - 1
-                : 0;
-              gotoPage(pageNumber);
-            }}
-            style={{ width: "50px" }}
-          />
-        </span>{" "}
-        <select
-          value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
-        >
-          {[10, 25, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Xem {pageSize}
-            </option>
-          ))}
-        </select>
+      <div className="text-end mt-3">
+        <button className="btn btn-primary" onClick={handleSubmit}>
+          Lưu thông tin
+        </button>
       </div>
     </>
   );

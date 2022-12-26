@@ -239,7 +239,7 @@ const StudentDetail = () => {
             <div style={{ clear: "both" }} />
           </div>
           <div>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "left", width: "180px" }} rowSpan={7}>
@@ -465,7 +465,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Cha</h5>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -561,7 +561,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Mẹ</h5>
-            <table className="table table-light">
+            <table className="table table-info">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -690,21 +690,22 @@ const StudentDetail = () => {
                 <b>Giáo viên chủ nhiệm:</b>{" "}
               </div>
               <table className="table table-bordered">
+                <tr>
+                  <th></th>
+
+                  <th colSpan={3}>Điểm trung bình</th>
+
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Môn học</th>
+                  <th>HKI</th>
+                  <th>HKII</th>
+                  <th>Cả năm</th>
+                  <th>Giáo viên bộ môn</th>
+                </tr>
+
                 <tbody className="text-center">
-                  <tr>
-                    <td></td>
-
-                    <td colSpan={3}>Điểm trung bình</td>
-
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Môn học</td>
-                    <td>HKI</td>
-                    <td>HKII</td>
-                    <td>Cả năm</td>
-                    <td>Giáo viên bộ môn</td>
-                  </tr>
                   {learningResults[0]?.studyScores?.map((item, i) => (
                     <tr>
                       <td>
@@ -732,13 +733,13 @@ const StudentDetail = () => {
             </div>
             <br />
             <div className="text-center">
-              <table className="table table-bordered table-primary">
+              <table className="table table-bordered ">
                 <tr>
-                  <td>HỌC KÌ</td>
-                  <td>Hạnh kiểm</td>
-                  <td>Học lực</td>
-                  <td>Tổng số buổi nghỉ học cả năm</td>
-                  <td>Xét lên lớp</td>
+                  <th>HỌC KÌ</th>
+                  <th>Hạnh kiểm</th>
+                  <th>Học lực</th>
+                  <th>Tổng số buổi nghỉ học cả năm</th>
+                  <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
@@ -779,30 +780,30 @@ const StudentDetail = () => {
                 <b>Giáo viên chủ nhiệm:</b>{" "}
               </div>
               <table className="table table-bordered">
+                <tr>
+                  <th></th>
+
+                  <th colSpan={3}>Điểm trung bình</th>
+
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Môn học</th>
+                  <th>HKI</th>
+                  <th>HKII</th>
+                  <th>Cả năm</th>
+                  <th>Giáo viên bộ môn</th>
+                </tr>
                 <tbody className="text-center">
-                  <tr>
-                    <td></td>
-
-                    <td colSpan={3}>Điểm trung bình</td>
-
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Môn học</td>
-                    <td>HKI</td>
-                    <td>HKII</td>
-                    <td>Cả năm</td>
-                    <td>Giáo viên bộ môn</td>
-                  </tr>
                   {learningResults[1]?.studyScores?.map((item, i) => (
                     <tr>
-                      <td>
+                      <th>
                         {
                           mapSubjects[
                             item.subject.subjectName.replace(" ", "_")
                           ]
                         }
-                      </td>
+                      </th>
                       <td>{item.semesterScores[0]?.avgScore.toFixed(2)}</td>
                       <td>{item.semesterScores[1]?.avgScore.toFixed(2)}</td>
                       <td>{item.avgScore.toFixed(2)}</td>
@@ -821,13 +822,13 @@ const StudentDetail = () => {
             </div>
             <br />
             <div className="text-center">
-              <table className="table table-bordered table-primary">
+              <table className="table table-bordered ">
                 <tr>
-                  <td>HỌC KÌ</td>
-                  <td>Hạnh kiểm</td>
-                  <td>Học lực</td>
-                  <td>Tổng số buổi nghỉ học cả năm</td>
-                  <td>Xét lên lớp</td>
+                  <th>HỌC KÌ</th>
+                  <th>Hạnh kiểm</th>
+                  <th>Học lực</th>
+                  <th>Tổng số buổi nghỉ học cả năm</th>
+                  <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
@@ -868,30 +869,30 @@ const StudentDetail = () => {
                 <b>Giáo viên chủ nhiệm:</b>{" "}
               </div>
               <table className="table table-bordered">
+                <tr>
+                  <th></th>
+
+                  <th colSpan={3}>Điểm trung bình</th>
+
+                  <th></th>
+                </tr>
+                <tr>
+                  <th>Môn học</th>
+                  <th>HKI</th>
+                  <th>HKII</th>
+                  <th>Cả năm</th>
+                  <th>Giáo viên bộ môn</th>
+                </tr>
                 <tbody className="text-center">
-                  <tr>
-                    <td></td>
-
-                    <td colSpan={3}>Điểm trung bình</td>
-
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Môn học</td>
-                    <td>HKI</td>
-                    <td>HKII</td>
-                    <td>Cả năm</td>
-                    <td>Giáo viên bộ môn</td>
-                  </tr>
                   {learningResults[2]?.studyScores?.map((item, i) => (
                     <tr>
-                      <td>
+                      <th>
                         {
                           mapSubjects[
                             item.subject.subjectName.replace(" ", "_")
                           ]
                         }
-                      </td>
+                      </th>
                       <td>{item.semesterScores[0]?.avgScore.toFixed(2)}</td>
                       <td>{item.semesterScores[1]?.avgScore.toFixed(2)}</td>
                       <td>{item.avgScore.toFixed(2)}</td>
@@ -910,13 +911,13 @@ const StudentDetail = () => {
             </div>
             <br />
             <div className="text-center">
-              <table className="table table-bordered table-primary">
+              <table className="table table-bordered ">
                 <tr>
-                  <td>HỌC KÌ</td>
-                  <td>Hạnh kiểm</td>
-                  <td>Học lực</td>
-                  <td>Tổng số buổi nghỉ học cả năm</td>
-                  <td>Xét lên lớp</td>
+                  <th>HỌC KÌ</th>
+                  <th>Hạnh kiểm</th>
+                  <th>Học lực</th>
+                  <th>Tổng số buổi nghỉ học cả năm</th>
+                  <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
