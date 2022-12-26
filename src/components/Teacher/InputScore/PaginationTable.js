@@ -171,7 +171,7 @@ export const PaginationTable = () => {
 
       <div style={{ height: "60%", width: "100%", padding: "5px 2px 2px 2px" }}>
         <div style={{ marginRight: "auto", marginLeft: "auto" }}>
-          <table className="table table-dark" style={{ border: "0" }}>
+          <table className="table table-dark " style={{ border: "0" }}>
             <tbody>
               <tr>
                 <td style={{ textAlign: "center", width: "200px" }}>
@@ -224,7 +224,7 @@ export const PaginationTable = () => {
         </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <table>
+        <table className="text-center">
           <tbody>
             <tr style={{ backgroundColor: "silver" }}>
               <td rowspan="2">STT</td>

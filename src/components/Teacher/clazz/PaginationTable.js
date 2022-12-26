@@ -100,6 +100,7 @@ export const PaginationTable = () => {
             learningResultId: key.slice(0, -2),
             conduct: inputs[key],
             learningGrade: "",
+            avgScore: 0,
             isPassed: true,
           });
         }
@@ -108,6 +109,7 @@ export const PaginationTable = () => {
             learningResultId: key.slice(0, -2),
             conduct: "",
             learningGrade: inputs[key],
+            avgScore: 0,
             isPassed: true,
           });
         }
@@ -199,33 +201,41 @@ export const PaginationTable = () => {
             <td>{item.avgSemesterII?.toFixed(2)}</td>
             <td>{item.avgSchoolYear?.toFixed(2)}</td>
             <td>
-              <select
+              <CFormSelect
+                style={{ width: "80px" }}
                 name={`${item.learningResultId}lg`}
-                defaultvalue={[`${item.learningResultId}lg`]}
-                onChange={handleChange}
+                value={item.learningGrade}
+                onChange={(e) => {
+                  handleChange(e);
+                  item.learningGrade = e.target.value;
+                }}
               >
                 <option>HL</option>
-                <option value="Giỏi">Giỏi</option>
-                <option value="Khá">Khá</option>
-                <option value="TB">TB</option>
-                <option value="Yếu">Yếu</option>
-              </select>
+                <option value="Very good">Giỏi</option>
+                <option value="Good">Khá</option>
+                <option value="Average">TB</option>
+                <option value="Weak">Yếu</option>
+              </CFormSelect>
             </td>
             <td>
-              <select
+              <CFormSelect
+                style={{ width: "80px" }}
                 name={`${item.learningResultId}cd`}
-                defaultvalue={[`${item.learningResultId}cd`]}
-                onChange={handleChange}
+                value={item.conduct}
+                onChange={(e) => {
+                  handleChange(e);
+                  item.conduct = e.target.value;
+                }}
               >
                 <option>HK</option>
-                <option value="Tốt">Tốt</option>
-                <option value="Khá">Khá</option>
-                <option value="TB">TB</option>
-                <option value="Yếu">Yếu</option>
-              </select>
+                <option value="Very good">Tốt</option>
+                <option value="Good">Khá</option>
+                <option value="Average">TB</option>
+                <option value="Weak">Yếu</option>
+              </CFormSelect>
             </td>
             <td>
-              <input type="checkbox" checked={true} />
+              <input type="checkbox" defaultChecked={true} />
             </td>
           </tr>
         ))}
