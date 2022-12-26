@@ -235,6 +235,7 @@ export const PaginationTable = () => {
     settimeFinish(data.data.calendarEvent.timeFinish);
     settimeStart(data.data.calendarEvent.timeStart);
     setdate(data.data.calendarEvent.calendarDate);
+    setroomName(data.data.calendarEvent.roomName);
     // for (let i = 0; i < data.data.users?.length; i++) {
     //   setuserIds(userIds.concat([Number(data.data.users[i].userId)]));
     // }

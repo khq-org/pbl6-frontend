@@ -131,7 +131,7 @@ const StudentScore = () => {
 
               {learningResults.studyScores?.map((item, index) => (
                 <tr>
-                  <td>{index}</td>
+                  <td>{index + 1}</td>
                   <td>
                     {mapSubjects[item.subject.subjectName.replace(" ", "_")]}
                   </td>

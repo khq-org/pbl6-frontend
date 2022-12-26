@@ -28,11 +28,12 @@ export const PaginationTable = () => {
   const [listclass2, setlistclass2] = useState([]);
   const [listclass3, setlistclass3] = useState([]);
   const [oldSchoolYearId, setoldSchoolYearId] = useState(1);
-  const [newSchoolYearId, setnewSchoolYearId] = useState(1);
+  const [newSchoolYearId, setnewSchoolYearId] = useState(0);
+  const [newSchoolYear, setnewSchoolYear] = useState("");
   const [oldClassIds, setoldClassIds] = useState([]);
   const [newClassIds, setnewClassIds] = useState([]);
   const [teacherIds, setteacherIds] = useState([]);
-
+  const [status, setstatus] = useState(false);
   useEffect(() => {
     (async () => {
       try {
@@ -85,13 +86,16 @@ export const PaginationTable = () => {
     if (res.response?.status === 400) {
       setmessenger("Giá trị không hợp lệ.");
     } else if (res.status === 200) {
-      setlistyear([
-        ...listyear,
-        {
-          schoolYearId: res.data.data.id,
-          schoolYear: res.data.data.name,
-        },
-      ]);
+      setnewSchoolYearId(res.data.data.id);
+      setnewSchoolYear(res.data.data.name);
+      setstatus(true);
+      // setlistyear([
+      //   ...listyear,
+      //   {
+      //     schoolYearId: res.data.data.id,
+      //     schoolYear: res.data.data.name,
+      //   },
+      // ]);
       setmessenger("");
       setVisible(false);
       window.alert("Đã thêm năm học mới.");
@@ -102,22 +106,33 @@ export const PaginationTable = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("schoolyear/startNewSchoolYear", {
-      oldSchoolYearId,
-      newSchoolYearId,
-      oldClassIds,
-      newClassIds,
-      teacherIds,
-    });
-    if (res.status === 200) {
-      window.alert("Thành công.");
+    if (status) {
+      if (
+        window.confirm(
+          `Bạn chắc chắn muốn kết chuyển dữ liệu đến năm ${newSchoolYear}`
+        )
+      ) {
+        const res = await axios.post("schoolyear/startNewSchoolYear", {
+          oldSchoolYearId,
+          newSchoolYearId,
+          oldClassIds,
+          newClassIds,
+          teacherIds,
+        });
+        if (res.status === 200) {
+          window.alert("Thành công.");
+        } else {
+          window.alert("Thất bại. Kiểm tra lại.");
+        }
+        console.log(newSchoolYearId);
+        console.log("old", oldClassIds);
+        console.log("new", newClassIds);
+        console.log("teacher", teacherIds);
+      }
     } else {
-      window.alert("Thất bại. Kiểm tra lại.");
+      alert("Bạn cần tạo năm học mới");
+      setVisible(true);
     }
-    console.log(newSchoolYearId);
-    console.log("old", oldClassIds);
-    console.log("new", newClassIds);
-    console.log("teacher", teacherIds);
   };
   return (
     <>
@@ -253,7 +268,7 @@ export const PaginationTable = () => {
           </table>
           <div className="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
             <CButton className="btn btn-primary " type="submit">
-              Kết chuyển dữ liệu đến năm học
+              Kết chuyển dữ liệu từ năm học
             </CButton>
             <CFormSelect
               style={{ width: "200px" }}
@@ -269,19 +284,7 @@ export const PaginationTable = () => {
               ))}
             </CFormSelect>
             Đến
-            <CFormSelect
-              style={{ width: "200px" }}
-              onChange={(e) => {
-                setoldSchoolYearId(e.target.value);
-              }}
-            >
-              {listyear.map((item) => (
-                <option
-                  value={item.schoolYearId}
-                  label={item.schoolYear}
-                ></option>
-              ))}
-            </CFormSelect>
+            <input type="text" value={newSchoolYear} />
           </div>
         </form>
       </div>
