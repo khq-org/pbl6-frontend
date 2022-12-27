@@ -68,11 +68,12 @@ export const PaginationTable = () => {
   const [semesterId, setsemesterId] = useState(1);
   const [date, setdate] = useState("");
   const [roomName, setroomName] = useState("");
-  const [roomId, setroomId] = useState(0);
-  const [subjectId, setsubjectId] = useState(0);
+  const [roomId, setroomId] = useState(1);
+  const [subjectId, setsubjectId] = useState(1);
   const [listsubject, setlistsubject] = useState([]);
   const [id, setid] = useState(0);
   const [title, settitle] = useState(false);
+  const [messenger, setmessenger] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -151,9 +152,10 @@ export const PaginationTable = () => {
   const { pageIndex, pageSize, globalFilter } = state;
 
   const save = async (e) => {
+    e.preventDefault();
     if (title) {
-      const response = await axios
-        .post("calendars", {
+      try {
+        const response = await axios.post("calendars", {
           calendarEventName,
           calendarEventType,
           classIds,
@@ -165,19 +167,27 @@ export const PaginationTable = () => {
           subjectId,
           semesterId,
           date,
-        })
-        .then((e) => {
-          if (e.response) {
-            console.log(e.response);
-            window.alert("Trùng lịch.");
-          } else {
-            window.alert("Thành công.");
-          }
-        })
-        .catch((e) => {});
+        });
+
+        if (response.status === 200) {
+          alert("Thành công.");
+          setVisible(false);
+          setmessenger("");
+
+          set(calendarEventType);
+        } else {
+          alert("Thất bại.");
+          //console.log(response.response.data.errorDTOs);
+          setmessenger(
+            `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+          );
+        }
+      } catch (error) {
+        console.log(error.response);
+      }
     } else {
-      const response = await axios
-        .put(`calendars/${id}`, {
+      try {
+        const response = await axios.put(`calendars/${id}`, {
           calendarEventName,
           calendarEventType,
           classIds,
@@ -189,21 +199,23 @@ export const PaginationTable = () => {
           subjectId,
           semesterId,
           date,
-        })
-        .then((e) => {
-          if (e.response) {
-            console.log(e.response);
-            window.alert("Trùng lịch.");
-          } else {
-            window.alert("Thành công.");
-          }
-        })
-        .catch((e) => {});
+        });
+        //console.log("res", { response });
+        if (response.status === 200) {
+          alert("Thành công.");
+          setVisible(false);
+          setmessenger("");
+
+          set(calendarEventType);
+        } else {
+          alert("Thất bại.");
+          //console.log(response.response.data.errorDTOs);
+          setmessenger(
+            `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+          );
+        }
+      } catch (error) {}
     }
-
-    setVisible(false);
-
-    set(calendarEventType);
   };
   const del = async (id) => {
     if (window.confirm("Bạn có chắc muốn xóa lịch này?")) {
@@ -223,7 +235,7 @@ export const PaginationTable = () => {
     setid(id);
     settitle(false);
     const { data } = await axios.get(`calendars/${id}`);
-    console.log(data);
+    //console.log(data);
     setcalendarEventName(data.data.calendarEvent?.calendarEvent);
     setcalendarEventType(data.data.calendarEvent?.calendarEventType);
 
@@ -236,6 +248,11 @@ export const PaginationTable = () => {
     settimeStart(data.data.calendarEvent.timeStart);
     setdate(data.data.calendarEvent.calendarDate);
     setroomName(data.data.calendarEvent.roomName);
+    setroomId(
+      listroom?.find((element) => {
+        return element.room === data.data.calendarEvent.roomName;
+      })?.roomId
+    );
     // for (let i = 0; i < data.data.users?.length; i++) {
     //   setuserIds(userIds.concat([Number(data.data.users[i].userId)]));
     // }
@@ -265,6 +282,7 @@ export const PaginationTable = () => {
           setVisible(false);
           setuserIds([]);
           setclassIds([]);
+          setmessenger("");
         }}
       >
         <CModalHeader>
@@ -273,7 +291,7 @@ export const PaginationTable = () => {
           </CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <form onSubmit={() => save()}>
+          <form onSubmit={save}>
             <table>
               <tr>
                 <td style={{ width: "200px" }}>Tiêu đề</td>
@@ -365,9 +383,10 @@ export const PaginationTable = () => {
                     style={{ width: "200px" }}
                     onChange={(e) => setroomId(Number(e.target.value))}
                     defaultValue={
-                      listroom?.find((element) => {
-                        return element.room === roomName;
-                      })?.roomId
+                      roomId
+                      // listroom?.find((element) => {
+                      //   return element.room === roomName;
+                      // })?.roomId
                     }
                   >
                     {listroom?.map((item) => (
@@ -483,11 +502,15 @@ export const PaginationTable = () => {
                 </td>
               </tr>
             </table>
+            <div className="text-end" style={{ color: "red" }}>
+              {" "}
+              {messenger}
+            </div>
             <br />
             <div className="text-center">
-              <div className="btn btn-primary " type="submit" onClick={save}>
+              <button className="btn btn-primary " type="submit">
                 Lưu thông tin
-              </div>
+              </button>
             </div>
           </form>
         </CModalBody>

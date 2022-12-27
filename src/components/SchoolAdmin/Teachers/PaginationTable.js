@@ -57,7 +57,7 @@ export const PaginationTable = () => {
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
-
+  const [messenger, setmessenger] = useState("");
   useEffect(() => {
     (async () => {
       try {
@@ -86,7 +86,7 @@ export const PaginationTable = () => {
   }, []);
   const create = async (e) => {
     e.preventDefault();
-    const res = await axios.post("teachers", {
+    const response = await axios.post("teachers", {
       firstName,
       lastName,
       dateOfBirth,
@@ -101,31 +101,37 @@ export const PaginationTable = () => {
       nationality,
       workingPosition,
     });
-    console.log(res);
-    setlistTeacher([
-      ...listTeacher,
-      {
-        userId: res.data.data.id,
-        firstName,
-        lastName,
-        dateOfBirth,
-        placeOfBirth,
-        gender,
-        phone,
-        email,
-        street,
-        district,
-        city,
-        subjectId,
-        nationality,
-        workingPosition,
-      },
-    ]);
-    if (res.status === 200) {
+    //console.log(res);
+
+    if (response.status === 200) {
+      alert("Thành công.");
       setVisible(false);
-      window.alert("Thành công.");
+      setmessenger("");
+      setlistTeacher([
+        ...listTeacher,
+        {
+          userId: response.data.data.id,
+          firstName,
+          lastName,
+          dateOfBirth,
+          placeOfBirth,
+          gender,
+          phone,
+          email,
+          street,
+          district,
+          city,
+          subjectId,
+          nationality,
+          workingPosition,
+        },
+      ]);
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+      //console.log(response.response.data.errorDTOs);
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
 
     //window.location.reload();
@@ -183,7 +189,10 @@ export const PaginationTable = () => {
       <CModal
         alignment="center"
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setmessenger("");
+        }}
       >
         <CModalHeader>
           <CModalTitle>
@@ -330,6 +339,10 @@ export const PaginationTable = () => {
                       <option value="10">Công nghệ</option>
                     </CFormSelect>
                   </div>
+                </div>
+                <div className="text-end" style={{ color: "red" }}>
+                  {" "}
+                  {messenger}
                 </div>
                 <div className="mt-5 text-center">
                   <button className="btn btn-primary " type="submit">

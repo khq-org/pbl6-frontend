@@ -27,7 +27,7 @@ const TeacherDetail = () => {
   const [listsubject, setlistsubject] = useState([]);
   const [listdistrict, setlistdistrict] = useState([]);
   const [subjectId, setsubjectId] = useState(1);
-
+  const [messenger, setmessenger] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const TeacherDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const res = await axios.put(`teachers/${id}`, {
+    const response = await axios.put(`teachers/${id}`, {
       firstName,
       lastName,
       dateOfBirth,
@@ -91,10 +91,16 @@ const TeacherDetail = () => {
       subjectId,
       roleId: 3,
     });
-    if (res.status === 200) {
-      window.alert("Thành công.");
+    if (response.status === 200) {
+      alert("Thành công.");
+
+      setmessenger("");
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+      //console.log(response.response.data.errorDTOs);
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
   };
   return (
@@ -275,6 +281,10 @@ const TeacherDetail = () => {
                 <option value="Technology">Công nghệ</option>
               </CFormSelect>
             </div>
+          </div>
+          <div className="text-end" style={{ color: "red" }}>
+            {" "}
+            {messenger}
           </div>
           <div className="mt-5 text-center">
             <button className="btn btn-primary " type="submit">

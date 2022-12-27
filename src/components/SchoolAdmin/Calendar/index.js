@@ -66,6 +66,7 @@ const Calendar = () => {
   const [dayOfWeek, setdayOfWeek] = useState("");
   const [listteacher2, setlistTeacher2] = useState([]);
   const [id, setid] = useState(0);
+  const [messenger, setmessenger] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -128,51 +129,58 @@ const Calendar = () => {
   };
   const save = async (e) => {
     if (title) {
-      const response = await axios
-        .post("calendars", {
-          calendarEventName,
-          calendarEventType,
-          classIds,
-          userIds,
-          schoolYearId,
-          lessonStart,
-          lessonFinish,
-          dayOfWeek,
-          subjectId,
-          semesterId,
-        })
-        .then((e) => {
-          if (e.response) {
-            console.log(e.response);
-            window.alert("Trùng lịch.");
-          }
-        })
-        .catch((e) => {});
+      const response = await axios.post("calendars", {
+        calendarEventName,
+        calendarEventType,
+        classIds,
+        userIds,
+        schoolYearId,
+        lessonStart,
+        lessonFinish,
+        dayOfWeek,
+        subjectId,
+        semesterId,
+      });
+      if (response.status === 200) {
+        alert("Thành công.");
+        setVisible(false);
+        setmessenger("");
+        setVisible(false);
+        setc(clazz);
+      } else {
+        alert("Thất bại.");
+        //console.log(response.response.data.errorDTOs);
+        setmessenger(
+          `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+        );
+      }
     } else {
-      const response = await axios
-        .put(`calendars/${id}`, {
-          calendarEventName,
-          calendarEventType,
-          classIds,
-          userIds,
-          schoolYearId,
-          lessonStart,
-          lessonFinish,
-          dayOfWeek,
-          subjectId,
-          semesterId,
-        })
-        .then((e) => {
-          if (e.response) {
-            console.log(e.response);
-            window.alert("Trùng lịch.");
-          }
-        })
-        .catch((e) => {});
+      const response = await axios.put(`calendars/${id}`, {
+        calendarEventName,
+        calendarEventType,
+        classIds,
+        userIds,
+        schoolYearId,
+        lessonStart,
+        lessonFinish,
+        dayOfWeek,
+        subjectId,
+        semesterId,
+      });
+      if (response.status === 200) {
+        alert("Thành công.");
+        setVisible(false);
+        setmessenger("");
+        setVisible(false);
+        setc(clazz);
+      } else {
+        alert("Thất bại.");
+        //console.log(response.response.data.errorDTOs);
+        setmessenger(
+          `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+        );
+      }
     }
-
-    setVisible(false);
-    setc(clazz);
   };
   const sua = async (id) => {
     setid(id);
@@ -219,7 +227,10 @@ const Calendar = () => {
       <CModal
         alignment="center"
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setmessenger("");
+        }}
       >
         <CModalHeader>
           <CModalTitle>
@@ -237,6 +248,7 @@ const Calendar = () => {
                     setclassIds([e.target.value]);
                   }}
                 >
+                  <option>Lớp</option>
                   {listclass?.map((items) => (
                     <option value={items.classId} label={items.clazz}></option>
                   ))}
@@ -311,6 +323,10 @@ const Calendar = () => {
               </td>
             </tr>
           </table>
+          <div className="text-end" style={{ color: "red" }}>
+            {" "}
+            {messenger}
+          </div>
           <div className="mt-5 text-center">
             <button className="btn btn-primary " onClick={(e) => save()}>
               {title ? "Thêm mới" : "Lưu thông tin"}

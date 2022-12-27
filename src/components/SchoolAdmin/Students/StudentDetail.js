@@ -10,6 +10,7 @@ import { CFormSelect } from "@coreui/react";
 const StudentDetail = () => {
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const [messenger, setmessenger] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [dateOfBirth, setdateOfBirth] = useState("");
@@ -170,7 +171,7 @@ const StudentDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const res = await axios.put(`students/${id}`, {
+    const response = await axios.put(`students/${id}`, {
       student: {
         firstName,
         lastName,
@@ -210,10 +211,15 @@ const StudentDetail = () => {
       ],
     });
 
-    if (res.status === 200) {
-      window.alert("Thành công.");
+    if (response.status === 200) {
+      alert("Thành công.");
+      setmessenger("");
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+      //console.log(response.response.data.errorDTOs);
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
   };
   return (
@@ -656,7 +662,10 @@ const StudentDetail = () => {
             </table>
           </div>
         </div>
-
+        <div className="text-end" style={{ color: "red" }}>
+          {" "}
+          {messenger}
+        </div>
         <div className="mt-5 text-center">
           <button className="btn btn-primary profile-button" type="submit">
             Cập nhật thông tin

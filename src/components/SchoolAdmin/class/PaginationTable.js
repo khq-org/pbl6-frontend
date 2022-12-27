@@ -42,7 +42,7 @@ export const PaginationTable = () => {
   const [schoolyear, setschoolyear] = useState(1);
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
-
+  const [messenger, setmessenger] = useState("");
   useEffect(() => {
     (async () => {
       try {
@@ -65,30 +65,33 @@ export const PaginationTable = () => {
   }, []);
   const create = async (e) => {
     e.preventDefault();
-    const res = await axios.post("classes", {
+    const response = await axios.post("classes", {
       className,
       gradeId,
       isSpecializedClass,
       subject,
     });
-    console.log(res);
-    setlistclass([
-      ...listclass,
-      {
-        classId: res.data.data.id,
-        clazz: className,
-        grade: { gradeId, grade: `Grade ${Number(9) + Number(gradeId)}` },
-        gradeId,
-        isSpecializedClass,
-        subject,
-      },
-    ]);
-
-    if (res.status === 200) {
+    if (response.status === 200) {
+      alert("Thành công.");
       setVisible(false);
-      window.alert("Thành công.");
+      setmessenger("");
+      setlistclass([
+        ...listclass,
+        {
+          classId: response.data.data.id,
+          clazz: className,
+          grade: { gradeId, grade: `Grade ${Number(9) + Number(gradeId)}` },
+          gradeId,
+          isSpecializedClass,
+          subject,
+        },
+      ]);
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+      //console.log(response.response.data.errorDTOs);
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
 
     //window.location.reload();
@@ -159,7 +162,10 @@ export const PaginationTable = () => {
       <CModal
         alignment="center"
         visible={visible}
-        onClose={() => setVisible(false)}
+        onClose={() => {
+          setVisible(false);
+          setmessenger("");
+        }}
       >
         <CModalHeader>
           <CModalTitle>
@@ -214,7 +220,7 @@ export const PaginationTable = () => {
                       <option value="Tin học">Tin học</option>
                     </CFormSelect>
                   </div>
-                  <div className="col-md-12">
+                  {/* <div className="col-md-12">
                     Giáo viên chủ nhiệm
                     <CFormSelect>
                       {listteacher.map((item) => (
@@ -224,9 +230,12 @@ export const PaginationTable = () => {
                         ></option>
                       ))}
                     </CFormSelect>
-                  </div>
+                  </div> */}
                 </div>
-
+                <div className="text-end" style={{ color: "red" }}>
+                  {" "}
+                  {messenger}
+                </div>
                 <div className="mt-5 text-center">
                   <button className="btn btn-primary " type="submit">
                     Thêm mới

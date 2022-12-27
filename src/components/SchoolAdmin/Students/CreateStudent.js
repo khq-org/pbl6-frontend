@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const CreateStudent = () => {
   const token = localStorage.getItem("access_token");
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const [messenger, setmessenger] = useState("");
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [dateOfBirth, setdateOfBirth] = useState("");
@@ -90,7 +91,7 @@ const CreateStudent = () => {
   let nav = useNavigate();
   const create = async (e) => {
     e.preventDefault();
-    const res = await axios.post("students", {
+    const response = await axios.post("students", {
       firstName,
       lastName,
       dateOfBirth,
@@ -125,11 +126,15 @@ const CreateStudent = () => {
         },
       ],
     });
-    console.log(res);
-    if (res.status === 200) {
-      window.alert("Thành công.");
+    if (response.status === 200) {
+      alert("Thành công.");
+      setmessenger("");
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+      //console.log(response.response.data.errorDTOs);
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
     //nav(-1);
   };
@@ -572,8 +577,11 @@ const CreateStudent = () => {
             </table>
           </div>
         </div>
-
-        <div className="mt-2 text-center">
+        <div className="text-end" style={{ color: "red" }}>
+          {" "}
+          {messenger}
+        </div>
+        <div className="mt-5 text-center">
           <button className="btn btn-primary profile-button" type="submit">
             Thêm mới
           </button>

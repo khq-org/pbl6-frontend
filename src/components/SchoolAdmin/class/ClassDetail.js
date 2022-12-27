@@ -14,7 +14,7 @@ const ClassDetail = () => {
   const [subject, setsubject] = useState("");
   const [teacherID, setteacherId] = useState(0);
   const [listteacher, setlistTeacher] = useState([]);
-
+  const [messenger, setmessenger] = useState("");
   const { id } = useParams();
   useEffect(() => {
     (async () => {
@@ -36,16 +36,22 @@ const ClassDetail = () => {
   const save = async (e) => {
     e.preventDefault();
 
-    const res = await axios.put(`classes/${id}`, {
+    const response = await axios.put(`classes/${id}`, {
       className,
       gradeId,
       isSpecializedClass,
       subject,
     });
-    if (res.status === 200) {
-      window.alert("Thành công.");
+    if (response.status === 200) {
+      alert("Thành công.");
+
+      setmessenger("");
     } else {
-      window.alert("Thất bại.");
+      alert("Thất bại.");
+
+      setmessenger(
+        `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
+      );
     }
   };
   return (
@@ -119,7 +125,10 @@ const ClassDetail = () => {
                 ))}
               </CFormSelect>
             </div> */}
-
+            <div className="text-end" style={{ color: "red" }}>
+              {" "}
+              {messenger}
+            </div>
             <div className="buttonWrapper">
               <button
                 type="submit"
