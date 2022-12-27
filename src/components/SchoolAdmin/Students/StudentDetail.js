@@ -724,9 +724,9 @@ const StudentDetail = () => {
                           ]
                         }
                       </td>
-                      <td>{item.semesterScores[0]?.avgScore.toFixed(2)}</td>
-                      <td>{item.semesterScores[1]?.avgScore.toFixed(2)}</td>
-                      <td>{item.avgScore.toFixed(2)}</td>
+                      <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.avgScore?.toFixed(2)}</td>
                       <td></td>
                     </tr>
                   ))}
@@ -734,7 +734,7 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[0]?.avgScore.toFixed(2)}</td>
+                    <td>{learningResults[0]?.avgScore?.toFixed(2)}</td>
                     <td></td>
                   </tr>
                 </tbody>
@@ -813,9 +813,9 @@ const StudentDetail = () => {
                           ]
                         }
                       </th>
-                      <td>{item.semesterScores[0]?.avgScore.toFixed(2)}</td>
-                      <td>{item.semesterScores[1]?.avgScore.toFixed(2)}</td>
-                      <td>{item.avgScore.toFixed(2)}</td>
+                      <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.avgScore?.toFixed(2)}</td>
                       <td></td>
                     </tr>
                   ))}
@@ -823,7 +823,7 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[1]?.avgScore.toFixed(2)}</td>
+                    <td>{learningResults[1]?.avgScore?.toFixed(2)}</td>
                     <td></td>
                   </tr>
                 </tbody>
@@ -902,9 +902,9 @@ const StudentDetail = () => {
                           ]
                         }
                       </th>
-                      <td>{item.semesterScores[0]?.avgScore.toFixed(2)}</td>
-                      <td>{item.semesterScores[1]?.avgScore.toFixed(2)}</td>
-                      <td>{item.avgScore.toFixed(2)}</td>
+                      <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
+                      <td>{item.avgScore?.toFixed(2)}</td>
                       <td></td>
                     </tr>
                   ))}
@@ -912,7 +912,7 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[2]?.avgScore.toFixed(2)}</td>
+                    <td>{learningResults[2]?.avgScore?.toFixed(2)}</td>
                     <td></td>
                   </tr>
                 </tbody>
