@@ -4,7 +4,7 @@ import CITY from "../../vn/CITY.json";
 import DISTRICT from "../../vn/DISTRICT.json";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { CFormSelect } from "@coreui/react";
+import { CAvatar, CFormSelect } from "@coreui/react";
 import { useNavigate } from "react-router-dom";
 
 const CreateStudent = () => {
@@ -21,7 +21,7 @@ const CreateStudent = () => {
   const [district, setdistrict] = useState("");
   const [city, setcity] = useState("");
   const [placeOfBirth, setplaceOfBirth] = useState("");
-  const [workingPosition, setworkingPosition] = useState("");
+  const [workingPosition, setworkingPosition] = useState("Student");
   const [classId, setclassId] = useState(1);
   const [nationality, setnationality] = useState("");
   const [listcity, setlistcity] = useState([]);
@@ -161,14 +161,14 @@ const CreateStudent = () => {
             <div style={{ clear: "both" }} />
           </div>
           <div>
-            <table className="table table-info">
+            <table className="table table-dark">
               <tbody>
                 <tr>
-                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={7}>
-                    <img
+                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={6}>
+                    <CAvatar
                       classname="imgCB"
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/768px-Microsoft_Account.svg.png"
-                      style={{ height: "140px", width: "120px" }}
+                      style={{ height: "140px", width: "100px" }}
                     />
                   </td>
                   <td classname="auto-style11">Họ:</td>
@@ -242,36 +242,15 @@ const CreateStudent = () => {
                 </tr>
                 <tr></tr>
                 <tr>
-                  <td classname="auto-style11">Số CCCD:</td>
-                  <td>
-                    <input
-                      required
-                      type="text"
-                      size="100"
-                      style={{ width: "180px" }}
-                    />
-                  </td>
-                  <td classname="auto-style17">Ngày cấp:</td>
-                  <td classname="auto-style1">
-                    <input required type="date" style={{ width: "180px" }} />
-                  </td>
+                  <td classname="auto-style11"></td>
+                  <td></td>
+                  <td classname="auto-style17"></td>
+                  <td classname="auto-style1"></td>
                   <td classname="auto-style15">&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>
                 <tr></tr>
                 <tr></tr>
-
-                <tr>
-                  <td classname="auto-style4" style={{ textAlign: "right" }}>
-                    &nbsp;
-                  </td>
-                  <td colSpan={2}>&nbsp;</td>
-                  <td classname="auto-style1">&nbsp;</td>
-                  <td classname="auto-style14" style={{ textAlign: "right" }}>
-                    &nbsp;
-                  </td>
-                  <td>&nbsp;</td>
-                </tr>
 
                 <tr>
                   <td colSpan={2} style={{ textAlign: "right" }}>
@@ -394,7 +373,7 @@ const CreateStudent = () => {
           </div>
           <div>
             <h5>Cha</h5>
-            <table className="table table-info">
+            <table className="table table-dark text-center">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -486,7 +465,7 @@ const CreateStudent = () => {
           </div>
           <div>
             <h5>Mẹ</h5>
-            <table className="table table-info">
+            <table className="table table-dark text-center">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">

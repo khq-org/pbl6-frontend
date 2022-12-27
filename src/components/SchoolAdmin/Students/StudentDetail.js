@@ -5,7 +5,7 @@ import CITY from "../../vn/CITY.json";
 import DISTRICT from "../../vn/DISTRICT.json";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { CFormSelect } from "@coreui/react";
+import { CAvatar, CFormSelect } from "@coreui/react";
 
 const StudentDetail = () => {
   const token = localStorage.getItem("access_token");
@@ -245,14 +245,14 @@ const StudentDetail = () => {
             <div style={{ clear: "both" }} />
           </div>
           <div>
-            <table className="table table-info">
+            <table className="table table-dark">
               <tbody>
                 <tr>
-                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={7}>
-                    <img
+                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={6}>
+                    <CAvatar
                       classname="imgCB"
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/768px-Microsoft_Account.svg.png"
-                      style={{ height: "140px", width: "120px" }}
+                      style={{ height: "140px", width: "100px" }}
                     />
                   </td>
                   <td classname="auto-style11">Họ:</td>
@@ -324,18 +324,7 @@ const StudentDetail = () => {
                   </td>
                 </tr>
                 <tr></tr>
-                <tr>
-                  <td classname="auto-style11">Số CCCD:</td>
-                  <td>
-                    <input type="text" size="100" style={{ width: "180px" }} />
-                  </td>
-                  <td classname="auto-style17">Ngày cấp:</td>
-                  <td classname="auto-style1">
-                    <input type="date" style={{ width: "180px" }} />
-                  </td>
-                  <td classname="auto-style15">&nbsp;</td>
-                  <td>&nbsp;</td>
-                </tr>
+
                 <tr></tr>
                 <tr></tr>
 
@@ -471,7 +460,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Cha</h5>
-            <table className="table table-info">
+            <table className="table table-dark">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -496,7 +485,6 @@ const StudentDetail = () => {
                       style={{ width: "200px" }}
                     />
                   </td>
-
                   <td></td>
                   <td></td>
                 </tr>
@@ -567,7 +555,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Mẹ</h5>
-            <table className="table table-info">
+            <table className="table table-dark">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -592,7 +580,6 @@ const StudentDetail = () => {
                       style={{ width: "200px" }}
                     />
                   </td>
-
                   <td></td>
                   <td></td>
                 </tr>
@@ -747,28 +734,28 @@ const StudentDetail = () => {
                   <th>HỌC KÌ</th>
                   <th>Hạnh kiểm</th>
                   <th>Học lực</th>
-                  <th>Tổng số buổi nghỉ học cả năm</th>
+
                   <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
                   <td>{learningResults[0]?.learningResult?.conduct}</td>
                   <td>{learningResults[0]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Học kì II</td>
                   <td>{learningResults[0]?.learningResult?.conduct}</td>
                   <td>{learningResults[0]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Cả năm</td>
                   <td>{learningResults[0]?.learningResult?.conduct}</td>
                   <td>{learningResults[0]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td>
                     {learningResults[0]?.learningResult?.isPassed ? "v" : ""}
                   </td>
@@ -836,28 +823,28 @@ const StudentDetail = () => {
                   <th>HỌC KÌ</th>
                   <th>Hạnh kiểm</th>
                   <th>Học lực</th>
-                  <th>Tổng số buổi nghỉ học cả năm</th>
+
                   <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
                   <td>{learningResults[1]?.learningResult?.conduct}</td>
                   <td>{learningResults[1]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Học kì II</td>
                   <td>{learningResults[1]?.learningResult?.conduct}</td>
                   <td>{learningResults[1]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Cả năm</td>
                   <td>{learningResults[1]?.learningResult?.conduct}</td>
                   <td>{learningResults[1]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td>
                     {learningResults[1]?.learningResult?.isPassed ? "v" : ""}
                   </td>
@@ -925,28 +912,28 @@ const StudentDetail = () => {
                   <th>HỌC KÌ</th>
                   <th>Hạnh kiểm</th>
                   <th>Học lực</th>
-                  <th>Tổng số buổi nghỉ học cả năm</th>
+
                   <th>Xét lên lớp</th>
                 </tr>
                 <tr>
                   <td>Học kì I</td>
                   <td>{learningResults[2]?.learningResult?.conduct}</td>
                   <td>{learningResults[2]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Học kì II</td>
                   <td>{learningResults[2]?.learningResult?.conduct}</td>
                   <td>{learningResults[2]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td></td>
                 </tr>
                 <tr>
                   <td>Cả năm</td>
                   <td>{learningResults[2]?.learningResult?.conduct}</td>
                   <td>{learningResults[2]?.learningResult?.learningGrade}</td>
-                  <td>0</td>
+
                   <td>
                     {learningResults[2]?.learningResult?.isPassed ? "v" : ""}
                   </td>
