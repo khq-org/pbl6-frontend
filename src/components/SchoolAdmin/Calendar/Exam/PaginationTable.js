@@ -115,6 +115,7 @@ export const PaginationTable = () => {
     );
     //console.log(data);
     setlistCalendar(data.data.items);
+    setcalendarEventType(type);
   };
 
   const data = useMemo(() => listCalendar, [listCalendar]);
@@ -178,9 +179,24 @@ export const PaginationTable = () => {
         } else {
           alert("Thất bại.");
           //console.log(response.response.data.errorDTOs);
-          setmessenger(
-            `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
-          );
+          if (response.response.data.errorDTOs[0].key === "date") {
+            setmessenger("Thời gian không hợp lệ");
+          }
+          if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
+            setmessenger(
+              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+            );
+          }
+          if (
+            response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
+          ) {
+            setmessenger(
+              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+            );
+          }
+          if (response.response.data.errorDTOs[0].key === "roomId") {
+            setmessenger("Trùng phòng.");
+          }
         }
       } catch (error) {
         console.log(error.response);
@@ -210,9 +226,25 @@ export const PaginationTable = () => {
         } else {
           alert("Thất bại.");
           //console.log(response.response.data.errorDTOs);
-          setmessenger(
-            `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
-          );
+
+          if (response.response.data.errorDTOs[0].key === "date") {
+            setmessenger("Thời gian không hợp lệ");
+          }
+          if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
+            setmessenger(
+              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+            );
+          }
+          if (
+            response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
+          ) {
+            setmessenger(
+              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+            );
+          }
+          if (response.response.data.errorDTOs[0].key === "roomId") {
+            setmessenger("Trùng phòng.");
+          }
         }
       } catch (error) {}
     }
@@ -311,7 +343,7 @@ export const PaginationTable = () => {
                 <td>
                   <CFormSelect
                     style={{ width: "200px" }}
-                    defaultValue={calendarEventName}
+                    defaultValue={calendarEventType}
                     onChange={(e) => setcalendarEventType(e.target.value)}
                   >
                     <option value="Meeting">Lịch họp</option>

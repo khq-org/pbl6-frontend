@@ -58,12 +58,12 @@ const Calendar = () => {
   const [calendarEventType, setcalendarEventType] = useState("Study");
   const [classIds, setclassIds] = useState([]);
   const [userIds, setuserIds] = useState([]);
-  const [schoolYearId, setschoolYearId] = useState(0);
+  const [schoolYearId, setschoolYearId] = useState(1);
   const [semesterId, setsemesterId] = useState(1);
-  const [lessonStart, setlessonStart] = useState(0);
-  const [lessonFinish, setlessonFinish] = useState(0);
-  const [subjectId, setsubjectId] = useState(0);
-  const [dayOfWeek, setdayOfWeek] = useState("");
+  const [lessonStart, setlessonStart] = useState(1);
+  const [lessonFinish, setlessonFinish] = useState(1);
+  const [subjectId, setsubjectId] = useState();
+  const [dayOfWeek, setdayOfWeek] = useState("Monday");
   const [listteacher2, setlistTeacher2] = useState([]);
   const [id, setid] = useState(0);
   const [messenger, setmessenger] = useState("");
@@ -150,9 +150,23 @@ const Calendar = () => {
       } else {
         alert("Thất bại.");
         //console.log(response.response.data.errorDTOs);
-        setmessenger(
-          `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
-        );
+
+        if (response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON") {
+          setmessenger(
+            `${response.response.data.errorDTOs[0].key}: Trùng tiết học`
+          );
+        }
+        if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
+          setmessenger(
+            `.${response.response.data.errorDTOs[0].key}: Trùng tiết dạy`
+          );
+        }
+        if (response.response.data.errorDTOs[0].key === "calendarEventName") {
+          setmessenger("Chọn môn học và giáo viên.");
+        }
+        if (response.response.data.errorDTOs[0].key === "classOrUser") {
+          setmessenger("Chọn giáo viên.");
+        }
       }
     } else {
       const response = await axios.put(`calendars/${id}`, {
@@ -176,9 +190,22 @@ const Calendar = () => {
       } else {
         alert("Thất bại.");
         //console.log(response.response.data.errorDTOs);
-        setmessenger(
-          `Lỗi: ${response.response.data.errorDTOs[0].key}: ${response.response.data.errorDTOs[0].value}`
-        );
+        if (response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON") {
+          setmessenger(
+            `${response.response.data.errorDTOs[0].key}: Trùng tiết học`
+          );
+        }
+        if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
+          setmessenger(
+            `.${response.response.data.errorDTOs[0].key}: Trùng tiết dạy`
+          );
+        }
+        if (response.response.data.errorDTOs[0].key === "calendarEventName") {
+          setmessenger("Chọn môn học.");
+        }
+        if (response.response.data.errorDTOs[0].key === "classOrUser") {
+          setmessenger("Chọn đủ lớp và giáo viên.");
+        }
       }
     }
   };
