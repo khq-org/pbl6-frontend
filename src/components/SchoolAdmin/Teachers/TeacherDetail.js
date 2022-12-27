@@ -114,7 +114,7 @@ const TeacherDetail = () => {
                 <b>Họ</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={lastName}
                   onChange={(e) => setlastName(e.target.value)}
@@ -124,7 +124,7 @@ const TeacherDetail = () => {
                 <b>Tên</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={firstName}
                   onChange={(e) => setfirstName(e.target.value)}
@@ -156,7 +156,7 @@ const TeacherDetail = () => {
                 <b> Quê quán</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={placeOfBirth}
                   onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -176,7 +176,7 @@ const TeacherDetail = () => {
                 <b>Email</b>
                 <input
                   type="email"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={email}
                   onChange={(e) => setemail(e.target.value)}
@@ -186,7 +186,7 @@ const TeacherDetail = () => {
                 <b>Tài khoản hệ thống</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={username}
                   readOnly
@@ -199,7 +199,7 @@ const TeacherDetail = () => {
               <b>Địa chỉ</b>
               <input
                 type="text"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 value={street}
                 onChange={(e) => setstreet(e.target.value)}
@@ -232,7 +232,7 @@ const TeacherDetail = () => {
               <b>Quốc tịch</b>
               <input
                 type="text"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 value={nationality}
                 onChange={(e) => setnationality(e.target.value)}
@@ -243,7 +243,7 @@ const TeacherDetail = () => {
               <b>Chức vụ</b>
               <input
                 type="text"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 value={"Giáo viên"}
                 readOnly

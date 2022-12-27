@@ -66,7 +66,7 @@ const ClassDetail = () => {
               Tên lớp
               <input
                 type="text"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 value={className}
                 onChange={(e) => setclassName(e.target.value)}

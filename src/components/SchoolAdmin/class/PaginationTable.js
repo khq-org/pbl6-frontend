@@ -355,7 +355,9 @@ export const PaginationTable = () => {
                     title="Xem"
                     cshools-toggle="tooltip"
                   >
-                    <i className="material-icons">&#xE417;</i>
+                    <i className="material-icons" style={{ color: "blue" }}>
+                      &#xE417;
+                    </i>
                   </Link>
                   <Link
                     to={`${row.original.classId}`}
@@ -363,7 +365,9 @@ export const PaginationTable = () => {
                     title="Sửa"
                     cshools-toggle="tooltip"
                   >
-                    <i className="material-icons">&#xE254;</i>
+                    <i className="material-icons" style={{ color: "yellow" }}>
+                      &#xE254;
+                    </i>
                   </Link>
                   <Link
                     onClick={() => del(row.original.classId)}
@@ -371,7 +375,9 @@ export const PaginationTable = () => {
                     title="Xóa"
                     cshools-toggle="tooltip"
                   >
-                    <i className="material-icons">&#xE872;</i>
+                    <i className="material-icons" style={{ color: "red" }}>
+                      &#xE872;
+                    </i>
                   </Link>
                 </td>
               </tr>

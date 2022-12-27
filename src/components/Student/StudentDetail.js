@@ -127,7 +127,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={lastName}
                       style={{ width: "180px" }}
                       readOnly
@@ -138,7 +138,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={firstName}
                       style={{ width: "180px" }}
                       readOnly
@@ -150,7 +150,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={placeOfBirth}
                       style={{ width: "230px" }}
                       onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -184,7 +184,7 @@ const StudentDetail = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={nationality}
                       style={{ width: "230px" }}
                       onChange={(e) => setnationality(e.target.value)}
@@ -195,7 +195,11 @@ const StudentDetail = () => {
                 <tr>
                   <td classname="auto-style11">Số CCCD:</td>
                   <td>
-                    <input type="text" size="100" style={{ width: "180px" }} />
+                    <input
+                      type="text"
+                      maxlength="100"
+                      style={{ width: "180px" }}
+                    />
                   </td>
                   <td classname="auto-style17">Ngày cấp:</td>
                   <td classname="auto-style1">
@@ -226,7 +230,7 @@ const StudentDetail = () => {
                   <td colSpan={2}>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={username}
                       style={{ width: "350px" }}
                       readOnly
@@ -238,7 +242,7 @@ const StudentDetail = () => {
                   <td colSpan={2}>
                     <input
                       type="email"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "310px" }}
                       value={email}
                       onChange={(e) => setemail(e.target.value)}
@@ -272,7 +276,7 @@ const StudentDetail = () => {
                   <td colSpan={3}>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       value={street}
                       title="Cần nhập thông tin cụ thể Số nhà, Đường (hoặc Xóm, Thôn) để ghép với Thành phố, Quận, Phường (hoặc Tỉnh, Huyện, Xã) dưới đây"
                       style={{ width: "350px" }}
@@ -359,7 +363,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[0]?.lastName}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -368,7 +372,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[0]?.firstName}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -382,7 +386,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[0]?.job}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -404,7 +408,7 @@ const StudentDetail = () => {
                     <input
                       value={street}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -448,7 +452,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[1]?.lastName}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -457,7 +461,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[1]?.firstName}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -471,7 +475,7 @@ const StudentDetail = () => {
                     <input
                       value={profile?.student?.parents[1]?.job}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>
@@ -493,7 +497,7 @@ const StudentDetail = () => {
                     <input
                       value={street}
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "200px" }}
                     />
                   </td>

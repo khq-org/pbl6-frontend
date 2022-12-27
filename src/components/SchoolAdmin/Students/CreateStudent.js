@@ -176,7 +176,7 @@ const CreateStudent = () => {
                     <input
                       required
                       type="text"
-                      size="100"
+                      maxlength="100"
                       style={{ width: "180px" }}
                       onChange={(e) => setlastName(e.target.value)}
                     />

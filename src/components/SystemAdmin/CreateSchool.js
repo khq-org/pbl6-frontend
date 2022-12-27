@@ -147,7 +147,7 @@ export const CreateSchool = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="tên trường"
                       onChange={(e) => setschool(e.target.value)}
@@ -249,7 +249,7 @@ export const CreateSchool = () => {
                   <td>
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="họ"
                       onChange={(e) => setlastName(e.target.value)}
@@ -266,7 +266,7 @@ export const CreateSchool = () => {
                     <input
                       type="text"
                       className="form-control"
-                      size="100"
+                      maxlength="100"
                       placeholder="tên"
                       onChange={(e) => setfirstName(e.target.value)}
                       required
@@ -282,6 +282,7 @@ export const CreateSchool = () => {
                     {" "}
                     <input
                       type="email"
+                      maxlength="100"
                       className="form-control"
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}

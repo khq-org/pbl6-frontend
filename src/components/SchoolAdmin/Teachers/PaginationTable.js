@@ -208,7 +208,7 @@ export const PaginationTable = () => {
                     Họ
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="họ"
                       onChange={(e) => setlastName(e.target.value)}
@@ -219,7 +219,7 @@ export const PaginationTable = () => {
                     Tên
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="tên"
                       onChange={(e) => setfirstName(e.target.value)}
@@ -250,7 +250,7 @@ export const PaginationTable = () => {
                     Quê quán
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="quê quán"
                       onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -261,7 +261,7 @@ export const PaginationTable = () => {
                     Địa chỉ
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="số nhà/thôn xóm, xã/phường/thị trấn"
                       onChange={(e) => setstreet(e.target.value)}
@@ -299,7 +299,7 @@ export const PaginationTable = () => {
                     Email
                     <input
                       type="email"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="email"
                       onChange={(e) => setemail(e.target.value)}
@@ -312,7 +312,7 @@ export const PaginationTable = () => {
                     Quốc tịch
                     <input
                       type="text"
-                      size="100"
+                      maxlength="100"
                       className="form-control"
                       placeholder="quốc tịch"
                       onChange={(e) => setnationality(e.target.value)}
@@ -408,7 +408,9 @@ export const PaginationTable = () => {
                     title="Sửa"
                     cshools-toggle="tooltip"
                   >
-                    <i className="material-icons">&#xE254;</i>
+                    <i className="material-icons" style={{ color: "yellow" }}>
+                      &#xE254;
+                    </i>
                   </Link>
                   <Link
                     onClick={() => del(row.original.userId)}
@@ -416,7 +418,9 @@ export const PaginationTable = () => {
                     title="Xóa"
                     cshools-toggle="tooltip"
                   >
-                    <i className="material-icons">&#xE872;</i>
+                    <i className="material-icons" style={{ color: "red" }}>
+                      &#xE872;
+                    </i>
                   </Link>
                 </td>
               </tr>

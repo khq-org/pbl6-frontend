@@ -157,7 +157,7 @@ export const InfoAdmin = () => {
                   <b>Họ</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={lastName}
                     onChange={(e) => setlastName(e.target.value)}
@@ -168,7 +168,7 @@ export const InfoAdmin = () => {
                   <b>Tên</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={firstName}
                     onChange={(e) => setfirstName(e.target.value)}
@@ -211,7 +211,7 @@ export const InfoAdmin = () => {
                   <b>Nơi sinh</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={placeOfBirth}
                     onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -222,7 +222,7 @@ export const InfoAdmin = () => {
                   <b>Địa chỉ</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={street}
                     onChange={(e) => setstreet(e.target.value)}
@@ -233,7 +233,7 @@ export const InfoAdmin = () => {
                   <b>District</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={district}
                     onChange={(e) => setdistrict(e.target.value)}
@@ -245,7 +245,7 @@ export const InfoAdmin = () => {
                   <b>City</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={city}
                     onChange={(e) => setcity(e.target.value)}
@@ -279,7 +279,7 @@ export const InfoAdmin = () => {
                   <b>Email</b>
                   <input
                     type="email"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
@@ -308,7 +308,7 @@ export const InfoAdmin = () => {
                 <b>Role</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={profile.role}
                   readOnly
@@ -319,7 +319,7 @@ export const InfoAdmin = () => {
                 <b>UserName</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={profile.username}
                   readOnly

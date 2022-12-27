@@ -169,7 +169,7 @@ export const SchoolDetail = () => {
               <b>Họ</b>
               <input
                 type="text"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 placeholder="họ"
                 onChange={(e) => setlastName(e.target.value)}
@@ -182,7 +182,7 @@ export const SchoolDetail = () => {
                 type="text"
                 className="form-control"
                 placeholder="tên"
-                size="100"
+                maxlength="100"
                 onChange={(e) => setfirstName(e.target.value)}
                 required
               />
@@ -192,7 +192,7 @@ export const SchoolDetail = () => {
               <b>Email</b>
               <input
                 type="email"
-                size="100"
+                maxlength="100"
                 className="form-control"
                 placeholder="email"
                 onChange={(e) => setemail(e.target.value)}
@@ -230,7 +230,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
-                            size="100"
+                            maxlength="100"
                             className="form-control"
                             value={school}
                             onChange={(e) => setschool(e.target.value)}
@@ -260,7 +260,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
-                            size="100"
+                            maxlength="100"
                             className="form-control"
                             value={street}
                             onChange={(e) => setstreet(e.target.value)}
@@ -314,7 +314,7 @@ export const SchoolDetail = () => {
                         <td>
                           <input
                             type="text"
-                            size="100"
+                            maxlength="100"
                             className="form-control"
                             value={website}
                             onChange={(e) => setwebsite(e.target.value)}
@@ -380,7 +380,12 @@ export const SchoolDetail = () => {
                               title="Edit"
                               cshools-toggle="tooltip"
                             >
-                              <i className="material-icons">&#xE254;</i>
+                              <i
+                                className="material-icons"
+                                style={{ color: "yellow" }}
+                              >
+                                &#xE254;
+                              </i>
                             </Link>
 
                             <Link
@@ -389,7 +394,12 @@ export const SchoolDetail = () => {
                               title="Delete"
                               cshools-toggle="tooltip"
                             >
-                              <i className="material-icons">&#xE872;</i>
+                              <i
+                                className="material-icons"
+                                style={{ color: "red" }}
+                              >
+                                &#xE872;
+                              </i>
                             </Link>
                           </td>
                         </tr>

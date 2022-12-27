@@ -142,7 +142,7 @@ const Profile = () => {
                   <b>Họ</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={lastName}
                     onChange={(e) => setlastName(e.target.value)}
@@ -153,7 +153,7 @@ const Profile = () => {
                   <b>Tên</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={firstName}
                     onChange={(e) => setfirstName(e.target.value)}
@@ -197,7 +197,7 @@ const Profile = () => {
                   <b>Email</b>
                   <input
                     type="email"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
@@ -208,7 +208,7 @@ const Profile = () => {
                   <b>Quê quán</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={placeOfBirth}
                     onChange={(e) => setplaceOfBirth(e.target.value)}
@@ -219,7 +219,7 @@ const Profile = () => {
                   <b>Địa chỉ hiện tại</b>
                   <input
                     type="text"
-                    size="100"
+                    maxlength="100"
                     className="form-control"
                     value={street}
                     onChange={(e) => setstreet(e.target.value)}
@@ -273,7 +273,7 @@ const Profile = () => {
                 <b>Role</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={profile.role}
                   readOnly
@@ -284,7 +284,7 @@ const Profile = () => {
                 <b>Bộ môn</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={mapSubjects[profile.teachSubject?.replace(" ", "_")]}
                   readOnly
@@ -295,7 +295,7 @@ const Profile = () => {
                 <b>Tài khoản</b>
                 <input
                   type="text"
-                  size="100"
+                  maxlength="100"
                   className="form-control"
                   value={profile.username}
                   readOnly

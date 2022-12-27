@@ -333,7 +333,7 @@ export const PaginationTable = () => {
                     onChange={(e) => setcalendarEventName(e.target.value)}
                     defaultValue={calendarEventName}
                     type="text"
-                    size="100"
+                    maxlength="100"
                     required
                   />
                 </td>
@@ -656,7 +656,9 @@ export const PaginationTable = () => {
                       update(row.original.calendarEventId);
                     }}
                   >
-                    <i className="material-icons">&#xE254;</i>
+                    <i className="material-icons" style={{ color: "yellow" }}>
+                      &#xE254;
+                    </i>
                   </Link>
                   <Link
                     className="delete"
@@ -664,7 +666,9 @@ export const PaginationTable = () => {
                     cshools-toggle="tooltip"
                     onClick={(e) => del(row.original.calendarEventId)}
                   >
-                    <i className="material-icons">&#xE872;</i>
+                    <i className="material-icons" style={{ color: "red" }}>
+                      &#xE872;
+                    </i>
                   </Link>
                 </td>
               </tr>
