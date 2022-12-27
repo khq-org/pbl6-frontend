@@ -180,7 +180,7 @@ export const PaginationTable = () => {
           alert("Thất bại.");
           //console.log(response.response.data.errorDTOs);
           if (response.response.data.errorDTOs[0].key === "date") {
-            setmessenger("Thời gian không hợp lệ");
+            setmessenger("Ngày không hợp lệ");
           }
           if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
             setmessenger(
@@ -195,7 +195,7 @@ export const PaginationTable = () => {
             );
           }
           if (response.response.data.errorDTOs[0].key === "roomId") {
-            setmessenger("Trùng phòng.");
+            setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
           }
         }
       } catch (error) {
@@ -228,7 +228,7 @@ export const PaginationTable = () => {
           //console.log(response.response.data.errorDTOs);
 
           if (response.response.data.errorDTOs[0].key === "date") {
-            setmessenger("Thời gian không hợp lệ");
+            setmessenger("Ngày không hợp lệ");
           }
           if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
             setmessenger(
@@ -243,7 +243,7 @@ export const PaginationTable = () => {
             );
           }
           if (response.response.data.errorDTOs[0].key === "roomId") {
-            setmessenger("Trùng phòng.");
+            setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
           }
         }
       } catch (error) {}

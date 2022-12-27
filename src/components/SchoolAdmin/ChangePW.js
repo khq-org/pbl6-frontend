@@ -20,12 +20,13 @@ const ChangePW = () => {
       });
       console.log({ response });
       if (response?.status === 200) {
-        setcurrentPassword("");
-        setnewPassword("");
-        setconfirmPassword("");
         setmessenger("Đổi mật khẩu thành công");
-      } else {
-        setmessenger("Thất bại. Kiểm tra lại.");
+      }
+      if (response.response.data.errorDTOs[0].key === "ConfirmPassword") {
+        setmessenger("Mật khẩu xác nhận chưa chính xác.");
+      }
+      if (response.response.data.errorDTOs[0].key === "CurrentPassword") {
+        setmessenger("Mật khẩu cũ chưa chính xác.");
       }
     } catch (err) {}
   };

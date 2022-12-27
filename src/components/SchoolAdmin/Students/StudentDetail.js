@@ -682,9 +682,7 @@ const StudentDetail = () => {
               <div>
                 <b>Năm học:</b> {learningResults[0]?.learningResult?.schoolYear}
               </div>
-              <div>
-                <b>Giáo viên chủ nhiệm:</b>{" "}
-              </div>
+
               <table className="table table-bordered">
                 <tr>
                   <th></th>
@@ -698,7 +696,6 @@ const StudentDetail = () => {
                   <th>HKI</th>
                   <th>HKII</th>
                   <th>Cả năm</th>
-                  <th>Giáo viên bộ môn</th>
                 </tr>
 
                 <tbody className="text-center">
@@ -772,9 +769,7 @@ const StudentDetail = () => {
               <div>
                 <b>Năm học:</b> {learningResults[1]?.learningResult?.schoolYear}
               </div>
-              <div>
-                <b>Giáo viên chủ nhiệm:</b>{" "}
-              </div>
+
               <table className="table table-bordered">
                 <tr>
                   <th></th>
@@ -788,7 +783,6 @@ const StudentDetail = () => {
                   <th>HKI</th>
                   <th>HKII</th>
                   <th>Cả năm</th>
-                  <th>Giáo viên bộ môn</th>
                 </tr>
                 <tbody className="text-center">
                   {learningResults[1]?.studyScores?.map((item, i) => (
@@ -861,9 +855,7 @@ const StudentDetail = () => {
               <div>
                 <b>Năm học:</b> {learningResults[2]?.learningResult?.schoolYear}
               </div>
-              <div>
-                <b>Giáo viên chủ nhiệm:</b>{" "}
-              </div>
+
               <table className="table table-bordered">
                 <tr>
                   <th></th>
@@ -877,7 +869,6 @@ const StudentDetail = () => {
                   <th>HKI</th>
                   <th>HKII</th>
                   <th>Cả năm</th>
-                  <th>Giáo viên bộ môn</th>
                 </tr>
                 <tbody className="text-center">
                   {learningResults[2]?.studyScores?.map((item, i) => (

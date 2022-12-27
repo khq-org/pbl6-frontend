@@ -46,8 +46,8 @@ export const PaginationTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        //const { data } = await axios.get("classes?schoolYearId=1");
-        const { data } = await axios.get("classes");
+        const { data } = await axios.get("classes?schoolYearId=1");
+        //const { data } = await axios.get("classes");
         setlistclass(data.data.items);
       } catch (e) {}
     })();
@@ -295,7 +295,7 @@ export const PaginationTable = () => {
           style={{ width: "200px" }}
           onChange={(e) => {
             setschoolyear(e.target.value);
-            // getlistclassbyyear(e.target.value);
+            getlistclassbyyear(e.target.value);
           }}
         >
           {listyear.map((item) => (

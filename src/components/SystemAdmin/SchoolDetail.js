@@ -214,7 +214,7 @@ export const SchoolDetail = () => {
         <div className="row">
           <div>
             <td style={{ width: "60%" }}>
-              <div className=" border-right">
+              <div>
                 <form onSubmit={save}>
                   <div>
                     <br />
@@ -331,6 +331,9 @@ export const SchoolDetail = () => {
                       >
                         Lưu thông tin
                       </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <button
                         className="btn btn-danger"
                         onClick={() => navigate("/admin/home")}
@@ -348,11 +351,22 @@ export const SchoolDetail = () => {
                 <br />
                 <br />
                 <div className=" text-center">
-                  <div className="text-center">
+                  <div className="text-left">
                     <h3>Tài khoản quản trị </h3>
                   </div>
+                  <div className="text-end">
+                    <CButton
+                      onClick={() => {
+                        setfirstName("");
+                        setlastName("");
+                        setemail("");
+                        setVisible(!visible);
+                      }}
+                    >
+                      Thêm mới
+                    </CButton>
+                  </div>
 
-                  <br />
                   <table>
                     <thead>
                       <tr>
@@ -406,18 +420,6 @@ export const SchoolDetail = () => {
                       ))}
                     </tbody>
                   </table>
-                  <div className="text-end">
-                    <CButton
-                      onClick={() => {
-                        setfirstName("");
-                        setlastName("");
-                        setemail("");
-                        setVisible(!visible);
-                      }}
-                    >
-                      Thêm mới
-                    </CButton>
-                  </div>
                 </div>
               </div>
             </td>
