@@ -88,6 +88,7 @@ export const PaginationTable = () => {
     } else if (res.status === 200) {
       setnewSchoolYearId(res.data.data.id);
       setnewSchoolYear(res.data.data.name);
+
       setstatus(true);
       // setlistyear([
       //   ...listyear,

@@ -58,7 +58,7 @@ const Calendar = () => {
   const [calendarEventType, setcalendarEventType] = useState("Study");
   const [classIds, setclassIds] = useState([]);
   const [userIds, setuserIds] = useState([]);
-  const [schoolYearId, setschoolYearId] = useState(1);
+  const [schoolYearId, setschoolYearId] = useState(30);
   const [semesterId, setsemesterId] = useState(1);
   const [lessonStart, setlessonStart] = useState(1);
   const [lessonFinish, setlessonFinish] = useState(1);
@@ -379,7 +379,6 @@ const Calendar = () => {
                   <CFormSelect
                     onChange={(e) => setschoolYearId(Number(e.target.value))}
                   >
-                    <option>Năm học</option>
                     {listyear?.map((item) => (
                       <option
                         value={item.schoolYearId}

@@ -295,7 +295,7 @@ export const PaginationTable = () => {
           style={{ width: "200px" }}
           onChange={(e) => {
             setschoolyear(e.target.value);
-            //getlistclassbyyear(e.target.value);
+            getlistclassbyyear(e.target.value);
           }}
         >
           <option>Năm học</option>

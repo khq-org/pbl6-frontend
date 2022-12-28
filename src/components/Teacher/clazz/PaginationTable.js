@@ -70,7 +70,11 @@ export const PaginationTable = () => {
   };
   const handleChange = (event) => {
     const name = event.target.name;
-    const value = event.target.value;
+    const value =
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
+
     console.log("name", name);
     console.log("value", value);
     setInputs((values) => ({ ...values, [name]: value }));
@@ -95,15 +99,9 @@ export const PaginationTable = () => {
           ).learningGrade = inputs[key];
         }
         if (key.slice(-2) === "is") {
-          if (inputs[key] === "on") {
-            studentScores.find(
-              (item) => item?.learningResultId === key.slice(0, -2)
-            ).isPassed = true;
-          } else {
-            studentScores.find(
-              (item) => item?.learningResultId === key.slice(0, -2)
-            ).isPassed = false;
-          }
+          studentScores.find(
+            (item) => item?.learningResultId === key.slice(0, -2)
+          ).isPassed = inputs[key];
         }
       } else {
         if (key.slice(-2) === "cd") {
@@ -125,30 +123,22 @@ export const PaginationTable = () => {
           });
         }
         if (key.slice(-2) === "is") {
-          if (inputs[key] === "on") {
-            studentScores.push({
-              learningResultId: key.slice(0, -2),
-              conduct: "",
-              learningGrade: "",
-              avgScore: 0,
-              isPassed: true,
-            });
-          } else {
-            studentScores.push({
-              learningResultId: key.slice(0, -2),
-              conduct: "",
-              learningGrade: "",
-              avgScore: 0,
-              isPassed: false,
-            });
-          }
+          studentScores.push({
+            learningResultId: key.slice(0, -2),
+            conduct: "",
+            learningGrade: "",
+            avgScore: 0,
+            isPassed: inputs[key],
+          });
         }
       }
     }
-    liststudent?.map((item, index) => {
-      studentScores.find(
-        (item2) => item2?.learningResultId === item.learningResultId
-      ).avgScore = item.avgSchoolYear;
+    liststudent?.forEach((item) => {
+      studentScores.forEach((item2) => {
+        if (item2.learningResultId === item.learningResultId) {
+          item2.avgScore = item.avgSchoolYear;
+        }
+      });
     });
     const dataUpdate = {
       studentLearningResults: studentScores,
