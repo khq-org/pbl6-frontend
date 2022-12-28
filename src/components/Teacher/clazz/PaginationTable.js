@@ -173,9 +173,8 @@ export const PaginationTable = () => {
           <th>QP AN</th>
           <th>CN</th>
           <th>Thể dục</th>
-          <th>HKI</th>
-          <th>HKII</th>
-          <th>Cả năm</th>
+
+          <th>Điểm tổng kết</th>
           <th>Học lực</th>
           <th>Hạnh kiểm</th>
           <th>Lên lớp</th>
@@ -197,8 +196,8 @@ export const PaginationTable = () => {
             <td>{item.arrAvgSubjectScore[10]?.toFixed(2)}</td>
             <td>{item.arrAvgSubjectScore[9]?.toFixed(2)}</td>
             <td>{item.arrAvgSubjectScore[11]?.toFixed(2)}</td>
-            <td>{item.avgSemesterI?.toFixed(2)}</td>
-            <td>{item.avgSemesterII?.toFixed(2)}</td>
+            {/* <td>{item.avgSemesterI?.toFixed(2)}</td>
+            <td>{item.avgSemesterII?.toFixed(2)}</td> */}
             <td>{item.avgSchoolYear?.toFixed(2)}</td>
             <td>
               <CFormSelect
