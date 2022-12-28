@@ -688,8 +688,6 @@ const StudentDetail = () => {
                   <th></th>
 
                   <th colSpan={3}>Điểm trung bình</th>
-
-                  <th></th>
                 </tr>
                 <tr>
                   <th>Môn học</th>
@@ -711,7 +709,6 @@ const StudentDetail = () => {
                       <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
                       <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
                       <td>{item.avgScore?.toFixed(2)}</td>
-                      <td></td>
                     </tr>
                   ))}
                   <tr>
@@ -723,7 +720,6 @@ const StudentDetail = () => {
                         2
                       )}
                     </td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -779,8 +775,6 @@ const StudentDetail = () => {
                   <th></th>
 
                   <th colSpan={3}>Điểm trung bình</th>
-
-                  <th></th>
                 </tr>
                 <tr>
                   <th>Môn học</th>
@@ -801,7 +795,6 @@ const StudentDetail = () => {
                       <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
                       <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
                       <td>{item.avgScore?.toFixed(2)}</td>
-                      <td></td>
                     </tr>
                   ))}
                   <tr>
@@ -813,7 +806,6 @@ const StudentDetail = () => {
                         2
                       )}
                     </td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -869,8 +861,6 @@ const StudentDetail = () => {
                   <th></th>
 
                   <th colSpan={3}>Điểm trung bình</th>
-
-                  <th></th>
                 </tr>
                 <tr>
                   <th>Môn học</th>
@@ -891,7 +881,6 @@ const StudentDetail = () => {
                       <td>{item.semesterScores[0]?.avgScore?.toFixed(2)}</td>
                       <td>{item.semesterScores[1]?.avgScore?.toFixed(2)}</td>
                       <td>{item.avgScore?.toFixed(2)}</td>
-                      <td></td>
                     </tr>
                   ))}
                   <tr>
@@ -903,7 +892,6 @@ const StudentDetail = () => {
                         2
                       )}
                     </td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
