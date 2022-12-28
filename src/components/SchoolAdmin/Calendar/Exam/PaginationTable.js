@@ -62,7 +62,7 @@ export const PaginationTable = () => {
   const [calendarEventType, setcalendarEventType] = useState("Meeting");
   const [classIds, setclassIds] = useState([]);
   const [userIds, setuserIds] = useState([]);
-  const [schoolYearId, setschoolYearId] = useState(1);
+  const [schoolYearId, setschoolYearId] = useState(30);
   const [timeStart, settimeStart] = useState("");
   const [timeFinish, settimeFinish] = useState("");
   const [semesterId, setsemesterId] = useState(1);
@@ -429,110 +429,121 @@ export const PaginationTable = () => {
                   </CFormSelect>
                 </td>
               </tr>
-              <tr>
-                <td>Thành phần tham dự</td>
-                <td>
-                  <table>
-                    <thead>
-                      <th style={{ width: "80%" }}>
-                        <CFormSelect
-                          onChange={(e) => {
-                            setuserIds(
-                              userIds.concat([Number(e.target.value)])
-                            );
-                          }}
-                        >
-                          <option>Giáo viên</option>
-                          {listteacher?.map((item) => (
-                            <option
-                              key={item.userId}
-                              value={item.userId}
-                              label={item.displayName}
-                            ></option>
-                          ))}
-                        </CFormSelect>
-                      </th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      {userIds?.map((item) => (
-                        <tr key={item}>
-                          <td>
-                            {
-                              listteacher?.find((element) => {
-                                return element.userId === Number(item);
-                              })?.displayName
-                            }
-                          </td>
-                          <td>
-                            <button
-                              onClick={(e) =>
-                                setuserIds(userIds.filter((it) => it !== item))
+              {calendarEventType === "Meeting" ? (
+                <tr>
+                  <td>Thành phần tham dự</td>
+                  <td>
+                    <table>
+                      <thead>
+                        <th style={{ width: "80%" }}>
+                          <CFormSelect
+                            onChange={(e) => {
+                              setuserIds(
+                                userIds.concat([Number(e.target.value)])
+                              );
+                            }}
+                          >
+                            <option>Giáo viên</option>
+                            {listteacher?.map((item) => (
+                              <option
+                                key={item.userId}
+                                value={item.userId}
+                                label={item.displayName}
+                              ></option>
+                            ))}
+                          </CFormSelect>
+                        </th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {userIds?.map((item) => (
+                          <tr key={item}>
+                            <td>
+                              {
+                                listteacher?.find((element) => {
+                                  return element.userId === Number(item);
+                                })?.displayName
                               }
-                              className="btn btn-danger"
-                            >
-                              Xóa
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <table>
-                    <thead>
-                      <th style={{ width: "80%" }}>
-                        <CFormSelect
-                          onChange={(e) => {
-                            setclassIds(
-                              classIds.concat([Number(e.target.value)])
-                            );
-                          }}
-                        >
-                          <option>Lớp</option>
-                          {listclass?.map((item) => (
-                            <option
-                              key={item.classId}
-                              value={item.classId}
-                              label={item.clazz}
-                            ></option>
-                          ))}
-                        </CFormSelect>
-                      </th>
-                      <th></th>
-                    </thead>
-                    <tbody>
-                      {classIds?.map((item) => (
-                        <tr key={item}>
-                          <td>
-                            {
-                              listclass?.find((element) => {
-                                return element.classId === Number(item);
-                              })?.clazz
-                            }
-                          </td>
-                          <td>
-                            <button
-                              onClick={(e) =>
-                                setclassIds(
-                                  classIds.filter((it) => it !== item)
-                                )
+                            </td>
+                            <td>
+                              <button
+                                onClick={(e) =>
+                                  setuserIds(
+                                    userIds.filter((it) => it !== item)
+                                  )
+                                }
+                                className="btn btn-danger"
+                              >
+                                Xóa
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              ) : (
+                ""
+              )}
+
+              {calendarEventType === "Examination" ? (
+                <tr>
+                  <td>Thành phần tham dự</td>
+                  <td>
+                    <table>
+                      <thead>
+                        <th style={{ width: "80%" }}>
+                          <CFormSelect
+                            onChange={(e) => {
+                              setclassIds(
+                                classIds.concat([Number(e.target.value)])
+                              );
+                            }}
+                          >
+                            <option>Lớp</option>
+                            {listclass?.map((item) => (
+                              <option
+                                key={item.classId}
+                                value={item.classId}
+                                label={item.clazz}
+                              ></option>
+                            ))}
+                          </CFormSelect>
+                        </th>
+                        <th></th>
+                      </thead>
+                      <tbody>
+                        {classIds?.map((item) => (
+                          <tr key={item}>
+                            <td>
+                              {
+                                listclass?.find((element) => {
+                                  return element.classId === Number(item);
+                                })?.clazz
                               }
-                              className="btn btn-danger"
-                            >
-                              Xóa
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
+                            </td>
+                            <td>
+                              <button
+                                onClick={(e) =>
+                                  setclassIds(
+                                    classIds.filter((it) => it !== item)
+                                  )
+                                }
+                                className="btn btn-danger"
+                              >
+                                Xóa
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              ) : (
+                ""
+              )}
             </table>
             <div className="text-end" style={{ color: "red" }}>
               {" "}
@@ -557,7 +568,6 @@ export const PaginationTable = () => {
                   <CFormSelect
                     onChange={(e) => setschoolYearId(Number(e.target.value))}
                   >
-                    <option>Năm học</option>
                     {listyear?.map((item) => (
                       <option
                         key={item.schoolYearId}
