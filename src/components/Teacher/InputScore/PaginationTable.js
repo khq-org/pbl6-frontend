@@ -229,9 +229,9 @@ export const PaginationTable = () => {
             <tr style={{ backgroundColor: "silver" }}>
               <td rowspan="2">STT</td>
               <td rowspan="2">Họ và tên</td>
-              <td colspan="8">Hệ số 1</td>
+              <td colspan="7">Hệ số 1</td>
 
-              <td colspan="4">Hệ số 2</td>
+              <td colspan="5">Hệ số 2</td>
               <td rowspan="2">Thi HK</td>
             </tr>
             <tr style={{ backgroundColor: "silver" }}>

@@ -116,9 +116,9 @@ const StudentScore = () => {
               <tr style={{ backgroundColor: "silver" }}>
                 <td rowSpan="2">STT</td>
                 <td rowSpan="2">Môn học</td>
-                <td colSpan="8">Hệ số 1</td>
+                <td colSpan="7">Hệ số 1</td>
 
-                <td colSpan="4">Hệ số 2</td>
+                <td colSpan="5">Hệ số 2</td>
                 <td rowSpan="2">Thi HK</td>
                 <td rowSpan="2">Điểm trung bình</td>
               </tr>
