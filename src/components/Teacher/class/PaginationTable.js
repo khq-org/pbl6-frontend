@@ -37,8 +37,8 @@ export const PaginationTable = () => {
   const [schoolyear, setschoolyear] = useState(1);
 
   const [visible2, setVisible2] = useState(false);
-  const [schoolYearId, setschoolYearId] = useState(1);
-  const [semesterId, setsemesterId] = useState(1);
+  const [schoolYearId, setschoolYearId] = useState(30);
+  const [semesterId, setsemesterId] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -152,7 +152,7 @@ export const PaginationTable = () => {
           onChange={(e) => {
             setschoolyear(e.target.value);
             setschoolYearId(Number(e.target.value));
-            handlesetclass(Number(e.target.value), semesterId);
+            //handlesetclass(Number(e.target.value), semesterId);
             //getlistclassbyyear(e.target.value);
           }}
         >
@@ -168,6 +168,7 @@ export const PaginationTable = () => {
             handlesetclass(schoolYearId, Number(e.target.value));
           }}
         >
+          <option>Học kì</option>
           <option value={1}>1</option>
           <option value={2}>2</option>
         </CFormSelect>
