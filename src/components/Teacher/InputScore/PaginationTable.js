@@ -242,7 +242,7 @@ export const PaginationTable = () => {
             </tr>
             {liststudent?.map((item, index) => (
               <tr>
-                <td>{index}</td>
+                <td>{index + 1}</td>
                 <td>
                   {item.student.lastName} {item.student.firstName}
                 </td>
