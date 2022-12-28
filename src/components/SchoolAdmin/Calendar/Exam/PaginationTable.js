@@ -166,99 +166,107 @@ export const PaginationTable = () => {
 
   const save = async (e) => {
     e.preventDefault();
-    if (title) {
-      try {
-        const response = await axios.post("calendars", {
-          calendarEventName,
-          calendarEventType,
-          classIds,
-          userIds,
-          timeStart,
-          timeFinish,
-          roomId,
-          schoolYearId,
-          subjectId,
-          semesterId,
-          date,
-        });
+    if (userIds.length > 0) {
+      if (title) {
+        try {
+          const response = await axios.post("calendars", {
+            calendarEventName,
+            calendarEventType,
+            classIds,
+            userIds,
+            timeStart,
+            timeFinish,
+            roomId,
+            schoolYearId,
+            subjectId,
+            semesterId,
+            date,
+          });
 
-        if (response.status === 200) {
-          alert("Thành công.");
-          setVisible(false);
-          setmessenger("");
+          if (response.status === 200) {
+            alert("Thành công.");
+            setVisible(false);
+            setmessenger("");
 
-          set(calendarEventType);
-        } else {
-          alert("Thất bại.");
-          //console.log(response.response.data.errorDTOs);
-          if (response.response.data.errorDTOs[0].key === "date") {
-            setmessenger("Ngày không hợp lệ");
+            set(calendarEventType);
+          } else {
+            alert("Thất bại.");
+            //console.log(response.response.data.errorDTOs);
+            if (response.response.data.errorDTOs[0].key === "date") {
+              setmessenger("Ngày không hợp lệ");
+            }
+            if (
+              response.response.data.errorDTOs[0].value === "DUPLICATE_TIME"
+            ) {
+              setmessenger(
+                `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+              );
+            }
+            if (
+              response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
+            ) {
+              setmessenger(
+                `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+              );
+            }
+            if (response.response.data.errorDTOs[0].key === "roomId") {
+              setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
+            }
           }
-          if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
-            setmessenger(
-              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
-            );
-          }
-          if (
-            response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
-          ) {
-            setmessenger(
-              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
-            );
-          }
-          if (response.response.data.errorDTOs[0].key === "roomId") {
-            setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
-          }
+        } catch (error) {
+          console.log(error.response);
         }
-      } catch (error) {
-        console.log(error.response);
+      } else {
+        try {
+          const response = await axios.put(`calendars/${id}`, {
+            calendarEventName,
+            calendarEventType,
+            classIds,
+            userIds,
+            timeStart,
+            timeFinish,
+            roomId,
+            schoolYearId,
+            subjectId,
+            semesterId,
+            date,
+          });
+          //console.log("res", { response });
+          if (response.status === 200) {
+            alert("Thành công.");
+            setVisible(false);
+            setmessenger("");
+
+            set(calendarEventType);
+          } else {
+            alert("Thất bại.");
+            //console.log(response.response.data.errorDTOs);
+
+            if (response.response.data.errorDTOs[0].key === "date") {
+              setmessenger("Ngày không hợp lệ");
+            }
+            if (
+              response.response.data.errorDTOs[0].value === "DUPLICATE_TIME"
+            ) {
+              setmessenger(
+                `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+              );
+            }
+            if (
+              response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
+            ) {
+              setmessenger(
+                `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
+              );
+            }
+            if (response.response.data.errorDTOs[0].key === "roomId") {
+              setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
+            }
+          }
+        } catch (error) {}
       }
     } else {
-      try {
-        const response = await axios.put(`calendars/${id}`, {
-          calendarEventName,
-          calendarEventType,
-          classIds,
-          userIds,
-          timeStart,
-          timeFinish,
-          roomId,
-          schoolYearId,
-          subjectId,
-          semesterId,
-          date,
-        });
-        //console.log("res", { response });
-        if (response.status === 200) {
-          alert("Thành công.");
-          setVisible(false);
-          setmessenger("");
-
-          set(calendarEventType);
-        } else {
-          alert("Thất bại.");
-          //console.log(response.response.data.errorDTOs);
-
-          if (response.response.data.errorDTOs[0].key === "date") {
-            setmessenger("Ngày không hợp lệ");
-          }
-          if (response.response.data.errorDTOs[0].value === "DUPLICATE_TIME") {
-            setmessenger(
-              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
-            );
-          }
-          if (
-            response.response.data.errorDTOs[0].value === "DUPLICATE_LESSON"
-          ) {
-            setmessenger(
-              `${response.response.data.errorDTOs[0].key}: Trùng lịch.`
-            );
-          }
-          if (response.response.data.errorDTOs[0].key === "roomId") {
-            setmessenger("Trong thời gian trên, Phòng này đã được sử dụng.");
-          }
-        }
-      } catch (error) {}
+      setmessenger("Chọn giáo viên tham dự.");
     }
   };
   const del = async (id) => {
