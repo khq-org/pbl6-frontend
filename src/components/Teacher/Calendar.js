@@ -60,7 +60,7 @@ const Calendar = () => {
   };
   return (
     <>
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
         <CFormSelect
           style={{ width: "200px" }}
           onChange={(e) => {

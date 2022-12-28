@@ -354,7 +354,7 @@ export const PaginationTable = () => {
           </form>
         </CModalBody>
       </CModal>
-      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         <CButton
           className="btn btn-primary"

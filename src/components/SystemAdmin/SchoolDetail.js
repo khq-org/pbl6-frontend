@@ -354,7 +354,7 @@ export const SchoolDetail = () => {
                   <div className="text-left">
                     <h3>Tài khoản quản trị </h3>
                   </div>
-                  <div className="text-end">
+                  <div className="text-end mb-3">
                     <CButton
                       onClick={() => {
                         setfirstName("");

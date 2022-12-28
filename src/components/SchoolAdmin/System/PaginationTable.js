@@ -183,7 +183,7 @@ export const PaginationTable = () => {
       </CModal>
       <div className="container rounded bg-white mt-0 mb-0">
         <form className="row mx-5" onSubmit={save}>
-          <div className="text-end">
+          <div className="text-end mb-3">
             <CButton
               className="btn btn-primary"
               type="button"
