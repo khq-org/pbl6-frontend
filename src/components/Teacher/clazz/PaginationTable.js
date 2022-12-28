@@ -94,6 +94,17 @@ export const PaginationTable = () => {
             (item) => item?.learningResultId === key.slice(0, -2)
           ).learningGrade = inputs[key];
         }
+        if (key.slice(-2) === "is") {
+          if (inputs[key] === "on") {
+            studentScores.find(
+              (item) => item?.learningResultId === key.slice(0, -2)
+            ).isPassed = true;
+          } else {
+            studentScores.find(
+              (item) => item?.learningResultId === key.slice(0, -2)
+            ).isPassed = false;
+          }
+        }
       } else {
         if (key.slice(-2) === "cd") {
           studentScores.push({
@@ -113,8 +124,32 @@ export const PaginationTable = () => {
             isPassed: true,
           });
         }
+        if (key.slice(-2) === "is") {
+          if (inputs[key] === "on") {
+            studentScores.push({
+              learningResultId: key.slice(0, -2),
+              conduct: "",
+              learningGrade: "",
+              avgScore: 0,
+              isPassed: true,
+            });
+          } else {
+            studentScores.push({
+              learningResultId: key.slice(0, -2),
+              conduct: "",
+              learningGrade: "",
+              avgScore: 0,
+              isPassed: false,
+            });
+          }
+        }
       }
     }
+    liststudent?.map((item, index) => {
+      studentScores.find(
+        (item2) => item2?.learningResultId === item.learningResultId
+      ).avgScore = item.avgSchoolYear;
+    });
     const dataUpdate = {
       studentLearningResults: studentScores,
     };
@@ -242,7 +277,14 @@ export const PaginationTable = () => {
               </CFormSelect>
             </td>
             <td>
-              <input type="checkbox" defaultChecked={true} />
+              <input
+                name={`${item.learningResultId}is`}
+                type="checkbox"
+                defaultChecked={true}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+              />
             </td>
           </tr>
         ))}
