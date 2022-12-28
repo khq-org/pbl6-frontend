@@ -276,6 +276,7 @@ export const PaginationTable = () => {
                 setnewSchoolYearId(e.target.value);
               }}
             >
+              <option>Năm học cũ</option>
               {listyear.map((item) => (
                 <option
                   value={item.schoolYearId}

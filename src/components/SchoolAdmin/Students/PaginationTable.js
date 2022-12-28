@@ -120,7 +120,6 @@ export const PaginationTable = () => {
   return (
     <>
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <span className="mt-1">Năm học:</span>
         <CFormSelect
           style={{ width: "200px" }}
           onChange={(e) => {
@@ -129,11 +128,12 @@ export const PaginationTable = () => {
             show(e.target.value, clazz);
           }}
         >
+          <option>Năm học</option>
           {listyear?.map((item) => (
             <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}
         </CFormSelect>
-        <span className="mt-1">Lớp:</span>
+
         <CFormSelect
           style={{ width: "200px" }}
           onChange={(e) => {
@@ -141,6 +141,7 @@ export const PaginationTable = () => {
             show(schoolyear, e.target.value);
           }}
         >
+          <option>Lớp</option>
           {listclass?.map((items) => (
             <option value={items.classId} label={items.clazz}></option>
           ))}

@@ -253,14 +253,18 @@ const CreateStudent = () => {
                 <tr></tr>
 
                 <tr>
-                  <td colSpan={2} style={{ textAlign: "right" }}>
+                  <td
+                    colSpan={2}
+                    style={{ textAlign: "right", width: "100px" }}
+                  >
                     Lớp
                   </td>
                   <td colSpan={2}>
                     <CFormSelect
-                      className="form-control form-control-sm mr-3 w-25"
+                      style={{ width: "150px" }}
                       onChange={(e) => setclassId(e.target.value)}
                     >
+                      <option>Chọn lớp</option>
                       {listclass?.map((items) => (
                         <option
                           value={items.classId}

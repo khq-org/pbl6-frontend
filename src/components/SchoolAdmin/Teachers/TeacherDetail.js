@@ -33,6 +33,10 @@ const TeacherDetail = () => {
   useEffect(() => {
     (async () => {
       try {
+        const res = await axios.get("subjects");
+        console.log({ res });
+        setlistsubject(res.data.data.items);
+
         const { data } = await axios.get(`teachers/${id}`);
         console.log({ data });
         setfirstName(data.data.teacher.firstName);
@@ -49,10 +53,11 @@ const TeacherDetail = () => {
         setteachSubject(data.data.teacher.teachSubject);
         setnationality(data.data.teacher.nationality);
         setusername(data.data.teacher.username);
-
-        const res = await axios.get("subjects");
-        console.log({ res });
-        setlistsubject(res.data.data.items);
+        setsubjectId(
+          res.data.data.items?.find((element) => {
+            return element.subject === data.data.teacher.teachSubject;
+          })?.subjectId
+        );
       } catch (e) {}
     })();
   }, []);

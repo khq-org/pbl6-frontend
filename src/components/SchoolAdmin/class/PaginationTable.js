@@ -298,6 +298,7 @@ export const PaginationTable = () => {
             //getlistclassbyyear(e.target.value);
           }}
         >
+          <option>Năm học</option>
           {listyear.map((item) => (
             <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}
