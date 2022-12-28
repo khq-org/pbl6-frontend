@@ -113,10 +113,10 @@ const StudentDetail = () => {
             <div style={{ clear: "both" }} />
           </div>
           <div>
-            <table className="table table-light">
+            <table className="table table-dark">
               <tbody>
                 <tr>
-                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={7}>
+                  <td style={{ textAlign: "left", width: "180px" }} rowSpan={6}>
                     <img
                       classname="imgCB"
                       src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Microsoft_Account.svg/768px-Microsoft_Account.svg.png"
@@ -192,22 +192,7 @@ const StudentDetail = () => {
                   </td>
                 </tr>
                 <tr></tr>
-                <tr>
-                  <td classname="auto-style11">Số CCCD:</td>
-                  <td>
-                    <input
-                      type="text"
-                      maxlength="100"
-                      style={{ width: "180px" }}
-                    />
-                  </td>
-                  <td classname="auto-style17">Ngày cấp:</td>
-                  <td classname="auto-style1">
-                    <input type="date" style={{ width: "180px" }} />
-                  </td>
-                  <td classname="auto-style15">&nbsp;</td>
-                  <td>&nbsp;</td>
-                </tr>
+
                 <tr></tr>
                 <tr></tr>
 
@@ -353,7 +338,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Cha</h5>
-            <table className="table table-light">
+            <table className="table table-dark">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
@@ -442,7 +427,7 @@ const StudentDetail = () => {
           </div>
           <div>
             <h5>Mẹ</h5>
-            <table className="table table-light">
+            <table className="table table-dark">
               <tbody>
                 <tr>
                   <td style={{ textAlign: "right" }} classname="auto-style24">
