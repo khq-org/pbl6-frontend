@@ -109,6 +109,18 @@ export const PaginationTable = () => {
       } catch (e) {}
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          `calendars?calendarEventType=Meeting&schoolYearId=${schoolYearId}&semesterId=${semesterId}`
+        );
+        //console.log(data);
+        setlistCalendar(data.data.items);
+        setcalendarEventType("Meeting");
+      } catch (e) {}
+    })();
+  }, []);
   const set = async (type) => {
     const { data } = await axios.get(
       `calendars?calendarEventType=${type}&schoolYearId=${schoolYearId}&semesterId=${semesterId}`
@@ -590,7 +602,6 @@ export const PaginationTable = () => {
                 <td style={{ textAlign: "center", width: "5%" }}>Lịch:</td>
                 <td style={{ textAlign: "center", width: "15%" }}>
                   <CFormSelect onChange={(e) => set(e.target.value)}>
-                    <option>Loại lịch</option>
                     <option value="Meeting">Lịch họp</option>
                     <option value="Examination">Lịch thi</option>
                   </CFormSelect>

@@ -38,7 +38,7 @@ const Exam = () => {
   }, []);
   const show = async (id, semester) => {
     const { data } = await axios.get(
-      `users/calendar?classId=${id}&semesterId=${semester}&calendarEventType=Examination`
+      `users/calendar?calendarEventType=Examination&semesterId=${semester}&classId=${id}`
     );
     console.log(data);
     setlistCalendar(data.data.items);
