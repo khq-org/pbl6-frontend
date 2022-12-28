@@ -133,12 +133,11 @@ export const PaginationTable = () => {
         }
       }
     }
+    console.log("lítt", liststudent);
     liststudent?.forEach((item) => {
-      studentScores.forEach((item2) => {
-        if (item2.learningResultId === item.learningResultId) {
-          item2.avgScore = item.avgSchoolYear;
-        }
-      });
+      studentScores.find(
+        (item2) => Number(item2?.learningResultId) === item.learningResultId
+      ).avgScore = item.avgSchoolYear;
     });
     const dataUpdate = {
       studentLearningResults: studentScores,

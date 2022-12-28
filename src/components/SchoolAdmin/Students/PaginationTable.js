@@ -40,7 +40,7 @@ export const PaginationTable = () => {
   const [listclass, setlistclass] = useState([]);
   const [listyear, setlistyear] = useState([]);
   const [clazz, setclazz] = useState(1);
-  const [schoolyear, setschoolyear] = useState(1);
+  const [schoolyear, setschoolyear] = useState(30);
 
   useEffect(() => {
     (async () => {
@@ -128,7 +128,6 @@ export const PaginationTable = () => {
             show(e.target.value, clazz);
           }}
         >
-          <option>Năm học</option>
           {listyear?.map((item) => (
             <option value={item.schoolYearId} label={item.schoolYear}></option>
           ))}

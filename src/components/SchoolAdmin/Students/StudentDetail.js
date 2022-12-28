@@ -718,7 +718,11 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[0]?.avgScore?.toFixed(2)}</td>
+                    <td>
+                      {learningResults[0]?.learningResult.averageScore?.toFixed(
+                        2
+                      )}
+                    </td>
                     <td></td>
                   </tr>
                 </tbody>
@@ -804,7 +808,11 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[1]?.avgScore?.toFixed(2)}</td>
+                    <td>
+                      {learningResults[1]?.learningResult.averageScore?.toFixed(
+                        2
+                      )}
+                    </td>
                     <td></td>
                   </tr>
                 </tbody>
@@ -890,7 +898,11 @@ const StudentDetail = () => {
                     <td>Điểm trung bình các môn học</td>
                     <td></td>
                     <td></td>
-                    <td>{learningResults[2]?.avgScore?.toFixed(2)}</td>
+                    <td>
+                      {learningResults[2]?.learningResult.averageScore?.toFixed(
+                        2
+                      )}
+                    </td>
                     <td></td>
                   </tr>
                 </tbody>
