@@ -441,67 +441,62 @@ export const PaginationTable = () => {
                   </CFormSelect>
                 </td>
               </tr>
-              {calendarEventType === "Meeting" ? (
-                <tr>
-                  <td>Thành phần tham dự</td>
-                  <td>
-                    <table>
-                      <thead>
-                        <th style={{ width: "80%" }}>
-                          <CFormSelect
-                            onChange={(e) => {
-                              setuserIds(
-                                userIds.concat([Number(e.target.value)])
-                              );
-                            }}
-                          >
-                            <option>Giáo viên</option>
-                            {listteacher?.map((item) => (
-                              <option
-                                key={item.userId}
-                                value={item.userId}
-                                label={item.displayName}
-                              ></option>
-                            ))}
-                          </CFormSelect>
-                        </th>
-                        <th></th>
-                      </thead>
-                      <tbody>
-                        {userIds?.map((item) => (
-                          <tr key={item}>
-                            <td>
-                              {
-                                listteacher?.find((element) => {
-                                  return element.userId === Number(item);
-                                })?.displayName
+
+              <tr>
+                <td>Thành phần tham dự</td>
+                <td>
+                  <table>
+                    <thead>
+                      <th style={{ width: "80%" }}>
+                        <CFormSelect
+                          onChange={(e) => {
+                            setuserIds(
+                              userIds.concat([Number(e.target.value)])
+                            );
+                          }}
+                        >
+                          <option>Giáo viên</option>
+                          {listteacher?.map((item) => (
+                            <option
+                              key={item.userId}
+                              value={item.userId}
+                              label={item.displayName}
+                            ></option>
+                          ))}
+                        </CFormSelect>
+                      </th>
+                      <th></th>
+                    </thead>
+                    <tbody>
+                      {userIds?.map((item) => (
+                        <tr key={item}>
+                          <td>
+                            {
+                              listteacher?.find((element) => {
+                                return element.userId === Number(item);
+                              })?.displayName
+                            }
+                          </td>
+                          <td>
+                            <button
+                              onClick={(e) =>
+                                setuserIds(userIds.filter((it) => it !== item))
                               }
-                            </td>
-                            <td>
-                              <button
-                                onClick={(e) =>
-                                  setuserIds(
-                                    userIds.filter((it) => it !== item)
-                                  )
-                                }
-                                className="btn btn-danger"
-                              >
-                                Xóa
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              ) : (
-                ""
-              )}
+                              className="btn btn-danger"
+                            >
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
 
               {calendarEventType === "Examination" ? (
                 <tr>
-                  <td>Thành phần tham dự</td>
+                  <td></td>
                   <td>
                     <table>
                       <thead>
